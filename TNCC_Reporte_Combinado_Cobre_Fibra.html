@@ -2771,25 +2771,7 @@ body {
         </nav>
       </div>
 
-      
-        <p class="facturacion-desc">
-          El módulo de <strong>Facturación</strong> está preparado para integrar las métricas de ingresos, facturación recurrente, recaudación y ARPU promedio por producto y servicio (Internet Aba, Telefonía y Televisión).
-        </p>
-        <div class="facturacion-status-box">
-          <span class="status-indicator-dot"></span>
-          <span>Los datos actuales cargados en el sistema corresponden a la <strong>Vista Cartera</strong> (suscriptores, movimientos de planta, TNCC y Churn).</span>
-        </div>
-        <div style="margin-top: 14px;">
-          <button type="button" class="btn-studio-edit" onclick="switchView('cartera')" style="padding: 6px 14px; font-size: 0.78rem;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
-            Volver a Vista Cartera
-          </button>
-        </div>
-      </div>
-
-      <div class="context-box" id="dispHeaderContext">
-        Un vistazo profundo al crecimiento, la retención, la migración de red y las oportunidades estratégicas para el período <strong id="dispPeriodo">enero a octubre de 2026</strong>.
-      </div>
+      <span id="dispPeriodo" style="display: none;">enero a octubre de 2026</span>
 
       <!-- Year Filter Section -->
       <div class="year-filter-section" id="yearFilterSection">
@@ -3042,6 +3024,11 @@ body {
           </button>
         </div>
       </div>
+
+      <!-- Facturación Description Banner -->
+      <p class="facturacion-desc" style="margin: 0; padding: 12px 18px; background: rgba(8, 3, 32, 0.65); border: 1px solid rgba(0, 210, 255, 0.25); border-radius: 12px; font-size: 0.84rem; color: #cbd5e1; line-height: 1.55;">
+        El módulo de Facturación integra las métricas de ingresos, facturación, recaudación y ARPU del negocio durante el período enero a octubre de 2026.
+      </p>
 
       <!-- KPI Grid Facturación (4 Cards) -->
       <div class="kpi-grid kpi-grid-facturacion" id="kpiGridFacturacion">
