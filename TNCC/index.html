@@ -2,10 +2,11 @@
 <html lang="es"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TNCC - Reporte Combinado Cobre | Fibra</title>
+  <title>Monitor Masivos - Indicadores Claves</title>
   
   <!-- CSS Externo Optimizado -->
-  <style>@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
 :root {
   --font-primary: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -457,6 +458,8 @@ body {
 }
 
 .year-btn {
+  cursor: pointer;
+  transition: all 0.2s ease;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: #fff;
@@ -464,6 +467,11 @@ body {
   border-radius: 6px;
   font-size: 0.78rem;
   font-weight: 700;
+}
+
+.year-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
 .year-btn.active {
@@ -784,117 +792,305 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  background: rgba(8, 3, 32, 0.55);
-  padding: 10px 14px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  flex-wrap: nowrap;
+  gap: 8px;
+  background: rgba(12, 8, 38, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 8px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  position: relative;
+  z-index: 1000;
+  overflow: visible !important;
 }
 
-.chart-toggles-group {
+.trend-filters-category-group {
   display: flex;
   align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
-.chart-toggle-btn {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+.filter-dropdown-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.filter-dropdown-label {
+  font-size: 0.74rem;
+  font-weight: 700;
   color: var(--text-muted);
-  padding: 5px 10px;
-  border-radius: 7px;
-  font-size: 0.73rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: inline-flex;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  display: flex;
   align-items: center;
   gap: 5px;
   white-space: nowrap;
 }
 
-.chart-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
-}
-
-.chart-toggle-btn.active {
-  border-color: currentColor;
-  box-shadow: 0 0 10px currentColor;
-}
-
-.kpi-card.churn-card {
-  border-color: rgba(244, 63, 94, 0.35);
-}
-.kpi-card.churn-card:hover {
-  border-color: rgba(244, 63, 94, 0.65);
-  box-shadow: 0 10px 30px rgba(244, 63, 94, 0.2);
-}
-.chart-toggle-btn.btn-churn-fibra.active {
-  background: rgba(244, 63, 94, 0.22);
-  color: #f43f5e;
-  border-color: #f43f5e;
-  box-shadow: 0 0 10px rgba(244, 63, 94, 0.4);
-}
-
-.chart-toggle-btn.btn-tncc-ultra.active {
-  background: rgba(0, 210, 255, 0.2);
+.filter-dropdown-label svg {
+  width: 14px;
+  height: 14px;
   color: #00D2FF;
+}
+
+.category-dropdown-btn {
+  background: #0e072b;
+  border: 1px solid rgba(0, 210, 255, 0.35);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  outline: none;
+  font-family: inherit;
+  user-select: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  white-space: nowrap;
+}
+
+.category-dropdown-btn:hover {
+  background: #160c40;
   border-color: #00D2FF;
+  box-shadow: 0 0 12px rgba(0, 210, 255, 0.3);
 }
 
-.chart-toggle-btn.btn-tncc-cobre.active {
-  background: rgba(255, 140, 66, 0.2);
-  color: #FF8C42;
-  border-color: #FF8C42;
+.category-dropdown-select {
+  background-color: #0e072b !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2300D2FF' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 10px center !important;
+  border: 1px solid rgba(0, 210, 255, 0.38) !important;
+  color: #ffffff !important;
+  padding: 6px 30px 6px 12px !important;
+  border-radius: 8px !important;
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  outline: none !important;
+  font-family: inherit !important;
+  transition: all 0.2s ease !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35) !important;
+  user-select: none;
 }
 
-.chart-toggle-btn.btn-inst-ultra.active {
-  background: rgba(16, 185, 129, 0.2);
-  color: #10B981;
-  border-color: #10B981;
+.category-dropdown-select:hover,
+.category-dropdown-select:focus {
+  background-color: #160c40 !important;
+  border-color: #00D2FF !important;
+  box-shadow: 0 0 14px rgba(0, 210, 255, 0.35) !important;
 }
 
-.chart-toggle-btn.btn-inst-cobre.active {
-  background: rgba(20, 184, 166, 0.2);
-  color: #2dd4bf;
-  border-color: #14b8a6;
+.category-dropdown-select option {
+  background-color: #0c0626 !important;
+  color: #ffffff !important;
+  padding: 10px 14px !important;
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
 }
 
-.chart-toggle-btn.btn-ret-ultra.active {
-  background: rgba(244, 63, 94, 0.2);
-  color: #f43f5e;
-  border-color: #f43f5e;
+.category-dropdown-select option:hover,
+.category-dropdown-select option:focus,
+.category-dropdown-select option:checked {
+  background-color: #1e114d !important;
+  color: #00D2FF !important;
 }
 
-.chart-toggle-btn.btn-ret-cobre.active {
-  background: rgba(225, 29, 72, 0.2);
-  color: #fb7185;
-  border-color: #e11d48;
+.category-dropdown-btn.active {
+  border-color: #00D2FF;
+  background: rgba(0, 210, 255, 0.15);
+  box-shadow: 0 0 14px rgba(0, 210, 255, 0.35);
 }
 
-.chart-toggle-btn.btn-net-ultra.active {
-  background: rgba(56, 189, 248, 0.22);
+.multi-select-wrapper {
+  position: relative;
+}
+
+.dropdown-chevron {
+  width: 13px;
+  height: 13px;
+  transition: transform 0.2s ease;
+  color: var(--text-muted);
+}
+
+.category-dropdown-btn.active .dropdown-chevron {
+  transform: rotate(180deg);
+  color: #00D2FF;
+}
+
+.multi-select-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 260px;
+  background: rgba(11, 6, 40, 0.98) !important;
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(0, 210, 255, 0.5) !important;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.9), 0 0 25px rgba(0, 210, 255, 0.3);
+  z-index: 99999 !important;
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#menuDropdownIndicadores {
+  right: 0 !important;
+  left: auto !important;
+}
+
+.trend-filters-category-group,
+.filter-dropdown-container,
+.multi-select-wrapper {
+  overflow: visible !important;
+}
+
+.multi-select-menu.open {
+  display: flex;
+  animation: fadeInDownMenu 0.18s ease-out;
+}
+
+@keyframes fadeInDownMenu {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.multi-select-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 6px 8px 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.72rem;
+}
+
+.btn-text-action {
+  background: none;
+  border: none;
+  color: #00D2FF;
+  cursor: pointer;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: color 0.15s ease;
+}
+
+.btn-text-action:hover {
   color: #38bdf8;
-  border-color: #38bdf8;
-  box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+  text-decoration: underline;
 }
 
-.chart-toggle-btn.btn-cartera-fibra.active {
-  background: rgba(192, 132, 252, 0.22);
-  color: #c084fc;
-  border-color: #c084fc;
-  box-shadow: 0 0 10px rgba(192, 132, 252, 0.4);
+.divider-dot {
+  color: var(--text-dim);
+  font-size: 0.8rem;
 }
 
-.chart-toggle-btn.btn-cartera-cobre.active {
-  background: rgba(251, 191, 36, 0.22);
-  color: #fbbf24;
-  border-color: #fbbf24;
-  box-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+.multi-select-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: 4px;
 }
+
+.multi-select-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.79rem;
+  color: #e2e8f0;
+  transition: background 0.15s ease;
+  user-select: none;
+}
+
+.multi-select-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.multi-select-item input[type="checkbox"] {
+  accent-color: #00D2FF;
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+}
+
+.color-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.metric-badge-indicator {
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  width: 16px;
+  justify-content: center;
+}
+
+.item-label {
+  flex-grow: 1;
+  font-weight: 500;
+}
+
+.benchmark-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+@media (max-width: 900px) {
+  .trend-controls-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .trend-filters-category-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .filter-dropdown-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .multi-select-menu {
+    position: static;
+    width: 100%;
+    margin-top: 6px;
+  }
+}
+
+
 
 .chart-canvas-container {
   position: relative;
@@ -2079,6 +2275,7 @@ body {
     padding: 9px 20px;
   }
 }
+
 </style>
   
   <!-- Chart.js CDN -->
@@ -2105,7 +2302,7 @@ body {
     <section class="info-header">
       <div class="header-top-row">
         <div class="main-title-box">
-          <h1 class="main-title" id="dispTituloReporte">TNCC - Reporte Combinado Cobre | Fibra</h1>
+          <h1 class="main-title" id="dispTituloReporte">Monitor Masivos - Indicadores Claves</h1>
           <div class="product-tags-container">
             <span class="product-tag ultra" id="tagAbaUltra"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="zap" aria-hidden="true" class="lucide lucide-zap"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"></path></svg> Aba Ultra</span>
             <span class="product-tag cobre" id="tagAbaCobre"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="layers" aria-hidden="true" class="lucide lucide-layers"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path></svg> Aba Cobre</span>
@@ -2144,9 +2341,12 @@ body {
       <div class="year-filter-section" id="yearFilterSection">
         <span class="year-filter-label">Año Fiscal:</span>
         <div style="display: flex; gap: 8px; align-items: center;" id="yearButtonsGroup">
-          <button type="button" class="year-btn active" id="dispAnioBtn">2026</button>
+          <button type="button" class="year-btn active" id="btnAnio2026" onclick="selectYear(this, '2026')">2026</button>
+          <button type="button" class="year-btn" id="btnAnio2025" onclick="selectYear(this, '2025')">2025</button>
+          <button type="button" class="year-btn" id="btnAnio2024" onclick="selectYear(this, '2024')">2024</button>
+          <button type="button" class="year-btn" id="btnAnioAll" onclick="selectYear(this, 'all')">Ver todo</button>
           <span style="font-size: 0.75rem; color: var(--text-dim); display: flex; align-items: center; margin-left: 10px;" id="dispCicloContainer">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar" aria-hidden="true" style="width: 14px; height: 14px; margin-right: 4px;" class="lucide lucide-calendar"><path d="M8 2v3"></path><path d="M16 2v3"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18"></path></svg> <span id="dispCicloLabel">Ciclo Consolidado (Ene - Oct)</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar" aria-hidden="true" style="width: 14px; height: 14px; margin-right: 4px;" class="lucide lucide-calendar"><path d="M8 2v3"></path><path d="M16 2v3"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18"></path></svg> <span id="dispCicloLabel">Ciclo Consolidado 2026 (Ene - Oct)</span>
           </span>
         </div>
       </div>
@@ -2241,7 +2441,7 @@ body {
           <div class="kpi-icon-box" style="background: rgba(59, 130, 246, 0.15); border-color: rgba(59, 130, 246, 0.35); color: #3b82f6;">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="users" aria-hidden="true" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
           </div>
-          <h2 class="kpi-title">Cartera de Suscriptores<br><span style="font-size: 0.88em; font-weight: 500; color: #60a5fa;">Enero vs. Octubre</span></h2>
+          <h2 class="kpi-title">Cartera de Suscriptores<br><span style="font-size: 0.88em; font-weight: 500; color: #60a5fa;" id="dispCarteraPeriodoSpan">Enero vs. Octubre</span></h2>
           <button type="button" class="kpi-info-btn" onclick="openIndicatorHelp('cartera')" title="Concepto del indicador" aria-label="Ayuda Cartera de Suscriptores">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="info" aria-hidden="true" class="lucide lucide-info"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
           </button>
@@ -2281,7 +2481,7 @@ body {
           <div class="kpi-icon-box" style="background: rgba(168, 85, 247, 0.15); border-color: rgba(168, 85, 247, 0.35); color: #a855f7;">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-left-right" aria-hidden="true" class="lucide lucide-arrow-left-right"><path d="M8 3 4 7l4 4"></path><path d="M4 7h16"></path><path d="m16 21 4-4-4-4"></path><path d="M20 17H4"></path></svg>
           </div>
-          <h2 class="kpi-title">Balance de Flujos Netos<br><span style="font-size: 0.88em; font-weight: 500; color: #c084fc;">Consolidado Ene - Oct</span></h2>
+          <h2 class="kpi-title">Balance de Flujos Netos<br><span style="font-size: 0.88em; font-weight: 500; color: #c084fc;" id="dispBalancePeriodoSpan">Consolidado Ene - Oct</span></h2>
           <button type="button" class="kpi-info-btn" onclick="openIndicatorHelp('balance')" title="Concepto del indicador" aria-label="Ayuda Balance de Flujos Netos">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="info" aria-hidden="true" class="lucide lucide-info"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
           </button>
@@ -2321,7 +2521,7 @@ body {
           <div class="kpi-icon-box" style="background: rgba(244, 63, 94, 0.15); border-color: rgba(244, 63, 94, 0.35); color: #f43f5e;">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="user-minus" aria-hidden="true" class="lucide lucide-user-minus"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="22" x2="16" y1="11" y2="11"></line></svg>
           </div>
-          <h2 class="kpi-title">Tasa Churn Acumulado Año<br><span style="font-size: 0.88em; font-weight: 500; color: #f43f5e;">Fibra (Ene - Oct)</span></h2>
+          <h2 class="kpi-title">Tasa Churn Acumulado Año<br><span style="font-size: 0.88em; font-weight: 500; color: #f43f5e;" id="dispChurnPeriodoSpan">Fibra (Ene - Oct)</span></h2>
           <button type="button" class="kpi-info-btn" onclick="openIndicatorHelp('churn')" title="Concepto del indicador" aria-label="Ayuda Tasa Churn">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="info" aria-hidden="true" class="lucide lucide-info"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
           </button>
@@ -2354,7 +2554,7 @@ body {
 
         <div class="kpi-dual-desc">
           <p class="kpi-description" id="dispChurnDesc">
-            Promedio mensual de <strong>2,11%</strong> (rango típico: <strong>1% a 3%</strong>). Afectado por la caída de Julio (<strong>11,70%</strong>). Sin julio, la tasa promedio desciende a <strong>1,05%</strong>.
+            Promedio mensual de <strong>2,24%</strong> (rango óptimo: 1% a 3%) y el Churn acumulado de <strong>22,23%</strong> (rango óptimo: 14% a 25%). Monitoreo continuo de retiros y fidelización en cartera.
           </p>
         </div>
       </article>
@@ -2367,81 +2567,206 @@ body {
         <div class="trend-title-group">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="trending-up" aria-hidden="true" class="lucide lucide-trending-up trend-icon" style="width: 26px; height: 26px;"><path d="M16 7h6v6"></path><path d="m22 7-8.5 8.5-5-5L2 17"></path></svg>
           <div>
-            <h3 id="chartMainTitle">Evolución Mensual de TNCC (Tasa Neta de Crecimiento MES)</h3>
+            <h3 id="chartMainTitle">Evolución Mensual de Indicadores Claves por Producto</h3>
             <p style="font-size: 0.76rem; color: var(--text-dim); margin-top: 2px;">
               Curvas sincronizadas de tasa porcentual neta con hitos de Instalaciones, Retiros y umbrales de referencia
             </p>
           </div>
         </div>
-        <div class="trend-badges-group">
-          <span class="trend-badge" style="background: rgba(0, 210, 255, 0.15); border-color: rgba(0, 210, 255, 0.4); color: #00D2FF;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="zap" aria-hidden="true" style="width:12px;height:12px;" class="lucide lucide-zap"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"></path></svg> Prom. Ultra: +0.17%
+        <div class="trend-badges-group" id="trendBadgesContainer">
+          <span class="trend-badge" style="background: rgba(255, 42, 171, 0.15); border-color: rgba(255, 42, 171, 0.4); color: #FF2AAB;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-zap"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg> Prom. Ultra: +0,17%
           </span>
           <span class="trend-badge" style="background: rgba(255, 140, 66, 0.15); border-color: rgba(255, 140, 66, 0.4); color: #FF8C42;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="layers" aria-hidden="true" style="width:12px;height:12px;" class="lucide lucide-layers"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path></svg> Prom. Cobre: -3.14%
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg> Prom. Cobre: -3,14%
           </span>
-                    <span class="trend-badge" style="background: rgba(244, 63, 94, 0.15); border-color: rgba(244, 63, 94, 0.4); color: #f43f5e;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="user-minus" aria-hidden="true" style="width:12px;height:12px;" class="lucide lucide-user-minus"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="22" x2="16" y1="11" y2="11"></line></svg> Churn Acum: 22.38% (Prom: 2.11%)
+          <span class="trend-badge" style="background: rgba(244, 63, 94, 0.15); border-color: rgba(244, 63, 94, 0.4); color: #F43F5E;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-minus"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="22" y1="11" x2="16" y2="11"></line></svg> Churn Acum: 22,38% (Prom: 2,11%)
           </span>
           <span class="trend-badge" style="background: rgba(255, 215, 0, 0.15); border-color: rgba(255, 215, 0, 0.4); color: #FFD700;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar" aria-hidden="true" style="width:12px;height:12px;" class="lucide lucide-calendar"><path d="M8 2v3"></path><path d="M16 2v3"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18"></path></svg> Ene - Oct 2026
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar"><path d="M8 2v3"></path><path d="M16 2v3"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18"></path></svg> Ene - Oct 2026
           </span>
         </div>
       </div>
 
-      <!-- Controls & Series Toggles (Con Instalaciones de Fibra e Instalaciones de Cobre) -->
-      <div class="trend-controls-bar">
-        <div class="chart-toggles-group">
-          <span style="font-size: 0.74rem; color: var(--text-dim); font-weight: 600; margin-right: 4px;">Series Visibles:</span>
+      <!-- Controls & Categorized Filters (Frecuencia, Productos, Indicador) -->
+      <div class="trend-controls-bar" id="trendControlsBar">
+        <div class="trend-filters-category-group">
           
-          <button class="chart-toggle-btn btn-tncc-ultra active" id="toggleTnccUltra" onclick="toggleSeries('tnccUltra')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" aria-hidden="true" style="width:12px;height:12px;" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"></path></svg> TNCC Fibra %
-          </button>
-          
-                    <button class="chart-toggle-btn btn-churn-fibra active" id="toggleChurnFibra" onclick="toggleSeries('churnFibra')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" aria-hidden="true" style="width:12px;height:12px;" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"></path></svg> Churn Fibra %
-          </button>
-          
-          <button class="chart-toggle-btn btn-tncc-cobre active" id="toggleTnccCobre" onclick="toggleSeries('tnccCobre')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" aria-hidden="true" style="width:12px;height:12px;" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"></path></svg> TNCC Cobre %
-          </button>
-          
-          <button class="chart-toggle-btn btn-inst-ultra" id="toggleInstFibra" onclick="toggleSeries('instFibra')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="eye" aria-hidden="true" style="width:12px;height:12px;" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg> Instalaciones Fibra
-          </button>
+          <!-- 1. Frecuencia: Mensual o Trimestral (TRIM) -->
+          <div class="filter-dropdown-container">
+            <span class="filter-dropdown-label">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="clock" class="lucide lucide-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              Frecuencia:
+            </span>
+            <select id="selectFrecuencia" onchange="changeFrecuencia(this.value)" class="category-dropdown-select">
+              <option value="mensual" selected>Mensual</option>
+              <option value="trimestral">Trimestral (TRIM)</option>
+              <option value="anual">Año (Anual)</option>
+            </select>
+          </div>
 
-          <button class="chart-toggle-btn btn-inst-cobre" id="toggleInstCobre" onclick="toggleSeries('instCobre')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="eye" aria-hidden="true" style="width:12px;height:12px;" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg> Instalaciones Cobre
-          </button>
+          <!-- 2. Servicios: Macro-categorías (Internet, Telefonía, Televisión) -->
+          <div class="filter-dropdown-container" id="containerDropdownServicios">
+            <span class="filter-dropdown-label">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-grid"><rect width="7" height="7" x="3" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="14" rx="1"></rect><rect width="7" height="7" x="3" y="14" rx="1"></rect></svg>
+              Servicios:
+            </span>
+            <div class="multi-select-wrapper">
+              <button type="button" class="category-dropdown-btn" id="btnDropdownServicios" onclick="toggleCategoryDropdown('menuDropdownServicios', event)">
+                <span id="lblSelectedServicios">Internet (1)</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down dropdown-chevron"><path d="m6 9 6 6 6-6"></path></svg>
+              </button>
+              <div class="multi-select-menu" id="menuDropdownServicios" style="min-width: 275px;">
+                <div class="multi-select-actions">
+                  <button type="button" class="btn-text-action" onclick="toggleAllCategory('servicios', true)">Seleccionar todos</button>
+                  <span class="divider-dot">•</span>
+                  <button type="button" class="btn-text-action" onclick="toggleAllCategory('servicios', false)">Limpiar</button>
+                </div>
+                <div class="multi-select-options-list">
+                  <label class="multi-select-item">
+                    <input type="checkbox" name="filterService" value="internet" checked onchange="handleServiceFilterChange()">
+                    <span class="color-dot" style="background:#00D2FF; box-shadow: 0 0 8px rgba(0,210,255,0.6);"></span>
+                    <span class="item-label">Internet <span style="color:var(--text-dim); font-size:0.71rem; display:block;">(Aba Ultra + Aba Tradicional)</span></span>
+                  </label>
+                  <label class="multi-select-item">
+                    <input type="checkbox" name="filterService" value="telefonia" onchange="handleServiceFilterChange()">
+                    <span class="color-dot" style="background:#3B82F6; box-shadow: 0 0 8px rgba(59,130,246,0.6);"></span>
+                    <span class="item-label">Telefonía <span style="color:var(--text-dim); font-size:0.71rem; display:block;">(Telefonía + Telefonía IP)</span></span>
+                  </label>
+                  <label class="multi-select-item">
+                    <input type="checkbox" name="filterService" value="television" onchange="handleServiceFilterChange()">
+                    <span class="color-dot" style="background:#FFD700; box-shadow: 0 0 8px rgba(255,215,0,0.6);"></span>
+                    <span class="item-label">Televisión <span style="color:var(--text-dim); font-size:0.71rem; display:block;">(Aba TV GO + TDH)</span></span>
+                  </label>
+                </div>
+                <div style="border-top: 1px solid rgba(255,255,255,0.1); padding: 8px 12px; margin-top: 4px; background: rgba(0,210,255,0.05); border-radius: 0 0 8px 8px;">
+                  <label style="display: flex; align-items: center; gap: 8px; font-size: 0.74rem; font-weight: 600; color: #00D2FF; cursor: pointer; user-select: none;">
+                    <input type="checkbox" id="chkConsolidateServices" onchange="handleConsolidateServicesToggle(this.checked)" style="accent-color: #00D2FF;">
+                    <span>Consolidar curvas por Servicio</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
 
-          <button class="chart-toggle-btn btn-ret-ultra" id="toggleRetFibra" onclick="toggleSeries('retFibra')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="eye" aria-hidden="true" style="width:12px;height:12px;" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg> Retiros Fibra
-          </button>
+          <!-- 3. Productos: Selección Múltiple -->
+          <div class="filter-dropdown-container" id="containerDropdownProductos">
+            <span class="filter-dropdown-label">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="layers" class="lucide lucide-layers"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path></svg>
+              Productos:
+            </span>
+            <div class="multi-select-wrapper">
+              <button type="button" class="category-dropdown-btn" id="btnDropdownProductos" onclick="toggleCategoryDropdown('menuDropdownProductos', event)">
+                <span id="lblSelectedProductos">Aba Fibra, Aba Cobre (2)</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down" class="lucide lucide-chevron-down dropdown-chevron"><path d="m6 9 6 6 6-6"></path></svg>
+              </button>
+              <div class="multi-select-menu" id="menuDropdownProductos">
+                <div class="multi-select-actions">
+                  <button type="button" class="btn-text-action" onclick="toggleAllCategory('productos', true)">Seleccionar todos</button>
+                  <span class="divider-dot">•</span>
+                  <button type="button" class="btn-text-action" onclick="toggleAllCategory('productos', false)">Limpiar</button>
+                </div>
+                <div class="multi-select-options-list">
+                  <label class="multi-select-item">
+                    <input type="checkbox" name="filterProduct" value="fibra" checked onchange="handleProductFilterChange()">
+                    <span class="color-dot" style="background:#FF2AAB; box-shadow: 0 0 8px rgba(255,42,171,0.6);"></span>
+                    <span class="item-label">Aba Fibra</span>
+                  </label>
+                  <label class="multi-select-item">
+                    <input type="checkbox" name="filterProduct" value="cobre" checked onchange="handleProductFilterChange()">
+                    <span class="color-dot" style="background:#FF8C42; box-shadow: 0 0 8px rgba(255,140,66,0.6);"></span>
+                    <span class="item-label">Aba Cobre</span>
+                  </label>
+                  <label class="multi-select-item">
+                    <input type="checkbox" name="filterProduct" value="telefonia" onchange="handleProductFilterChange()">
+                    <span class="color-dot" style="background:#3B82F6; box-shadow: 0 0 8px rgba(59,130,246,0.6);"></span>
+                    <span class="item-label">Telefonía</span>
+                  </label>
+                  <label class="multi-select-item">
+                    <input type="checkbox" name="filterProduct" value="telefoniaIP" onchange="handleProductFilterChange()">
+                    <span class="color-dot" style="background:#00D2FF; box-shadow: 0 0 8px rgba(0,210,255,0.6);"></span>
+                    <span class="item-label">Telefonía IP</span>
+                  </label>
+                  <label class="multi-select-item">
+                    <input type="checkbox" name="filterProduct" value="tdh" onchange="handleProductFilterChange()">
+                    <span class="color-dot" style="background:#FFD700; box-shadow: 0 0 8px rgba(255,215,0,0.6);"></span>
+                    <span class="item-label">TDH</span>
+                  </label>
+                  <label class="multi-select-item">
+                    <input type="checkbox" name="filterProduct" value="tvgo" onchange="handleProductFilterChange()">
+                    <span class="color-dot" style="background:#A855F7; box-shadow: 0 0 8px rgba(168,85,247,0.6);"></span>
+                    <span class="item-label">Aba TV GO</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
 
-          <button class="chart-toggle-btn btn-ret-cobre" id="toggleRetCobre" onclick="toggleSeries('retCobre')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="eye" aria-hidden="true" style="width:12px;height:12px;" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg> Retiros Cobre
-          </button>
+          <!-- 3. Indicador: Selección Múltiple -->
+          <div class="filter-dropdown-container" id="containerDropdownIndicadores">
+            <span class="filter-dropdown-label">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="bar-chart-2" class="lucide lucide-bar-chart-2"><line x1="18" x2="18" y1="20" y2="10"></line><line x1="12" x2="12" y1="20" y2="4"></line><line x1="6" x2="6" y1="20" y2="14"></line></svg>
+              Indicador:
+            </span>
+            <div class="multi-select-wrapper">
+              <button type="button" class="category-dropdown-btn" id="btnDropdownIndicadores" onclick="toggleCategoryDropdown('menuDropdownIndicadores', event)">
+                <span id="lblSelectedIndicadores">Instalaciones, Retiros (2)</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down" class="lucide lucide-chevron-down dropdown-chevron"><path d="m6 9 6 6 6-6"></path></svg>
+              </button>
+              <div class="multi-select-menu" id="menuDropdownIndicadores">
+                <div class="multi-select-actions">
+                  <button type="button" class="btn-text-action" onclick="toggleAllCategory('indicadores', true)">Seleccionar todos</button>
+                  <span class="divider-dot">•</span>
+                  <button type="button" class="btn-text-action" onclick="toggleAllCategory('indicadores', false)">Limpiar</button>
+                </div>
+                <div class="multi-select-options-list">
+                  <label class="multi-select-item">
+                    <input type="checkbox" name="filterIndicator" value="cartera" onchange="handleIndicatorFilterChange()">
+                    <span class="metric-badge-indicator" style="color: #60a5fa;">📊</span>
+                    <span class="item-label">Cartera</span>
+                  </label>
+                  <label class="multi-select-item">
+                    <input type="checkbox" name="filterIndicator" value="instalaciones" checked onchange="handleIndicatorFilterChange()">
+                    <span class="metric-badge-indicator" style="color: #34d399;">🟢</span>
+                    <span class="item-label">Instalaciones (Columnas Verdes)</span>
+                  </label>
+                  <label class="multi-select-item">
+                    <input type="checkbox" name="filterIndicator" value="retiros" checked onchange="handleIndicatorFilterChange()">
+                    <span class="metric-badge-indicator" style="color: #f43f5e;">🔴</span>
+                    <span class="item-label">Retiros (Columnas Rojas)</span>
+                  </label>
+                  <label class="multi-select-item">
+                    <input type="checkbox" name="filterIndicator" value="carteraNeta" onchange="handleIndicatorFilterChange()">
+                    <span class="metric-badge-indicator" style="color: #38bdf8;">⚖️</span>
+                    <span class="item-label">Cartera Neta</span>
+                  </label>
+                  <label class="multi-select-item">
+                    <input type="checkbox" name="filterIndicator" value="tncc" onchange="handleIndicatorFilterChange()">
+                    <span class="metric-badge-indicator" style="color: #c084fc;">📈</span>
+                    <span class="item-label">TNCC %</span>
+                  </label>
+                  <label class="multi-select-item">
+                    <input type="checkbox" name="filterIndicator" value="churn" onchange="handleIndicatorFilterChange()">
+                    <span class="metric-badge-indicator" style="color: #f43f5e;">📉</span>
+                    <span class="item-label">Churn (Tasa %)</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
 
-          <button class="chart-toggle-btn btn-net-ultra" id="toggleNetFibra" onclick="toggleSeries('netFibra')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="eye" aria-hidden="true" style="width:12px;height:12px;" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg> Balance Neto Fibra
-          </button>
-
-          <button class="chart-toggle-btn btn-cartera-fibra" id="toggleCarteraFibra" onclick="toggleSeries('carteraFibra')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="eye" aria-hidden="true" style="width:12px;height:12px;" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg> Cartera Fibra
-          </button>
-
-          <button class="chart-toggle-btn btn-cartera-cobre" id="toggleCarteraCobre" onclick="toggleSeries('carteraCobre')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="eye" aria-hidden="true" style="width:12px;height:12px;" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg> Cartera Cobre
-          </button>
         </div>
 
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <span style="font-size: 0.74rem; color: var(--text-dim);">Línea Benchmark:</span>
-          <select id="selectBenchmark" onchange="changeBenchmark()" style="background: rgba(15, 12, 45, 0.9); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; padding: 4px 8px; border-radius: 6px; font-size: 0.74rem; outline: none; cursor: pointer;">
-            <option value="thresholds">Umbrales Normativos (0.5% y 2%)</option>
-            <option value="avgChurn">Promedio Churn Fibra (2.11%)</option>
-            <option value="avgUltra">Promedio Fibra (+0.17%)</option>
-            <option value="avgCobre">Promedio Cobre (-3.14%)</option>
+        <div class="benchmark-container">
+          <span class="filter-dropdown-label">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-crosshair"><circle cx="12" cy="12" r="10"></circle><line x1="22" y1="12" x2="18" y2="12"></line><line x1="6" y1="12" x2="2" y2="12"></line><line x1="12" y1="6" x2="12" y2="2"></line><line x1="12" y1="22" x2="12" y2="18"></line></svg>
+            Línea de referencia:
+          </span>
+          <select id="selectBenchmark" onchange="changeBenchmark()" class="category-dropdown-select" style="min-width: 145px;">
+            <option value="thresholds">Umbrales Normativos (TNCC)</option>
+            <option value="avgCartera">Promedio. Cartera</option>
+            <option value="avgTncc">Promedio. TNCC</option>
             <option value="zero">Línea Cero (0.00%)</option>
             <option value="none">Ocultar Guías</option>
           </select>
@@ -2693,12 +3018,13 @@ body {
         <span class="footer-brand-tag" id="dispFooterMarca">IPULSO:</span>
         <span class="footer-sub-title" id="dispFooterSubtitulo">INFOGRAFÍA EJECUTIVA - ABA ULTRA Y ABA COBRE</span>
       </div>
-      <div class="footer-detail-line" id="dispFooterElaborado">Elaborado por: Mercadeo Hogares - Mercados Masivos (VPSS)</div>
-      <div class="footer-detail-line" id="dispFooterFuente">Colaboración y fuente de datos: Servicios Masivos - Mercados Masivos (VPSS)</div>
+      <div class="footer-detail-line" id="dispFooterElaborado">Diseñado por: Mercadeo Hogares - Mercados Masivos (VPSS)</div>
+      <div class="footer-detail-line" id="dispFooterColaboracion">Colaboración: Planificación y Servicios de Mercadeo - Mercados Masivos (VPSS)</div>
+      <div class="footer-detail-line" id="dispFooterFuente">Fuente de datos: Gerencia Inteligencia y Servicios de Mercadeo - Mercadeo Corporativo</div>
     </div>
     <div class="footer-right-content">
       <span style="color: #00D2FF; font-weight: 600;">Fecha de elaboración:</span><br>
-      <span id="dispFooterFecha">7 de noviembre de 2026</span>
+      <span id="dispFooterFecha">23 de noviembre de 2026</span>
     </div>
   </footer>
 
@@ -2764,187 +3090,635 @@ body {
 
 <div data-canva-ext="thumbnail-overlay"></div><div data-canva-ext="save-button"></div><script>
 // Standalone Telecom Data & State
-const telecomData = {
+const telecomRawJson = {"datosPorProductos":{"descripcion":"Registros históricos mensuales por año y producto (Aba Tradicional, Aba Ultra, Telefonía, Telefonía IP, TDH, Aba TV GO) con valores de Cartera, Instalaciones, Retiros, Cartera Neta y TNCC","anios":{"2024":{"Aba Tradicional":{"Enero":{"cartera":1664387,"instalaciones":2654,"retiros":2090,"carteraNeta":1664951,"tncc":"0,03%"},"Febrero":{"cartera":1665063,"instalaciones":3204,"retiros":0,"carteraNeta":1665021,"tncc":"0,19%"},"Marzo":{"cartera":1666380,"instalaciones":4019,"retiros":3246,"carteraNeta":1668019,"tncc":"0,05%"},"Abril":{"cartera":1667603,"instalaciones":3707,"retiros":2380,"carteraNeta":1668930,"tncc":"0,08%"},"Mayo":{"cartera":1670389,"instalaciones":5513,"retiros":2904,"carteraNeta":1672998,"tncc":"0,16%"},"Junio":{"cartera":1670074,"instalaciones":4054,"retiros":4340,"carteraNeta":1669788,"tncc":"-0,02%"},"Julio":{"cartera":1668829,"instalaciones":1996,"retiros":3203,"carteraNeta":1667622,"tncc":"-0,07%"},"Agosto":{"cartera":1663098,"instalaciones":2036,"retiros":7435,"carteraNeta":1657699,"tncc":"-0,32%"},"Septiembre":{"cartera":1644925,"instalaciones":1841,"retiros":20127,"carteraNeta":1626639,"tncc":"-1,10%"},"Octubre":{"cartera":1602610,"instalaciones":2133,"retiros":44041,"carteraNeta":1560702,"tncc":"-2,58%"},"Noviembre":{"cartera":1579647,"instalaciones":2282,"retiros":22818,"carteraNeta":1559111,"tncc":"-1,32%"},"Diciembre":{"cartera":1568581,"instalaciones":1629,"retiros":12950,"carteraNeta":1557260,"tncc":"-0,73%"}},"Aba Ultra":{"Enero":{"cartera":26132,"instalaciones":5455,"retiros":302,"carteraNeta":31285,"tncc":"19,72%"},"Febrero":{"cartera":40333,"instalaciones":3237,"retiros":3075,"carteraNeta":40495,"tncc":"0,52%"},"Marzo":{"cartera":44751,"instalaciones":3373,"retiros":255,"carteraNeta":47869,"tncc":"7,70%"},"Abril":{"cartera":46710,"instalaciones":4389,"retiros":2680,"carteraNeta":48419,"tncc":"3,57%"},"Mayo":{"cartera":53091,"instalaciones":4944,"retiros":1952,"carteraNeta":56083,"tncc":"6,18%"},"Junio":{"cartera":58403,"instalaciones":6587,"retiros":353,"carteraNeta":64637,"tncc":"11,12%"},"Julio":{"cartera":66925,"instalaciones":7310,"retiros":439,"carteraNeta":73796,"tncc":"10,63%"},"Agosto":{"cartera":74606,"instalaciones":6697,"retiros":362,"carteraNeta":80941,"tncc":"8,58%"},"Septiembre":{"cartera":72194,"instalaciones":6583,"retiros":223,"carteraNeta":78554,"tncc":"7,86%"},"Octubre":{"cartera":95377,"instalaciones":11731,"retiros":255,"carteraNeta":106853,"tncc":"14,61%"},"Noviembre":{"cartera":95846,"instalaciones":11892,"retiros":1390,"carteraNeta":106348,"tncc":"9,83%"},"Diciembre":{"cartera":104913,"instalaciones":9157,"retiros":560,"carteraNeta":113510,"tncc":"8,08%"}},"Telefonía":{"Enero":{"cartera":2061804,"instalaciones":1795,"retiros":570,"carteraNeta":2063029,"tncc":"0,06%"},"Febrero":{"cartera":2063316,"instalaciones":2411,"retiros":469,"carteraNeta":2065258,"tncc":"0,09%"},"Marzo":{"cartera":2066216,"instalaciones":3733,"retiros":478,"carteraNeta":2069471,"tncc":"0,16%"},"Abril":{"cartera":2068676,"instalaciones":3502,"retiros":1259,"carteraNeta":2070919,"tncc":"0,11%"},"Mayo":{"cartera":2073570,"instalaciones":4935,"retiros":654,"carteraNeta":2077851,"tncc":"0,21%"},"Junio":{"cartera":2075472,"instalaciones":2986,"retiros":1000,"carteraNeta":2077458,"tncc":"0,10%"},"Julio":{"cartera":2072764,"instalaciones":1768,"retiros":4108,"carteraNeta":2070424,"tncc":"-0,11%"},"Agosto":{"cartera":2072726,"instalaciones":2235,"retiros":2448,"carteraNeta":2072513,"tncc":"-0,01%"},"Septiembre":{"cartera":2049581,"instalaciones":1980,"retiros":25093,"carteraNeta":2026468,"tncc":"-1,12%"},"Octubre":{"cartera":1990407,"instalaciones":2383,"retiros":37066,"carteraNeta":1955724,"tncc":"-1,71%"},"Noviembre":{"cartera":1971611,"instalaciones":2586,"retiros":6315,"carteraNeta":1967882,"tncc":"-0,19%"},"Diciembre":{"cartera":1957763,"instalaciones":1221,"retiros":14719,"carteraNeta":1944265,"tncc":"-0,69%"}},"Telefonía IP":{"Enero":{"cartera":4369,"instalaciones":12,"retiros":0,"carteraNeta":4381,"tncc":"0,27%"},"Febrero":{"cartera":4478,"instalaciones":1,"retiros":0,"carteraNeta":4479,"tncc":"0,02%"},"Marzo":{"cartera":4476,"instalaciones":0,"retiros":0,"carteraNeta":4476,"tncc":"0,00%"},"Abril":{"cartera":4473,"instalaciones":0,"retiros":0,"carteraNeta":4473,"tncc":"0,00%"},"Mayo":{"cartera":4467,"instalaciones":0,"retiros":0,"carteraNeta":4467,"tncc":"0,00%"},"Junio":{"cartera":4640,"instalaciones":0,"retiros":0,"carteraNeta":4640,"tncc":"0,00%"},"Julio":{"cartera":4919,"instalaciones":0,"retiros":0,"carteraNeta":4919,"tncc":"0,00%"},"Agosto":{"cartera":4984,"instalaciones":0,"retiros":0,"carteraNeta":4984,"tncc":"0,00%"},"Septiembre":{"cartera":4657,"instalaciones":20,"retiros":0,"carteraNeta":4677,"tncc":"0,40%"},"Octubre":{"cartera":4982,"instalaciones":0,"retiros":0,"carteraNeta":4982,"tncc":"0,00%"},"Noviembre":{"cartera":5370,"instalaciones":0,"retiros":0,"carteraNeta":5370,"tncc":"0,00%"},"Diciembre":{"cartera":5370,"instalaciones":490,"retiros":0,"carteraNeta":5860,"tncc":"9,12%"}},"TDH":{"Enero":{"cartera":282469,"instalaciones":1183,"retiros":0,"carteraNeta":283652,"tncc":"0,42%"},"Febrero":{"cartera":283598,"instalaciones":1196,"retiros":0,"carteraNeta":284794,"tncc":"0,42%"},"Marzo":{"cartera":282479,"instalaciones":1072,"retiros":0,"carteraNeta":283551,"tncc":"0,38%"},"Abril":{"cartera":284507,"instalaciones":1121,"retiros":0,"carteraNeta":285628,"tncc":"0,40%"},"Mayo":{"cartera":286346,"instalaciones":1265,"retiros":0,"carteraNeta":287611,"tncc":"0,44%"},"Junio":{"cartera":286909,"instalaciones":653,"retiros":0,"carteraNeta":287562,"tncc":"0,23%"},"Julio":{"cartera":287335,"instalaciones":884,"retiros":0,"carteraNeta":288219,"tncc":"0,31%"},"Agosto":{"cartera":281921,"instalaciones":677,"retiros":0,"carteraNeta":282598,"tncc":"0,23%"},"Septiembre":{"cartera":261445,"instalaciones":631,"retiros":210748,"carteraNeta":51328,"tncc":"-74,35%"},"Octubre":{"cartera":51328,"instalaciones":548,"retiros":0,"carteraNeta":51876,"tncc":"1,07%"},"Noviembre":{"cartera":50976,"instalaciones":442,"retiros":0,"carteraNeta":51418,"tncc":"0,85%"},"Diciembre":{"cartera":50976,"instalaciones":318,"retiros":0,"carteraNeta":51294,"tncc":"0,62%"}},"Aba TV GO":{"Enero":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":null},"Febrero":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":null},"Marzo":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":null},"Abril":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":null},"Mayo":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":null},"Junio":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":null},"Julio":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":null},"Agosto":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":null},"Septiembre":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":null},"Octubre":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":null},"Noviembre":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":null},"Diciembre":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":null}}},"2025":{"Aba Tradicional":{"Enero":{"cartera":1555120,"instalaciones":881,"retiros":14323,"carteraNeta":1541678,"tncc":"-0,86%"},"Febrero":{"cartera":1540212,"instalaciones":1394,"retiros":36462,"carteraNeta":1505144,"tncc":"-2,27%"},"Marzo":{"cartera":1509541,"instalaciones":1190,"retiros":9279,"carteraNeta":1501452,"tncc":"-0,54%"},"Abril":{"cartera":1496467,"instalaciones":1191,"retiros":9029,"carteraNeta":1488629,"tncc":"-0,52%"},"Mayo":{"cartera":1464244,"instalaciones":2437,"retiros":36591,"carteraNeta":1430090,"tncc":"-2,29%"},"Junio":{"cartera":1449652,"instalaciones":926,"retiros":10537,"carteraNeta":1440041,"tncc":"-0,67%"},"Julio":{"cartera":1424927,"instalaciones":939,"retiros":23707,"carteraNeta":1402159,"tncc":"-1,58%"},"Agosto":{"cartera":1391838,"instalaciones":1201,"retiros":39555,"carteraNeta":1353484,"tncc":"-2,74%"},"Septiembre":{"cartera":1360823,"instalaciones":935,"retiros":30197,"carteraNeta":1331562,"tncc":"-2,16%"},"Octubre":{"cartera":1360824,"instalaciones":817,"retiros":455,"carteraNeta":1265264,"tncc":"0,03%"},"Noviembre":{"cartera":1264902,"instalaciones":492,"retiros":0,"carteraNeta":1235757,"tncc":"0,04%"},"Diciembre":{"cartera":1249146,"instalaciones":2,"retiros":13881,"carteraNeta":1235267,"tncc":"-1,12%"}},"Aba Ultra":{"Enero":{"cartera":86700,"instalaciones":6287,"retiros":471,"carteraNeta":92516,"tncc":"6,71%"},"Febrero":{"cartera":94353,"instalaciones":7124,"retiros":444,"carteraNeta":101033,"tncc":"7,22%"},"Marzo":{"cartera":113352,"instalaciones":5698,"retiros":398,"carteraNeta":118652,"tncc":"5,25%"},"Abril":{"cartera":113706,"instalaciones":5402,"retiros":203,"carteraNeta":118905,"tncc":"0,34%"},"Mayo":{"cartera":108704,"instalaciones":8049,"retiros":984,"carteraNeta":115769,"tncc":"5,94%"},"Junio":{"cartera":115587,"instalaciones":7846,"retiros":2465,"carteraNeta":120968,"tncc":"4,65%"},"Julio":{"cartera":119127,"instalaciones":5889,"retiros":6218,"carteraNeta":118798,"tncc":"-0,27%"},"Agosto":{"cartera":123985,"instalaciones":6082,"retiros":1584,"carteraNeta":128483,"tncc":"3,79%"},"Septiembre":{"cartera":127878,"instalaciones":5555,"retiros":3511,"carteraNeta":129922,"tncc":"1,59%"},"Octubre":{"cartera":128996,"instalaciones":11204,"retiros":1187,"carteraNeta":139013,"tncc":"7,71%"},"Noviembre":{"cartera":136548,"instalaciones":9243,"retiros":497,"carteraNeta":145294,"tncc":"6,29%"},"Diciembre":{"cartera":149648,"instalaciones":5631,"retiros":3453,"carteraNeta":151826,"tncc":"1,50%"}},"Telefonía":{"Enero":{"cartera":1927236,"instalaciones":1111,"retiros":28878,"carteraNeta":1899469,"tncc":"-1,44%"},"Febrero":{"cartera":1849573,"instalaciones":1880,"retiros":16587,"carteraNeta":1834866,"tncc":"-0,77%"},"Marzo":{"cartera":1894835,"instalaciones":2222,"retiros":9270,"carteraNeta":1887787,"tncc":"-0,38%"},"Abril":{"cartera":1885313,"instalaciones":2133,"retiros":349,"carteraNeta":1887097,"tncc":"0,09%"},"Mayo":{"cartera":1832939,"instalaciones":1536,"retiros":44539,"carteraNeta":1789936,"tncc":"-2,28%"},"Junio":{"cartera":1833109,"instalaciones":769,"retiros":15411,"carteraNeta":1818467,"tncc":"-0,82%"},"Julio":{"cartera":1796181,"instalaciones":882,"retiros":32049,"carteraNeta":1765014,"tncc":"-1,71%"},"Agosto":{"cartera":1721191,"instalaciones":1131,"retiros":86490,"carteraNeta":1635832,"tncc":"-4,84%"},"Septiembre":{"cartera":1683983,"instalaciones":1060,"retiros":39101,"carteraNeta":1632165,"tncc":"-2,33%"},"Octubre":{"cartera":1633938,"instalaciones":1471,"retiros":3244,"carteraNeta":1538896,"tncc":"-0,11%"},"Noviembre":{"cartera":1540669,"instalaciones":1227,"retiros":0,"carteraNeta":1519708,"tncc":"0,08%"},"Diciembre":{"cartera":1518481,"instalaciones":993,"retiros":21765,"carteraNeta":1497709,"tncc":"-1,37%"}},"Telefonía IP":{"Enero":{"cartera":5698,"instalaciones":0,"retiros":0,"carteraNeta":5698,"tncc":"0,00%"},"Febrero":{"cartera":6926,"instalaciones":2299,"retiros":0,"carteraNeta":9225,"tncc":"40,35%"},"Marzo":{"cartera":12138,"instalaciones":3050,"retiros":0,"carteraNeta":15188,"tncc":"33,06%"},"Abril":{"cartera":12264,"instalaciones":2402,"retiros":0,"carteraNeta":14666,"tncc":"15,82%"},"Mayo":{"cartera":12358,"instalaciones":2146,"retiros":0,"carteraNeta":14504,"tncc":"14,63%"},"Junio":{"cartera":14262,"instalaciones":3156,"retiros":0,"carteraNeta":17418,"tncc":"21,76%"},"Julio":{"cartera":19949,"instalaciones":4319,"retiros":0,"carteraNeta":24268,"tncc":"24,80%"},"Agosto":{"cartera":24723,"instalaciones":4376,"retiros":0,"carteraNeta":29099,"tncc":"18,03%"},"Septiembre":{"cartera":28324,"instalaciones":3244,"retiros":0,"carteraNeta":31568,"tncc":"11,15%"},"Octubre":{"cartera":31448,"instalaciones":6219,"retiros":0,"carteraNeta":37667,"tncc":"19,70%"},"Noviembre":{"cartera":37650,"instalaciones":6099,"retiros":0,"carteraNeta":43749,"tncc":"16,19%"},"Diciembre":{"cartera":43604,"instalaciones":3928,"retiros":0,"carteraNeta":47532,"tncc":"8,98%"}},"TDH":{"Enero":{"cartera":23537,"instalaciones":667,"retiros":0,"carteraNeta":24204,"tncc":"2,83%"},"Febrero":{"cartera":41032,"instalaciones":1410,"retiros":0,"carteraNeta":42442,"tncc":"5,83%"},"Marzo":{"cartera":40859,"instalaciones":131,"retiros":0,"carteraNeta":40990,"tncc":"0,31%"},"Abril":{"cartera":40349,"instalaciones":402,"retiros":0,"carteraNeta":40751,"tncc":"0,98%"},"Mayo":{"cartera":41374,"instalaciones":401,"retiros":0,"carteraNeta":41775,"tncc":"0,98%"},"Junio":{"cartera":30794,"instalaciones":369,"retiros":0,"carteraNeta":31163,"tncc":"0,88%"},"Julio":{"cartera":33039,"instalaciones":716,"retiros":0,"carteraNeta":33755,"tncc":"2,30%"},"Agosto":{"cartera":31157,"instalaciones":408,"retiros":0,"carteraNeta":31565,"tncc":"1,21%"},"Septiembre":{"cartera":30183,"instalaciones":347,"retiros":0,"carteraNeta":30530,"tncc":"1,10%"},"Octubre":{"cartera":31757,"instalaciones":342,"retiros":0,"carteraNeta":32099,"tncc":"1,12%"},"Noviembre":{"cartera":32292,"instalaciones":259,"retiros":0,"carteraNeta":32551,"tncc":"0,81%"},"Diciembre":{"cartera":30302,"instalaciones":242,"retiros":0,"carteraNeta":30544,"tncc":"0,74%"}},"Aba TV GO":{"Enero":{"cartera":3239,"instalaciones":13209,"retiros":0,"carteraNeta":16448,"tncc":"407,81%"},"Febrero":{"cartera":22088,"instalaciones":8414,"retiros":0,"carteraNeta":30502,"tncc":"51,16%"},"Marzo":{"cartera":22095,"instalaciones":3071,"retiros":0,"carteraNeta":25166,"tncc":"10,07%"},"Abril":{"cartera":23123,"instalaciones":2864,"retiros":0,"carteraNeta":25987,"tncc":"11,38%"},"Mayo":{"cartera":24143,"instalaciones":5508,"retiros":0,"carteraNeta":29651,"tncc":"21,20%"},"Junio":{"cartera":29946,"instalaciones":1128,"retiros":0,"carteraNeta":31074,"tncc":"3,80%"},"Julio":{"cartera":30263,"instalaciones":4075,"retiros":0,"carteraNeta":34338,"tncc":"13,11%"},"Agosto":{"cartera":31085,"instalaciones":2156,"retiros":0,"carteraNeta":33241,"tncc":"6,28%"},"Septiembre":{"cartera":33211,"instalaciones":1705,"retiros":0,"carteraNeta":34916,"tncc":"5,13%"},"Octubre":{"cartera":32112,"instalaciones":2907,"retiros":0,"carteraNeta":35019,"tncc":"8,33%"},"Noviembre":{"cartera":37678,"instalaciones":4332,"retiros":0,"carteraNeta":42010,"tncc":"12,37%"},"Diciembre":{"cartera":42851,"instalaciones":3250,"retiros":0,"carteraNeta":46101,"tncc":"7,74%"}}},"2026":{"Aba Tradicional":{"Enero":{"cartera":1243837,"instalaciones":1195,"retiros":36999,"carteraNeta":1208033,"tncc":"-2,88%"},"Febrero":{"cartera":1224349,"instalaciones":1112,"retiros":65620,"carteraNeta":1159841,"tncc":"-5,34%"},"Marzo":{"cartera":1146422,"instalaciones":1114,"retiros":30072,"carteraNeta":1117464,"tncc":"-2,50%"},"Abril":{"cartera":1117403,"instalaciones":910,"retiros":0,"carteraNeta":1118313,"tncc":"0,08%"},"Mayo":{"cartera":1078091,"instalaciones":869,"retiros":0,"carteraNeta":1078960,"tncc":"0,08%"},"Junio":{"cartera":1048225,"instalaciones":6056,"retiros":25644,"carteraNeta":1028637,"tncc":"-1,82%"},"Julio":{"cartera":984936,"instalaciones":623,"retiros":39291,"carteraNeta":946268,"tncc":"-3,76%"},"Agosto":{"cartera":950182,"instalaciones":650,"retiros":13103,"carteraNeta":937729,"tncc":"-1,32%"},"Septiembre":{"cartera":931199,"instalaciones":519,"retiros":10051,"carteraNeta":921667,"tncc":"-1,02%"},"Octubre":{"cartera":912069,"instalaciones":499,"retiros":18079,"carteraNeta":894489,"tncc":"-1,91%"},"Noviembre":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":"0,00%"},"Diciembre":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":"#¡DIV/0!"}},"Aba Ultra":{"Enero":{"cartera":181150,"instalaciones":3926,"retiros":753,"carteraNeta":184323,"tncc":"1,75%"},"Febrero":{"cartera":181407,"instalaciones":4333,"retiros":831,"carteraNeta":184909,"tncc":"1,90%"},"Marzo":{"cartera":185271,"instalaciones":3028,"retiros":2786,"carteraNeta":185513,"tncc":"0,13%"},"Abril":{"cartera":185550,"instalaciones":884,"retiros":2586,"carteraNeta":183848,"tncc":"-0,92%"},"Mayo":{"cartera":185985,"instalaciones":5346,"retiros":2207,"carteraNeta":189124,"tncc":"1,71%"},"Junio":{"cartera":189927,"instalaciones":803,"retiros":693,"carteraNeta":190037,"tncc":"0,06%"},"Julio":{"cartera":194202,"instalaciones":2406,"retiros":472,"carteraNeta":196136,"tncc":"1,02%"},"Agosto":{"cartera":174678,"instalaciones":5288,"retiros":22731,"carteraNeta":157235,"tncc":"-8,89%"},"Septiembre":{"cartera":174934,"instalaciones":4157,"retiros":4079,"carteraNeta":175012,"tncc":"0,05%"},"Octubre":{"cartera":173725,"instalaciones":5074,"retiros":2575,"carteraNeta":176224,"tncc":"1,43%"},"Noviembre":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":"0,00%"},"Diciembre":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":"#¡DIV/0!"}},"Telefonía":{"Enero":{"cartera":1518474,"instalaciones":1182,"retiros":37031,"carteraNeta":1482625,"tncc":"-2,36%"},"Febrero":{"cartera":1490830,"instalaciones":385,"retiros":95916,"carteraNeta":1395299,"tncc":"-6,44%"},"Marzo":{"cartera":1387453,"instalaciones":1630,"retiros":46105,"carteraNeta":1342978,"tncc":"-3,19%"},"Abril":{"cartera":1344299,"instalaciones":1493,"retiros":59295,"carteraNeta":1286497,"tncc":"-4,30%"},"Mayo":{"cartera":1281964,"instalaciones":1232,"retiros":39195,"carteraNeta":1244001,"tncc":"-2,95%"},"Junio":{"cartera":1248217,"instalaciones":5228,"retiros":51047,"carteraNeta":1202398,"tncc":"-3,68%"},"Julio":{"cartera":1194126,"instalaciones":669,"retiros":54596,"carteraNeta":1140199,"tncc":"-4,48%"},"Agosto":{"cartera":1143353,"instalaciones":798,"retiros":22044,"carteraNeta":1122107,"tncc":"-1,86%"},"Septiembre":{"cartera":1120601,"instalaciones":656,"retiros":22160,"carteraNeta":1099097,"tncc":"-1,92%"},"Octubre":{"cartera":1091969,"instalaciones":952,"retiros":30468,"carteraNeta":1062453,"tncc":"-2,69%"},"Noviembre":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":"0,00%"},"Diciembre":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":"#¡DIV/0!"}},"Telefonía IP":{"Enero":{"cartera":43604,"instalaciones":2048,"retiros":689,"carteraNeta":44963,"tncc":"3,12%"},"Febrero":{"cartera":49994,"instalaciones":30,"retiros":876,"carteraNeta":49148,"tncc":"-1,88%"},"Marzo":{"cartera":50867,"instalaciones":4187,"retiros":892,"carteraNeta":54162,"tncc":"6,70%"},"Abril":{"cartera":54588,"instalaciones":2436,"retiros":573,"carteraNeta":56451,"tncc":"3,44%"},"Mayo":{"cartera":56396,"instalaciones":3213,"retiros":1017,"carteraNeta":58592,"tncc":"3,89%"},"Junio":{"cartera":60152,"instalaciones":692,"retiros":1064,"carteraNeta":59780,"tncc":"-0,63%"},"Julio":{"cartera":64065,"instalaciones":2458,"retiros":4263,"carteraNeta":62260,"tncc":"-3,02%"},"Agosto":{"cartera":70079,"instalaciones":4021,"retiros":2591,"carteraNeta":71509,"tncc":"2,30%"},"Septiembre":{"cartera":65477,"instalaciones":3411,"retiros":2266,"carteraNeta":66622,"tncc":"1,60%"},"Octubre":{"cartera":66556,"instalaciones":3831,"retiros":2134,"carteraNeta":68253,"tncc":"2,55%"},"Noviembre":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":"0,00%"},"Diciembre":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":"#¡DIV/0!"}},"TDH":{"Enero":{"cartera":30303,"instalaciones":230,"retiros":0,"carteraNeta":30533,"tncc":"0,76%"},"Febrero":{"cartera":24365,"instalaciones":922,"retiros":0,"carteraNeta":25287,"tncc":"3,02%"},"Marzo":{"cartera":24315,"instalaciones":197,"retiros":0,"carteraNeta":24512,"tncc":"0,78%"},"Abril":{"cartera":18889,"instalaciones":859,"retiros":0,"carteraNeta":19748,"tncc":"3,50%"},"Mayo":{"cartera":22471,"instalaciones":309,"retiros":0,"carteraNeta":22780,"tncc":"1,56%"},"Junio":{"cartera":22585,"instalaciones":3713,"retiros":0,"carteraNeta":26298,"tncc":"16,30%"},"Julio":{"cartera":23396,"instalaciones":533,"retiros":0,"carteraNeta":23929,"tncc":"2,03%"},"Agosto":{"cartera":20358,"instalaciones":803,"retiros":0,"carteraNeta":21161,"tncc":"3,36%"},"Septiembre":{"cartera":18910,"instalaciones":866,"retiros":0,"carteraNeta":19776,"tncc":"4,09%"},"Octubre":{"cartera":17262,"instalaciones":568,"retiros":0,"carteraNeta":17830,"tncc":"2,87%"},"Noviembre":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":"0,00%"},"Diciembre":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":"#¡DIV/0!"}},"Aba TV GO":{"Enero":{"cartera":42851,"instalaciones":1516,"retiros":986,"carteraNeta":43381,"tncc":"1,24%"},"Febrero":{"cartera":50860,"instalaciones":26,"retiros":1047,"carteraNeta":49839,"tncc":"-2,35%"},"Marzo":{"cartera":53395,"instalaciones":985,"retiros":2445,"carteraNeta":51935,"tncc":"-2,93%"},"Abril":{"cartera":53143,"instalaciones":5,"retiros":752,"carteraNeta":52396,"tncc":"-1,44%"},"Mayo":{"cartera":53193,"instalaciones":3885,"retiros":648,"carteraNeta":56430,"tncc":"6,18%"},"Junio":{"cartera":56501,"instalaciones":3713,"retiros":457,"carteraNeta":59757,"tncc":"5,77%"},"Julio":{"cartera":60530,"instalaciones":2287,"retiros":15637,"carteraNeta":47180,"tncc":"-22,34%"},"Agosto":{"cartera":74036,"instalaciones":5547,"retiros":2582,"carteraNeta":77001,"tncc":"6,28%"},"Septiembre":{"cartera":62804,"instalaciones":799,"retiros":1400,"carteraNeta":62203,"tncc":"-0,78%"},"Octubre":{"cartera":33573,"instalaciones":7450,"retiros":635,"carteraNeta":40388,"tncc":"10,96%"},"Noviembre":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":"0,00%"},"Diciembre":{"cartera":0,"instalaciones":0,"retiros":0,"carteraNeta":0,"tncc":"#¡DIV/0!"}}}}}};
+const telecomRawJson2024 = telecomRawJson;
+
+const telecomDataByYear = {
+  "2024": {
   "cobre": {
-  "name": "Aba Cobre",
-  "type": "cobre",
-  "color": "#FF8C42",
-  "colorAlpha": "rgba(255, 140, 66, 0.85)",
-  "months": [
-    "Ene",
-    "Feb",
-    "Mar",
-    "Abr",
-    "May",
-    "Jun",
-    "Jul",
-    "Ago",
-    "Sept",
-    "Oct"
-  ],
-  "carteraInicio": [
-    1517643,
-    1481858,
-    1387054,
-    1342155,
-    1303926,
-    1263474,
-    1213285,
-    1173060,
-    1152689,
-    1131265
-  ],
-  "carteraCierre": [
-    1481858,
-    1387054,
-    1342155,
-    1303926,
-    1263474,
-    1213285,
-    1173060,
-    1152689,
-    1131265,
-    1160781
-  ],
-  "instalaciones": [
-    1195,
-    1112,
-    1114,
-    910,
-    869,
-    803,
-    623,
-    650,
-    656,
-    952
-  ],
-  "retiros": [
-    36980,
-    95916,
-    46013,
-    39139,
-    41321,
-    50992,
-    40848,
-    21021,
-    22080,
-    30468
-  ],
-  "tncc": [
-    -2.36,
-    -6.4,
-    -3.24,
-    -2.85,
-    -3.1,
-    -3.97,
-    -3.32,
-    -1.74,
-    -1.86,
-    -2.53
-  ]
-},
-  "fibra": {
-  "name": "Aba Ultra (Fibra)",
-  "type": "fibra",
-  "color": "#00D2FF",
-  "colorAlpha": "rgba(0, 210, 255, 0.85)",
-  "months": [
-    "Ene",
-    "Feb",
-    "Mar",
-    "Abr",
-    "May",
-    "Jun",
-    "Jul",
-    "Ago",
-    "Sept",
-    "Oct"
-  ],
-  "carteraInicio": [
-    175609,
-    178841,
-    182313,
-    182798,
-    183266,
-    187997,
-    193589,
-    173624,
-    174833,
-    174577
-  ],
-  "carteraCierre": [
-    178841,
-    182313,
-    182798,
-    183266,
-    187997,
-    193589,
-    173624,
-    174833,
-    174577,
-    171866
-  ],
-  "instalaciones": [
-    3926,
-    4333,
-    3028,
-    884,
-    5346,
-    6056,
-    2406,
-    5288,
-    4157,
-    5074
-  ],
-  "retiros": [
-    694,
-    861,
-    2543,
-    416,
-    615,
-    464,
-    22371,
-    4079,
-    4413,
-    2363
-  ],
-  "tncc": [
-      1.84,
-      1.94,
-      0.27,
-      0.26,
-      2.58,
-      2.97,
-      -10.31,
-      0.7,
-      -0.15,
-      1.56
+    "name": "Aba Cobre (Tradicional)",
+    "type": "cobre",
+    "color": "#FF8C42",
+    "colorAlpha": "rgba(255, 140, 66, 0.85)",
+    "months": [
+      "Ene",
+      "Feb",
+      "Mar",
+      "Abr",
+      "May",
+      "Jun",
+      "Jul",
+      "Ago",
+      "Sept",
+      "Oct",
+      "Nov",
+      "Dic"
+    ],
+    "carteraInicio": [
+      1664387,
+      1665063,
+      1666380,
+      1667603,
+      1670389,
+      1670074,
+      1668829,
+      1663098,
+      1644925,
+      1602610,
+      1579647,
+      1568581
+    ],
+    "carteraCierre": [
+      1664951,
+      1665021,
+      1668019,
+      1668930,
+      1672998,
+      1669788,
+      1667622,
+      1657699,
+      1626639,
+      1560702,
+      1559111,
+      1557260
+    ],
+    "instalaciones": [
+      2654,
+      3204,
+      4019,
+      3707,
+      5513,
+      4054,
+      1996,
+      2036,
+      1841,
+      2133,
+      2282,
+      1629
+    ],
+    "retiros": [
+      2090,
+      0,
+      3246,
+      2380,
+      2904,
+      4340,
+      3203,
+      7435,
+      20127,
+      44041,
+      22818,
+      12950
+    ],
+    "tncc": [
+      0.03,
+      0.19,
+      0.05,
+      0.08,
+      0.16,
+      -0.02,
+      -0.07,
+      -0.32,
+      -1.1,
+      -2.58,
+      -1.32,
+      -0.73
     ],
     "churn": [
-      0.40,
-      0.48,
-      1.40,
-      0.23,
-      0.33,
-      0.25,
-      11.70,
-      2.36,
-      2.60,
-      1.38
+      0.13,
+      0,
+      0.19,
+      0.14,
+      0.17,
+      0.26,
+      0.19,
+      0.45,
+      1.22,
+      2.75,
+      1.44,
+      0.83
+    ]
+  },
+  "fibra": {
+    "name": "Aba Ultra",
+    "type": "fibra",
+    "color": "#FF2AAB",
+    "colorAlpha": "rgba(255, 42, 171, 0.85)",
+    "months": [
+      "Ene",
+      "Feb",
+      "Mar",
+      "Abr",
+      "May",
+      "Jun",
+      "Jul",
+      "Ago",
+      "Sept",
+      "Oct",
+      "Nov",
+      "Dic"
+    ],
+    "carteraInicio": [
+      26132,
+      40333,
+      44751,
+      46710,
+      53091,
+      58403,
+      66925,
+      74606,
+      72194,
+      95377,
+      95846,
+      104913
+    ],
+    "carteraCierre": [
+      31285,
+      40495,
+      47869,
+      48419,
+      56083,
+      64637,
+      73796,
+      80941,
+      78554,
+      106853,
+      106348,
+      113510
+    ],
+    "instalaciones": [
+      5455,
+      3237,
+      3373,
+      4389,
+      4944,
+      6587,
+      7310,
+      6697,
+      6583,
+      11731,
+      11892,
+      9157
+    ],
+    "retiros": [
+      302,
+      3075,
+      255,
+      2680,
+      1952,
+      353,
+      439,
+      362,
+      223,
+      255,
+      1390,
+      560
+    ],
+    "tncc": [
+      19.72,
+      0.52,
+      7.7,
+      3.57,
+      6.18,
+      11.12,
+      10.63,
+      8.58,
+      7.86,
+      14.61,
+      9.83,
+      8.08
+    ],
+    "churn": [
+      1.16,
+      7.62,
+      0.57,
+      5.74,
+      3.68,
+      0.6,
+      0.66,
+      0.49,
+      0.31,
+      0.27,
+      1.45,
+      0.53
     ],
     "churnAcumuladoAnio": {
-      "retiro": 38819,
-      "prom_cartera": 173445,
-      "churn_acumulado_pct": 22.38
+      "retiro": 11846,
+      "prom_cartera": 64940,
+      "churn_acumulado_pct": 18.24
     },
     "churnResumen": {
-      "promedio_simple_ene_oct_pct": 2.11,
-      "promedio_sin_julio_pct": 1.05,
-      "rango_sin_julio_pct": { "min": 1.00, "max": 3.00 },
-      "outlier": { "mes": "Jul", "churn_pct": 11.70 }
+      "promedio_simple_ene_oct_pct": 1.92,
+      "promedio_sin_julio_pct": 1.92,
+      "rango_sin_julio_pct": {
+        "min": 0.27,
+        "max": 7.62
+      },
+      "outlier": {
+        "mes": "Feb",
+        "churn_pct": 7.62
+      }
     }
-}
+  }
+},
+    "2025": {
+    "cobre": {
+        "name": "Aba Cobre (Tradicional)",
+        "type": "cobre",
+        "color": "#FF8C42",
+        "colorAlpha": "rgba(255, 140, 66, 0.85)",
+        "months": [
+            "Ene",
+            "Feb",
+            "Mar",
+            "Abr",
+            "May",
+            "Jun",
+            "Jul",
+            "Ago",
+            "Sept",
+            "Oct",
+            "Nov",
+            "Dic"
+        ],
+        "carteraInicio": [
+            1555120,
+            1540212,
+            1509541,
+            1496467,
+            1464244,
+            1449652,
+            1424927,
+            1391838,
+            1360823,
+            1360824,
+            1264902,
+            1249146
+        ],
+        "carteraCierre": [
+            1541678,
+            1505144,
+            1501452,
+            1488629,
+            1430090,
+            1440041,
+            1402159,
+            1353484,
+            1331562,
+            1265264,
+            1235757,
+            1235267
+        ],
+        "instalaciones": [
+            881,
+            1394,
+            1190,
+            1191,
+            2437,
+            926,
+            939,
+            1201,
+            935,
+            817,
+            492,
+            2
+        ],
+        "retiros": [
+            14323,
+            36462,
+            9279,
+            9029,
+            36591,
+            10537,
+            23707,
+            39555,
+            30197,
+            455,
+            0,
+            13881
+        ],
+        "tncc": [
+            -0.86,
+            -2.27,
+            -0.54,
+            -0.52,
+            -2.29,
+            -0.67,
+            -1.58,
+            -2.74,
+            -2.16,
+            0.03,
+            0.04,
+            -1.12
+        ],
+        "churn": [
+            0.92,
+            2.37,
+            0.61,
+            0.6,
+            2.5,
+            0.73,
+            1.66,
+            2.84,
+            2.22,
+            0.03,
+            0,
+            1.11
+        ]
+    },
+    "fibra": {
+        "name": "Aba Ultra (Fibra)",
+        "type": "fibra",
+        "color": "#FF2AAB",
+        "colorAlpha": "rgba(255, 42, 171, 0.85)",
+        "months": [
+            "Ene",
+            "Feb",
+            "Mar",
+            "Abr",
+            "May",
+            "Jun",
+            "Jul",
+            "Ago",
+            "Sept",
+            "Oct",
+            "Nov",
+            "Dic"
+        ],
+        "carteraInicio": [
+            86700,
+            94353,
+            113352,
+            113706,
+            108704,
+            115587,
+            119127,
+            123985,
+            127878,
+            128996,
+            136548,
+            149648
+        ],
+        "carteraCierre": [
+            92516,
+            101033,
+            118652,
+            118905,
+            115769,
+            120968,
+            118798,
+            128483,
+            129922,
+            139013,
+            145294,
+            151826
+        ],
+        "instalaciones": [
+            6287,
+            7124,
+            5698,
+            5402,
+            8049,
+            7846,
+            5889,
+            6082,
+            5555,
+            11204,
+            9243,
+            5631
+        ],
+        "retiros": [
+            471,
+            444,
+            398,
+            203,
+            984,
+            2465,
+            6218,
+            1584,
+            3511,
+            1187,
+            497,
+            3453
+        ],
+        "tncc": [
+            6.71,
+            7.22,
+            5.25,
+            0.34,
+            5.94,
+            4.65,
+            -0.27,
+            3.79,
+            1.59,
+            7.71,
+            6.29,
+            1.5
+        ],
+        "churn": [
+            0.54,
+            0.47,
+            0.35,
+            0.18,
+            0.91,
+            2.13,
+            5.22,
+            1.28,
+            2.75,
+            0.92,
+            0.36,
+            2.31
+        ]
+    },
+    "outlier": { "mes": "Jul", "churn_pct": 5.22 }
+  },
+"2026": {
+    "cobre": {
+        "name": "Aba Cobre",
+        "type": "cobre",
+        "color": "#FF8C42",
+        "colorAlpha": "rgba(255, 140, 66, 0.85)",
+        "months": [
+            "Ene",
+            "Feb",
+            "Mar",
+            "Abr",
+            "May",
+            "Jun",
+            "Jul",
+            "Ago",
+            "Sept",
+            "Oct"
+        ],
+        "carteraInicio": [
+            1243837,
+            1224349,
+            1146422,
+            1117403,
+            1078091,
+            1048225,
+            984936,
+            950182,
+            931199,
+            912069
+        ],
+        "carteraCierre": [
+            1208033,
+            1159841,
+            1117464,
+            1118313,
+            1078960,
+            1028637,
+            946268,
+            937729,
+            921667,
+            894489
+        ],
+        "instalaciones": [
+            1195,
+            1112,
+            1114,
+            910,
+            869,
+            6056,
+            623,
+            650,
+            519,
+            499
+        ],
+        "retiros": [
+            36999,
+            65620,
+            30072,
+            0,
+            0,
+            25644,
+            39291,
+            13103,
+            10051,
+            18079
+        ],
+        "tncc": [
+            -2.88,
+            -5.34,
+            -2.5,
+            0.08,
+            0.08,
+            -1.82,
+            -3.76,
+            -1.32,
+            -1.02,
+            -1.91
+        ],
+        "churn": [
+            2.97,
+            5.36,
+            2.62,
+            0,
+            0,
+            2.45,
+            3.99,
+            1.38,
+            1.08,
+            1.98
+        ]
+    },
+    "fibra": {
+        "name": "Aba Ultra (Fibra)",
+        "type": "fibra",
+        "color": "#FF2AAB",
+        "colorAlpha": "rgba(255, 42, 171, 0.85)",
+        "months": [
+            "Ene",
+            "Feb",
+            "Mar",
+            "Abr",
+            "May",
+            "Jun",
+            "Jul",
+            "Ago",
+            "Sept",
+            "Oct"
+        ],
+        "carteraInicio": [
+            181150,
+            181407,
+            185271,
+            185550,
+            185985,
+            189927,
+            194202,
+            174678,
+            174934,
+            173725
+        ],
+        "carteraCierre": [
+            184323,
+            184909,
+            185513,
+            183848,
+            189124,
+            190037,
+            196136,
+            157235,
+            175012,
+            176224
+        ],
+        "instalaciones": [
+            3926,
+            4333,
+            3028,
+            884,
+            5346,
+            803,
+            2406,
+            5288,
+            4157,
+            5074
+        ],
+        "retiros": [
+            753,
+            831,
+            2786,
+            2586,
+            2207,
+            693,
+            472,
+            22731,
+            4079,
+            2575
+        ],
+        "tncc": [
+            1.75,
+            1.9,
+            0.13,
+            -0.92,
+            1.71,
+            0.06,
+            1.02,
+            -8.89,
+            0.05,
+            1.43
+        ],
+        "churn": [
+            0.42,
+            0.46,
+            1.5,
+            1.39,
+            1.19,
+            0.36,
+            0.24,
+            13.01,
+            2.33,
+            1.48
+        ]
+    },
+    "outlier": { "mes": "Ago", "churn_pct": 13.01 }
+  }
 };
+
+let currentYear = "2026";
+let telecomData = JSON.parse(JSON.stringify(telecomDataByYear["2026"]));
 let currentView = "combinado";
 let currentBenchmark = "thresholds";
 let trendChartInstance = null;
@@ -2973,7 +3747,7 @@ function recalculateAndRenderDashboard() {
   const totalRetF = sumArr(f.retiros);
   const balanceNetoF = totalInstF - totalRetF;
   const carteraInicioF = f.carteraInicio[0] || 1;
-  const carteraFinalF = (f.carteraCierre && f.carteraCierre.length) ? f.carteraCierre[f.carteraCierre.length - 1] : 171866;
+  const carteraFinalF = (f.carteraCierre && f.carteraCierre.length) ? f.carteraCierre[f.carteraCierre.length - 1] : 176224;
   const varCarteraF = carteraFinalF - carteraInicioF;
   const tnccAcumF = (balanceNetoF / carteraInicioF) * 100;
   const avgTnccF = avgArr(f.tncc);
@@ -2983,14 +3757,80 @@ function recalculateAndRenderDashboard() {
   const totalRetC = sumArr(c.retiros);
   const balanceNetoC = totalInstC - totalRetC;
   const carteraInicioC = c.carteraInicio[0] || 1;
-  const carteraFinalC = (c.carteraCierre && c.carteraCierre.length) ? c.carteraCierre[c.carteraCierre.length - 1] : 1160781;
+  const carteraFinalC = (c.carteraCierre && c.carteraCierre.length) ? c.carteraCierre[c.carteraCierre.length - 1] : 894489;
   const varCarteraC = carteraFinalC - carteraInicioC;
   const pctVarCarteraC = ((carteraFinalC - carteraInicioC) / carteraInicioC) * 100;
   const tnccAcumC = (balanceNetoC / carteraInicioC) * 100;
   const avgTnccC = avgArr(c.tncc);
   const ratioEficienciaC = totalRetC > 0 ? (totalInstC / totalRetC) : 0;
 
-  const periodoTxt = document.getElementById("dispPeriodo") ? document.getElementById("dispPeriodo").textContent.trim() : "el período evaluado";
+  const mesIni = (f.months && f.months.length) ? f.months[0] : 'Ene';
+  const mesFin = (f.months && f.months.length) ? f.months[f.months.length - 1] : 'Dic';
+  const mesFinNombre = (mesFin === 'Dic' ? 'diciembre' : (mesFin === 'Oct' ? 'octubre' : mesFin));
+
+  // Actualización dinámica de subtítulos de período en tarjetas
+  const elCarteraPeriodo = document.getElementById('dispCarteraPeriodoSpan');
+  if (elCarteraPeriodo) {
+    if (currentYear === '2026') {
+      elCarteraPeriodo.textContent = 'Enero vs. Octubre';
+    } else if (currentYear === 'all') {
+      elCarteraPeriodo.textContent = 'Consolidado Multianual';
+    } else {
+      elCarteraPeriodo.textContent = 'Enero vs. Diciembre';
+    }
+  }
+
+  const elBalancePeriodo = document.getElementById('dispBalancePeriodoSpan');
+  if (elBalancePeriodo) {
+    if (currentYear === '2026') {
+      elBalancePeriodo.textContent = 'Consolidado Ene - Oct';
+    } else if (currentYear === 'all') {
+      elBalancePeriodo.textContent = 'Histórico Multianual';
+    } else {
+      elBalancePeriodo.textContent = 'Consolidado Ene - Dic';
+    }
+  }
+
+  const elChurnPeriodo = document.getElementById('dispChurnPeriodoSpan');
+  if (elChurnPeriodo) {
+    if (currentYear === '2026') {
+      elChurnPeriodo.textContent = 'Fibra (Ene - Oct)';
+    } else if (currentYear === 'all') {
+      elChurnPeriodo.textContent = 'Fibra (Multianual)';
+    } else {
+      elChurnPeriodo.textContent = 'Fibra (Ene - Dic)';
+    }
+  }
+
+  // 1. Matriz de Criterios (Leyenda Normativa de TNCC)
+  function getTnccClassification(tnccVal) {
+    if (tnccVal > 2.0) {
+      return {
+        status: 'Excelente',
+        color: '#34d399',
+        tagClass: 'active-row-alta',
+        rowId: 'rowAltaUltra',
+        desc: 'ganancia de cuota de mercado significativa a ritmo acelerado'
+      };
+    } else if (tnccVal >= 0.6) {
+      return {
+        status: 'Saludable',
+        color: '#38bdf8',
+        tagClass: 'active-row-moderada',
+        rowId: 'rowModeradaUltra',
+        desc: 'expansión constante de cartera con trayectoria positiva'
+      };
+    } else {
+      return {
+        status: 'Muy lento o estancado',
+        color: '#fb7185',
+        tagClass: 'active-row-baja',
+        rowId: 'rowBajaUltra',
+        desc: 'rendimiento débil que requiere ajustes comerciales y retención proactiva'
+      };
+    }
+  }
+
   // 3. Actualizar Tarjeta 1: TNCC Acumulado
   const elTnccUltra = document.getElementById('dispTnccValueUltra');
   if (elTnccUltra) elTnccUltra.textContent = formatPct(tnccAcumF);
@@ -3001,6 +3841,12 @@ function recalculateAndRenderDashboard() {
   if (elTnccCobre) elTnccCobre.textContent = formatPct(tnccAcumC);
   const elTnccSubCobre = document.getElementById('dispTnccSubCobre');
   if (elTnccSubCobre) elTnccSubCobre.textContent = 'Prom: ' + formatPct(avgTnccC) + '/mes';
+
+  const classifF = getTnccClassification(tnccAcumF);
+  const elTnccDesc = document.getElementById('dispTnccDesc');
+  if (elTnccDesc) {
+    elTnccDesc.innerHTML = 'Aba Ultra clasifica en <span class="highlight-tag" id="dispTnccStatus" style="color: ' + classifF.color + ';">' + classifF.status + ' (' + formatPct(tnccAcumF) + ')</span> según la Matriz de Criterios (Leyenda Normativa de TNCC), reflejando ' + classifF.desc + ', mientras Aba Cobre registra ' + formatPct(tnccAcumC) + ' bajo la política deliberada de apagado y migración de centrales legadas.';
+  }
 
   // 4. Actualizar Tarjeta 2: Eficiencia Comercial (Instalación vs. Retiro)
   const elEficUltra = document.getElementById('dispEficienciaUltra');
@@ -3039,7 +3885,12 @@ function recalculateAndRenderDashboard() {
 
   const elCarteraDesc = document.getElementById('dispCarteraDesc');
   if (elCarteraDesc) {
-    elCarteraDesc.innerHTML = 'Cobre reduce su cartera en <strong>' + formatPct(pctVarCarteraC) + '</strong> (' + formatNum(varCarteraC) + ' cuentas). La fibra óptica amortigua parte de la migración, cerrando octubre en ' + formatNum(carteraFinalF) + ' suscriptores.';
+    const signF = varCarteraF >= 0 ? '+' : '';
+    if (currentYear === 'all') {
+      elCarteraDesc.innerHTML = 'Aba Cobre reduce su cartera en <strong>' + formatPct(pctVarCarteraC) + '</strong> (' + formatNum(varCarteraC) + ' líneas) en el trienio 2024-2026. En contraparte, Aba Ultra multiplica su escala alcanzando <strong>' + formatNum(carteraFinalF) + ' suscriptores activos</strong> (' + signF + formatNum(varCarteraF) + ' frente a los ' + formatNum(carteraInicioF) + ' de enero 2024).';
+    } else {
+      elCarteraDesc.innerHTML = 'Aba Cobre reduce su cartera en <strong>' + formatPct(pctVarCarteraC) + '</strong> (' + formatNum(varCarteraC) + ' líneas). En contraparte, Aba Ultra cierra ' + mesFinNombre + ' con <strong>' + formatNum(carteraFinalF) + ' suscriptores</strong> (' + signF + formatNum(varCarteraF) + ' frente a los ' + formatNum(carteraInicioF) + ' de inicio de año).';
+    }
   }
 
   // 6. Actualizar Tarjeta 4: Balance de Flujos Netos
@@ -3052,116 +3903,169 @@ function recalculateAndRenderDashboard() {
   if (elBalSubUltra) elBalSubUltra.textContent = '+' + formatNum(totalInstF) + ' inst / -' + formatNum(totalRetF) + ' ret';
 
   const elBalCobre = document.getElementById('dispBalanceNetoCobre');
-  if (elBalCobre) elBalCobre.textContent = formatNum(balanceNetoC);
+  if (elBalCobre) {
+    elBalCobre.textContent = formatNum(balanceNetoC);
+    elBalCobre.style.color = (balanceNetoC >= 0 ? '#38bdf8' : '#fb7185');
+  }
   const elBalSubCobre = document.getElementById('dispBalanceSubCobre');
   if (elBalSubCobre) elBalSubCobre.textContent = '+' + formatNum(totalInstC) + ' inst / -' + formatNum(totalRetC) + ' ret';
 
-  const mercadoPerdido = Math.abs(balanceNetoC) - balanceNetoF;
+  const mercadoPerdido = Math.max(0, Math.abs(balanceNetoC) - (balanceNetoF > 0 ? balanceNetoF : 0));
   const elBalDesc = document.getElementById('dispBalanceDesc');
   if (elBalDesc) {
-    elBalDesc.innerHTML = 'Aba Ultra alcanza un balance neto positivo de <strong>+' + formatNum(balanceNetoF) + ' clientes</strong> (+' + formatNum(totalInstF) + ' instalaciones vs. ' + formatNum(totalRetF) + ' retiros). Más de <strong>' + formatNum(mercadoPerdido) + ' clientes salieron</strong> del ecosistema de la empresa sin migrar.';
+    const signF = balanceNetoF >= 0 ? '+' : '';
+    if (currentYear === 'all') {
+      elBalDesc.innerHTML = 'Aba Ultra acumula un balance neto trianual de <strong>+' + formatNum(balanceNetoF) + ' cuentas</strong> (+' + formatNum(totalInstF) + ' instalaciones vs. -' + formatNum(totalRetF) + ' retiros). En cobre se registraron ' + formatNum(balanceNetoC) + ' desconexiones netas. El ecosistema global experimentó una fuga de mercado de <strong>' + formatNum(mercadoPerdido) + ' clientes perdidos</strong>.';
+    } else {
+      elBalDesc.innerHTML = 'Aba Ultra registra un balance neto de <strong>' + signF + formatNum(balanceNetoF) + ' cuentas</strong> (+' + formatNum(totalInstF) + ' instalaciones vs. -' + formatNum(totalRetF) + ' retiros). En cobre se registraron ' + formatNum(balanceNetoC) + ' desconexiones netas. El ecosistema global experimentó una fuga de mercado de ' + formatNum(mercadoPerdido) + ' clientes.';
+    }
   }
 
-  
   // Actualizar Tarjeta 5: Tasa Churn Acumulado Año (Fibra)
+  const promCartVal = Math.round((carteraInicioF + carteraFinalF) / 2);
+  const churnAcumVal = promCartVal > 0 ? ((totalRetF / promCartVal) * 100) : 0;
+  const monthlyChurns = f.carteraInicio.map((car, i) => car > 0 ? (f.retiros[i] / car) * 100 : 0);
+  const promMensualVal = avgArr(monthlyChurns);
+
   const elChurnAcum = document.getElementById('dispChurnAcumUltra');
-  if (elChurnAcum) elChurnAcum.textContent = '22,38%';
+  if (elChurnAcum) elChurnAcum.textContent = churnAcumVal.toFixed(2).replace('.', ',') + '%';
   const elChurnSub = document.getElementById('dispChurnSubUltra');
-  if (elChurnSub) elChurnSub.textContent = 'Retiros: 38.819 / Prom: 173.445';
+  if (elChurnSub) elChurnSub.textContent = 'Retiros: ' + formatNum(totalRetF) + ' / Prom: ' + formatNum(promCartVal);
+
   const elChurnProm = document.getElementById('dispChurnPromUltra');
-  if (elChurnProm) elChurnProm.textContent = '2,11%';
-  const elChurnSinJulio = document.getElementById('dispChurnSinJulioUltra');
-  if (elChurnSinJulio) elChurnSinJulio.textContent = 'Sin Julio: 1,05%';
+  if (elChurnProm) elChurnProm.textContent = promMensualVal.toFixed(2).replace('.', ',') + '%';
+
   const elChurnDesc = document.getElementById('dispChurnDesc');
   if (elChurnDesc) {
-    elChurnDesc.innerHTML = 'Promedio mensual de <strong>2,11%</strong> (rango típico: <strong>1% a 3%</strong>). Afectado por la caída de Julio (<strong>11,70%</strong>). Sin julio, la tasa promedio desciende a <strong>1,05%</strong>.';
+    if (currentYear === 'all') {
+      const churnAnualizado = churnAcumVal / 3;
+      elChurnDesc.innerHTML = 'Promedio mensual de <strong>' + promMensualVal.toFixed(2).replace('.', ',') + '%</strong> (rango óptimo: 1% a 3%) y el Churn acumulado trianual de <strong>' + churnAcumVal.toFixed(2).replace('.', ',') + '%</strong> (tasa anualizada promedio de <strong>' + churnAnualizado.toFixed(2).replace('.', ',') + '%</strong>, dentro del rango óptimo anual de 14% a 25%). Monitoreo continuo de retiros y fidelización en cartera.';
+    } else {
+      elChurnDesc.innerHTML = 'Promedio mensual de <strong>' + promMensualVal.toFixed(2).replace('.', ',') + '%</strong> (rango óptimo: 1% a 3%) y el Churn acumulado de <strong>' + churnAcumVal.toFixed(2).replace('.', ',') + '%</strong> (rango óptimo: 14% a 25%). Monitoreo continuo de retiros y fidelización en cartera.';
+    }
   }
 
-  // 7. Actualizar Insignias de la Leyenda Normativa
+  // 7. Actualizar Insignias y Filas de la Leyenda Normativa (Matriz de Criterios)
   const elBadgeUltra = document.getElementById('legendBadgeUltra');
   if (elBadgeUltra) elBadgeUltra.textContent = 'TNCC Global: ' + formatPct(tnccAcumF);
   const elBadgeCobre = document.getElementById('legendBadgeCobre');
   if (elBadgeCobre) elBadgeCobre.textContent = 'TNCC Acum: ' + formatPct(tnccAcumC);
 
-  // 8. Resumen Ejecutivo Autogenerado en Tiempo Real
-  const elNarrativeUltra = document.getElementById('narrativeUltraText');
-  if (elNarrativeUltra) {
-    const estadoNormativoUltra = tnccAcumF > 2.0 ? 'Excelente' : (tnccAcumF >= 0.6 ? 'Saludable' : 'Muy lento o estancado');
-    const pctVarCarteraF = ((carteraFinalF - carteraInicioF) / carteraInicioF) * 100;
-    elNarrativeUltra.innerHTML = 'Para el período evaluado (' + periodoTxt + '), la cartera de <strong>Aba Ultra</strong> registró una captación comercial acumulada de <strong>' + formatNum(totalInstF) + ' instalaciones</strong> frente a <strong>' + formatNum(totalRetF) + ' retiros</strong>, generando un balance neto de flujos positivo de <strong>+' + formatNum(balanceNetoF) + ' cuentas</strong> y una ratio de reemplazo de <strong>' + ratioEficienciaF.toFixed(2) + '</strong> (104 altas por cada 100 bajas). Esto sitúa la Tasa Neta de Crecimiento de Cartera en <strong>' + formatPct(tnccAcumF) + ' acumulado</strong> (promedio mensual de ' + formatPct(avgTnccF) + '), posicionando formalmente a la tecnología en el cuadrante <strong>"' + estadoNormativoUltra + '"</strong> de la Matriz Normativa.<br><br><strong>Evolución de cartera (Ene-Oct):</strong> Inició en <strong>' + formatNum(carteraInicioF) + ' suscriptores</strong> y creció con fuerza en el primer semestre (+10,24%) hasta su pico récord en junio con <strong>193.589 clientes</strong>. El shock extraordinario de <strong>22.371 retiros en julio</strong> (-10,31% TNCC) redujo la base a 173.624 cuentas, para luego estabilizarse hacia octubre (5.074 instalaciones y balance neto de +2.711), cerrando el período en <strong>' + formatNum(carteraFinalF) + ' suscriptores</strong> (' + formatPct(pctVarCarteraF) + ' vs. enero). El ciclo valida una alta demanda comercial pero exige blindar la base activa para capitalizar la migración del cobre.';
-  }
-
-  const elNarrativeCobre = document.getElementById('narrativeCobreText');
-  if (elNarrativeCobre) {
-    const avgInstC = Math.round(totalInstC / (c.instalaciones.length || 1));
-    const avgRetC = Math.round(totalRetC / (c.retiros.length || 1));
-    elNarrativeCobre.innerHTML = 'En cuanto a la tecnología <strong>Aba Cobre</strong>, se contabilizaron <strong>' + formatNum(totalInstC) + ' instalaciones</strong> y <strong>' + formatNum(totalRetC) + ' retiros</strong>, totalizando una contracción de cartera de <strong>' + formatPct(pctVarCarteraC) + '</strong> (' + formatNum(varCarteraC) + ' líneas netas) y un TNCC acumulado de <strong>' + formatPct(tnccAcumC) + '</strong> (promedio mensual de ' + formatPct(avgTnccC) + '), ubicándose con consistencia en el cuadrante <strong>"Muy lento o estancado"</strong>.<br><br>Este comportamiento responde a la <strong>política corporativa deliberada de vaciado y apagado de centrales de cobre obsoletas</strong> (promedio de ' + formatNum(avgInstC) + ' instalaciones/mes frente a ' + formatNum(avgRetC) + ' retiros/mes). El desafío crítico reside en canalizar este flujo saliente hacia la fibra propia antes de que abandonen la empresa.';
-  }
-
-
-  // 9. Actualización Dinámica de la Matriz de Criterios (Leyenda Normativa)
-  const legendRowsUltra = ['rowBajaUltra', 'rowModeradaUltra', 'rowAltaUltra'];
-  legendRowsUltra.forEach(id => {
-    const r = document.getElementById(id);
+  // Sincronizar fila activa en Matriz de Criterios para Ultra
+  ['rowBajaUltra', 'rowModeradaUltra', 'rowAltaUltra'].forEach(rId => {
+    const r = document.getElementById(rId);
     if (r) {
       r.classList.remove('active-row-baja', 'active-row-moderada', 'active-row-alta');
-      const oldBadge = r.querySelector('.legend-badge.ultra');
-      if (oldBadge) oldBadge.remove();
+      const oldB = r.querySelector('.legend-badge.ultra');
+      if (oldB) oldB.remove();
     }
   });
 
-  let activeRowUltraId = 'rowBajaUltra';
-  let activeClassUltra = 'active-row-baja';
-  let iconNameUltra = 'alert-triangle';
-
-  if (tnccAcumF > 2.0) {
-    activeRowUltraId = 'rowAltaUltra';
-    activeClassUltra = 'active-row-alta';
-    iconNameUltra = 'zap';
-  } else if (tnccAcumF >= 0.5) {
-    activeRowUltraId = 'rowModeradaUltra';
-    activeClassUltra = 'active-row-moderada';
-    iconNameUltra = 'check';
-  }
-
-  const activeRowUltra = document.getElementById(activeRowUltraId);
-  if (activeRowUltra) {
-    activeRowUltra.classList.add(activeClassUltra);
-    const cellRange = activeRowUltra.querySelector('.range-status-col');
-    if (cellRange) {
+  const targetRowUltra = document.getElementById(classifF.rowId);
+  if (targetRowUltra) {
+    targetRowUltra.classList.add(classifF.tagClass);
+    const cell = targetRowUltra.querySelector('.range-status-col');
+    if (cell) {
       const badgeSpan = document.createElement('span');
       badgeSpan.className = 'legend-badge ultra';
-      badgeSpan.innerHTML = '<i data-lucide="' + iconNameUltra + '" style="width:10px;height:10px;display:inline;"></i> Ultra: ' + formatPct(tnccAcumF);
-      cellRange.appendChild(badgeSpan);
+      badgeSpan.style.background = 'rgba(0, 210, 255, 0.2)';
+      badgeSpan.style.borderColor = '#00D2FF';
+      badgeSpan.style.color = '#00D2FF';
+      badgeSpan.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" aria-hidden="true" style="width:10px;height:10px;display:inline;" class="lucide lucide-check"><polyline points="20 6 9 17 4 12"></polyline></svg> Ultra: ' + formatPct(tnccAcumF);
+      cell.appendChild(badgeSpan);
     }
   }
 
-  // Descripciones actualizadas de la matriz
-  const descBajaUltra = document.querySelector('#rowBajaUltra .desc');
-  if (descBajaUltra) {
-    descBajaUltra.innerHTML = '<strong>Rendimiento débil.</strong> Requiere ajustes comerciales inmediatos y planes de retención proactiva.';
-  }
-  const descModUltra = document.querySelector('#rowModeradaUltra .desc');
-  if (descModUltra) {
-    descModUltra.innerHTML = 'La empresa está expandiendo su cartera de manera constante. El negocio mantiene una trayectoria positiva, situando la base de cierre de octubre en ' + formatNum(carteraFinalF) + ' suscriptores.';
+  // 8. Actualización Automática de la Tabla Comparativa Mensual
+  const tbody = document.getElementById('tbodyDetalleMensual');
+  if (tbody) {
+    let rowsHtml = '';
+    const numMonths = f.months.length;
+    for (let i = 0; i < numMonths; i++) {
+      const mes = f.months[i];
+      const instF = f.instalaciones[i] || 0;
+      const retF = f.retiros[i] || 0;
+      const netF = instF - retF;
+      const tnccF = f.tncc[i] || 0;
+
+      const instC = c.instalaciones[i] || 0;
+      const retC = c.retiros[i] || 0;
+      const netC = instC - retC;
+      const tnccC = c.tncc[i] || 0;
+
+      const balanceGlobal = netF + netC;
+      const balanceClass = balanceGlobal >= 0 ? 'text-green' : 'text-red';
+      const balanceSign = balanceGlobal >= 0 ? '+' : '';
+
+      rowsHtml += '<tr>' +
+        '<td class="font-bold">' + mes + '</td>' +
+        '<td class="stat-ultra text-right">' + formatNum(instF) + '</td>' +
+        '<td class="stat-ultra text-right">' + formatNum(retF) + '</td>' +
+        '<td class="stat-ultra text-right font-mono font-bold" style="color: ' + (netF >= 0 ? '#38bdf8' : '#fb7185') + ';">' + (netF >= 0 ? '+' : '') + formatNum(netF) + '</td>' +
+        '<td class="stat-ultra text-right font-mono font-bold">' + formatPct(tnccF) + '</td>' +
+        '<td class="stat-cobre text-right">' + formatNum(instC) + '</td>' +
+        '<td class="stat-cobre text-right">' + formatNum(retC) + '</td>' +
+        '<td class="stat-cobre text-right font-mono font-bold" style="color: ' + (netC >= 0 ? '#fbbf24' : '#fb7185') + ';">' + (netC >= 0 ? '+' : '') + formatNum(netC) + '</td>' +
+        '<td class="stat-cobre text-right font-mono font-bold">' + formatPct(tnccC) + '</td>' +
+        '<td class="text-right font-mono font-bold ' + balanceClass + '">' + balanceSign + formatNum(balanceGlobal) + '</td>' +
+      '</tr>';
+    }
+    tbody.innerHTML = rowsHtml;
   }
 
-  const descBajaCobre = document.querySelector('#rowBajaCobre .desc');
-  if (descBajaCobre) {
-    descBajaCobre.innerHTML = 'Contracción crítica continua por apagado de red legada. Cobre acumula ' + formatNum(totalRetC) + ' retiros y sitúa su cartera de cierre en ' + formatNum(carteraFinalC) + ' líneas activas.';
+  // 9. Actualización Automática de los Totales en el Pie de Tabla
+  const tfoot = document.getElementById('tfootDetalleMensual');
+  if (tfoot) {
+    const netTotalF = totalInstF - totalRetF;
+    const netTotalC = totalInstC - totalRetC;
+    const balanceTotalGlobal = netTotalF + netTotalC;
+    const balClass = balanceTotalGlobal >= 0 ? 'text-green' : 'text-red';
+    const balSign = balanceTotalGlobal >= 0 ? '+' : '';
+
+    tfoot.innerHTML = '<tr style="font-weight: 700; background: rgba(0,0,0,0.3);">' +
+      '<td>TOTAL / ACUM</td>' +
+      '<td class="stat-ultra text-right">' + formatNum(totalInstF) + '</td>' +
+      '<td class="stat-ultra text-right">' + formatNum(totalRetF) + '</td>' +
+      '<td class="stat-ultra text-right font-mono" style="color: ' + (netTotalF >= 0 ? '#38bdf8' : '#fb7185') + ';">' + (netTotalF >= 0 ? '+' : '') + formatNum(netTotalF) + '</td>' +
+      '<td class="stat-ultra text-right font-mono">' + formatPct(tnccAcumF) + '</td>' +
+      '<td class="stat-cobre text-right">' + formatNum(totalInstC) + '</td>' +
+      '<td class="stat-cobre text-right">' + formatNum(totalRetC) + '</td>' +
+      '<td class="stat-cobre text-right font-mono" style="color: ' + (netTotalC >= 0 ? '#fbbf24' : '#fb7185') + ';">' + (netTotalC >= 0 ? '+' : '') + formatNum(netTotalC) + '</td>' +
+      '<td class="stat-cobre text-right font-mono">' + formatPct(tnccAcumC) + '</td>' +
+      '<td class="text-right font-mono ' + balClass + '">' + balSign + formatNum(balanceTotalGlobal) + '</td>' +
+    '</tr>' +
+    '<tr style="font-size: 0.78rem; color: var(--text-dim); background: rgba(0,0,0,0.15);">' +
+      '<td>PROMEDIO MENSUAL</td>' +
+      '<td class="stat-ultra text-right">' + formatNum(Math.round(totalInstF / f.months.length)) + '</td>' +
+      '<td class="stat-ultra text-right">' + formatNum(Math.round(totalRetF / f.months.length)) + '</td>' +
+      '<td class="stat-ultra text-right font-mono">' + (netTotalF >= 0 ? '+' : '') + formatNum(Math.round(netTotalF / f.months.length)) + '</td>' +
+      '<td class="stat-ultra text-right font-mono">' + formatPct(avgTnccF) + '</td>' +
+      '<td class="stat-cobre text-right">' + formatNum(Math.round(totalInstC / c.months.length)) + '</td>' +
+      '<td class="stat-cobre text-right">' + formatNum(Math.round(totalRetC / c.months.length)) + '</td>' +
+      '<td class="stat-cobre text-right font-mono">' + (netTotalC >= 0 ? '+' : '') + formatNum(Math.round(netTotalC / c.months.length)) + '</td>' +
+      '<td class="stat-cobre text-right font-mono">' + formatPct(avgTnccC) + '</td>' +
+      '<td class="text-right font-mono">' + (balanceTotalGlobal >= 0 ? '+' : '') + formatNum(Math.round(balanceTotalGlobal / f.months.length)) + '</td>' +
+    '</tr>';
   }
 
   // 10. Actualización Automática de Hallazgos Cruzados e Interacción Tecnológica
-  // Cruce 1: Retiro de Planta Cobre
   const crossPillCobre = document.getElementById('crossPillCobre');
-  if (crossPillCobre) crossPillCobre.textContent = (varCarteraC >= 0 ? '+' : '') + Math.round(varCarteraC / 1000) + 'k Líneas';
   const crossDescCobre = document.getElementById('crossDescCobre');
+  const crossFooterCobre = document.getElementById('crossFooterCobre');
+
+  if (crossPillCobre) crossPillCobre.textContent = (varCarteraC >= 0 ? '+' : '') + Math.round(varCarteraC / 1000) + 'k Líneas';
   if (crossDescCobre) {
-    const avgInstC = Math.round(totalInstC / (c.instalaciones.length || 1));
-    crossDescCobre.innerHTML = 'La empresa no busca sostener el cobre: la contracción acumulada del <strong>' + formatPct(pctVarCarteraC) + '</strong> (de ' + (carteraInicioC / 1000000).toFixed(2) + 'M a ' + (carteraFinalC / 1000000).toFixed(2) + 'M abonados) y las reducidas instalaciones (promedio ' + formatNum(avgInstC) + '/mes) responden a la <strong>política deliberada de vaciado y retiro de la planta obsoleta</strong>.';
+    if (currentYear === 'all') {
+      crossDescCobre.innerHTML = 'En el periodo consolidado 2024-2026, la contracción acumulada en cobre alcanzó el <strong>' + formatPct(pctVarCarteraC) + '</strong> (de ' + (carteraInicioC / 1000000).toFixed(2) + 'M a ' + (carteraFinalC / 1000000).toFixed(2) + 'M abonados, perdiendo ' + formatNum(Math.abs(varCarteraC)) + ' líneas) con ' + formatNum(totalRetC) + ' retiros totales frente a solo ' + formatNum(totalInstC) + ' instalaciones, respondiendo al <strong>plan deliberado de vaciado y retiro de la planta obsoleta</strong>.';
+    } else {
+      const avgInstC = Math.round(totalInstC / (c.instalaciones.length || 1));
+      crossDescCobre.innerHTML = 'La empresa no busca sostener el cobre: la contracción acumulada del <strong>' + formatPct(pctVarCarteraC) + '</strong> (de ' + (carteraInicioC / 1000000).toFixed(2) + 'M a ' + (carteraFinalC / 1000000).toFixed(2) + 'M abonados) y las reducidas instalaciones (promedio ' + formatNum(avgInstC) + '/mes) responden a la <strong>política deliberada de vaciado y retiro de la planta obsoleta</strong>.';
+    }
+  }
+  if (crossFooterCobre) {
+    crossFooterCobre.innerHTML = 'Objetivo corporativo: <strong style="color: #e2e8f0;">Apagado programado de centrales</strong>.';
   }
 
-  // Cruce 2: Diagnóstico Matriz: Fibra
   const crossTitleFibra = document.getElementById('crossTitleFibra');
   if (crossTitleFibra) crossTitleFibra.style.color = (tnccAcumF >= 0.5 ? '#38bdf8' : '#fb7185');
   const crossPillFibra = document.getElementById('crossPillFibra');
@@ -3172,10 +4076,12 @@ function recalculateAndRenderDashboard() {
   }
   const crossDescFibra = document.getElementById('crossDescFibra');
   if (crossDescFibra) {
-    if (tnccAcumF >= 0.5) {
-      crossDescFibra.innerHTML = 'Bajo la <strong>Leyenda Normativa</strong>, el rango de 0.6% a 2% califica como <em>"Saludable (crecimiento constante)"</em>. Al arrojar un TNCC acumulado de <strong>' + formatPct(tnccAcumF) + '</strong> y un balance neto positivo (+' + formatNum(balanceNetoF) + '), <strong>la fibra retoma una trayectoria de reemplazo positivo</strong>.';
+    if (currentYear === 'all') {
+      crossDescFibra.innerHTML = 'Bajo la <strong>Leyenda Normativa</strong>, el balance consolidado 2024-2026 registra un TNCC acumulado de <strong>' + formatPct(tnccAcumF) + '</strong> y un balance neto de +' + formatNum(balanceNetoF) + ' cuentas, confirmando que <strong>la fibra lidera la expansión tecnológica y el recambio de la planta</strong> alcanzando ' + formatNum(carteraFinalF) + ' suscriptores.';
+    } else if (tnccAcumF >= 0.5) {
+      crossDescFibra.innerHTML = 'Bajo la <strong>Leyenda Normativa</strong>, el rango de 0.6% a 2% califica como <em>"Saludable (crecimiento constante)"</em>. Al arrojar un TNCC acumulado de <strong>' + formatPct(tnccAcumF) + '</strong> y un balance neto de ' + (balanceNetoF >= 0 ? '+' : '') + formatNum(balanceNetoF) + ', <strong>la fibra retoma una trayectoria de reemplazo positivo</strong> situando la cartera de cierre en ' + formatNum(carteraFinalF) + ' suscriptores.';
     } else {
-      crossDescFibra.innerHTML = 'Bajo la <strong>Leyenda Normativa</strong>, rangos de 0% a 0.5% señalan <em>"Muy lento o estancado (rendimiento débil)"</em>. Al arrojar un TNCC acumulado de <strong>' + formatPct(tnccAcumF) + '</strong>, <strong>el crecimiento de Fibra requiere ajustes comerciales inmediatos</strong>.';
+      crossDescFibra.innerHTML = 'Bajo la <strong>Leyenda Normativa</strong>, rangos de 0% a 0.5% (o negativos) señalan <em>"Muy lento o estancado (rendimiento débil)"</em>. Al arrojar un TNCC acumulado de <strong>' + formatPct(tnccAcumF) + '</strong>, <strong>el crecimiento de Fibra en ' + currentYear + ' requiere ajustes comerciales inmediatos</strong>.';
     }
   }
   const crossFooterFibra = document.getElementById('crossFooterFibra');
@@ -3183,27 +4089,37 @@ function recalculateAndRenderDashboard() {
     crossFooterFibra.innerHTML = 'Dictamen normativo: <strong style="color: ' + (tnccAcumF >= 0.5 ? '#38bdf8' : '#fb7185') + ';">' + (tnccAcumF >= 0.5 ? 'Ritmo saludable de captación' : 'Exige ajustes comerciales inmediatos') + '</strong>.';
   }
 
-  // Cruce 3: Fuga Fuera de la Empresa
   const pctAbsorcion = totalRetC > 0 ? ((totalInstF / totalRetC) * 100) : 0;
   const crossPillFuga = document.getElementById('crossPillFuga');
   if (crossPillFuga) crossPillFuga.textContent = pctAbsorcion.toFixed(1) + '% Absorción';
   const crossDescFuga = document.getElementById('crossDescFuga');
   if (crossDescFuga) {
     const pctFuga = Math.max(0, 100 - pctAbsorcion).toFixed(0);
-    crossDescFuga.innerHTML = 'Frente a los <strong>' + formatNum(totalRetC) + ' retiros en cobre</strong>, la fibra sumó <strong>' + formatNum(totalInstF) + ' instalaciones</strong>. Más del <strong>' + pctFuga + '% de los abonados retirados</strong> en cobre no migraron a la fibra propia, saliendo del ecosistema de la empresa.';
+    if (currentYear === 'all') {
+      crossDescFuga.innerHTML = 'Frente a los <strong>' + formatNum(totalRetC) + ' retiros registrados en cobre</strong> entre 2024 y 2026, la fibra incorporó <strong>' + formatNum(totalInstF) + ' instalaciones</strong>. Cerca del <strong>' + pctFuga + '% de los clientes desconectados en cobre</strong> no migraron a la fibra propia, saliendo del ecosistema comercial de la compañía.';
+    } else {
+      crossDescFuga.innerHTML = 'Frente a los <strong>' + formatNum(totalRetC) + ' retiros en cobre</strong>, la fibra sumó <strong>' + formatNum(totalInstF) + ' instalaciones</strong>. Más del <strong>' + pctFuga + '% de los abonados retirados</strong> en cobre no migraron a la fibra propia, saliendo del ecosistema de la empresa.';
+    }
   }
   const crossFooterFuga = document.getElementById('crossFooterFuga');
   if (crossFooterFuga) {
     const fugaTotal = Math.max(0, totalRetC - totalInstF);
-    crossFooterFuga.innerHTML = 'Fuga neta de mercado: <strong style="color: #fbbf24;">' + formatNum(fugaTotal) + ' usuarios perdidos para la empresa</strong>.';
+    if (currentYear === 'all') {
+      crossFooterFuga.innerHTML = 'Fuga neta de mercado: <strong style="color: #fbbf24;">' + formatNum(fugaTotal) + ' usuarios perdidos en el trienio</strong>.';
+    } else {
+      crossFooterFuga.innerHTML = 'Fuga neta de mercado: <strong style="color: #fbbf24;">' + formatNum(fugaTotal) + ' usuarios perdidos para la empresa</strong>.';
+    }
   }
 
-  // Cruce 4: Blindaje Requerido en FTTH
   const crossPillBlindaje = document.getElementById('crossPillBlindaje');
   if (crossPillBlindaje) crossPillBlindaje.textContent = 'Ratio: ' + ratioEficienciaF.toFixed(2);
   const crossDescBlindaje = document.getElementById('crossDescBlindaje');
   if (crossDescBlindaje) {
-    crossDescBlindaje.innerHTML = 'La cartera de fibra adquirió <strong>' + formatNum(totalInstF) + ' clientes</strong> frente a <strong>' + formatNum(totalRetF) + ' retiros propios</strong>, arrojando un balance neto definitivo de <strong>' + (balanceNetoF >= 0 ? '+' : '') + formatNum(balanceNetoF) + ' cuentas</strong>. Se requiere sincronizar la desconexión de cobre con la instalación de fibra y blindar la base activa (' + formatNum(carteraFinalF) + ' suscriptores) para maximizar la retención.';
+    if (currentYear === 'all') {
+      crossDescBlindaje.innerHTML = 'Aba Ultra sumó <strong>' + formatNum(totalInstF) + ' instalaciones</strong> frente a <strong>' + formatNum(totalRetF) + ' retiros propios</strong> en el periodo 2024-2026, logrando un balance neto positivo de <strong>+' + formatNum(balanceNetoF) + ' clientes</strong>. El foco estratégico exige acelerar la migración de cobre y blindar la base activa (' + formatNum(carteraFinalF) + ' suscriptores) para maximizar la retención.';
+    } else {
+      crossDescBlindaje.innerHTML = 'La cartera de fibra adquirió <strong>' + formatNum(totalInstF) + ' clientes</strong> frente a <strong>' + formatNum(totalRetF) + ' retiros propios</strong>, arrojando un balance neto definitivo de <strong>' + (balanceNetoF >= 0 ? '+' : '') + formatNum(balanceNetoF) + ' cuentas</strong>. Se requiere sincronizar la desconexión de cobre con la instalación de fibra y blindar la base activa (' + formatNum(carteraFinalF) + ' suscriptores) para maximizar la retención.';
+    }
   }
   const crossFooterBlindaje = document.getElementById('crossFooterBlindaje');
   if (crossFooterBlindaje) {
@@ -3222,208 +4138,1188 @@ function initStandaloneReport() {
   buildTrendChart();
 }
 
+
+// ========================================================
+// Multi-Product & Categorized Filter State & Functions
+// ========================================================
+const productMetadata = {
+  fibra: {
+    jsonKey: 'Aba Ultra',
+    label: 'Aba Fibra',
+    shortLabel: 'Fibra',
+    badgeLabel: 'Prom. Ultra',
+    service: 'internet',
+    color: '#FF2AAB',
+    bg: 'rgba(255, 42, 171, 0.15)',
+    border: 'rgba(255, 42, 171, 0.4)',
+    icon: 'zap',
+    retColor: '#F43F5E'
+  },
+  cobre: {
+    jsonKey: 'Aba Tradicional',
+    label: 'Aba Cobre',
+    shortLabel: 'Cobre',
+    badgeLabel: 'Prom. Cobre',
+    service: 'internet',
+    color: '#FF8C42',
+    bg: 'rgba(255, 140, 66, 0.15)',
+    border: 'rgba(255, 140, 66, 0.4)',
+    icon: 'layers',
+    retColor: '#FB7185'
+  },
+  telefonia: {
+    jsonKey: 'Telefonía',
+    label: 'Telefonía',
+    shortLabel: 'Telefonía',
+    badgeLabel: 'Prom. Telefonía',
+    service: 'telefonia',
+    color: '#3B82F6',
+    bg: 'rgba(59, 130, 246, 0.15)',
+    border: 'rgba(59, 130, 246, 0.4)',
+    icon: 'phone',
+    retColor: '#60A5FA'
+  },
+  telefoniaIP: {
+    jsonKey: 'Telefonía IP',
+    label: 'Telefonía IP',
+    shortLabel: 'Tel IP',
+    badgeLabel: 'Prom. Telef. IP',
+    service: 'telefonia',
+    color: '#00D2FF',
+    bg: 'rgba(0, 210, 255, 0.15)',
+    border: 'rgba(0, 210, 255, 0.4)',
+    icon: 'server',
+    retColor: '#38BDF8'
+  },
+  tdh: {
+    jsonKey: 'TDH',
+    label: 'TDH',
+    shortLabel: 'TDH',
+    badgeLabel: 'Prom. TDH',
+    service: 'television',
+    color: '#FFD700',
+    bg: 'rgba(255, 215, 0, 0.15)',
+    border: 'rgba(255, 215, 0, 0.4)',
+    icon: 'tv',
+    retColor: '#FCD34D'
+  },
+  tvgo: {
+    jsonKey: 'Aba TV GO',
+    label: 'Aba TV GO',
+    shortLabel: 'TV GO',
+    badgeLabel: 'Prom. TV GO',
+    service: 'television',
+    color: '#A855F7',
+    bg: 'rgba(168, 85, 247, 0.15)',
+    border: 'rgba(168, 85, 247, 0.4)',
+    icon: 'tv',
+    retColor: '#C084FC'
+  }
+};
+
+const serviceMetadata = {
+  internet: {
+    label: 'Internet (Aba Ultra + Aba Tradicional)',
+    shortLabel: 'Internet',
+    products: ['fibra', 'cobre'],
+    color: '#00D2FF',
+    bg: 'rgba(0, 210, 255, 0.15)',
+    border: 'rgba(0, 210, 255, 0.4)',
+    icon: 'zap'
+  },
+  telefonia: {
+    label: 'Telefonía (Telefonía + Telefonía IP)',
+    shortLabel: 'Telefonía',
+    products: ['telefonia', 'telefoniaIP'],
+    color: '#3B82F6',
+    bg: 'rgba(59, 130, 246, 0.15)',
+    border: 'rgba(59, 130, 246, 0.4)',
+    icon: 'phone'
+  },
+  television: {
+    label: 'Televisión (Aba TV GO + TDH)',
+    shortLabel: 'Televisión',
+    products: ['tdh', 'tvgo'],
+    color: '#FFD700',
+    bg: 'rgba(255, 215, 0, 0.15)',
+    border: 'rgba(255, 215, 0, 0.4)',
+    icon: 'tv'
+  }
+};
+
+const serviceProductMap = {
+  internet: ['fibra', 'cobre'],
+  telefonia: ['telefonia', 'telefoniaIP'],
+  television: ['tdh', 'tvgo']
+};
+
+let currentFrecuencia = 'mensual';
+
+function getQuarterlyAggregation(prodObj) {
+  const quarters = [
+    { name: 'TRIM 1', indices: [0, 1, 2] },
+    { name: 'TRIM 2', indices: [3, 4, 5] },
+    { name: 'TRIM 3', indices: [6, 7, 8] },
+    { name: 'TRIM 4', indices: [9, 10, 11] }
+  ];
+
+  const qInst = [];
+  const qRet = [];
+  const qNet = [];
+  const qCar = [];
+  const qTncc = [];
+  const qChurn = [];
+
+  quarters.forEach(q => {
+    // Only process valid indices for the available months
+    const validIndices = q.indices.filter(idx => idx < prodObj.instalaciones.length);
+    if (validIndices.length === 0) return;
+
+    const inst = validIndices.reduce((s, i) => s + (prodObj.instalaciones[i] || 0), 0);
+    const ret = validIndices.reduce((s, i) => s + (prodObj.retiros[i] || 0), 0);
+    const net = inst - ret;
+    const lastIdx = validIndices[validIndices.length - 1];
+    const firstIdx = validIndices[0];
+    const car = (prodObj.carteraCierre && prodObj.carteraCierre[lastIdx]) ? prodObj.carteraCierre[lastIdx] : (prodObj.carteraInicio[lastIdx] || 0);
+    const cIni = prodObj.carteraInicio[firstIdx] || 1;
+    const tncc = cIni > 0 ? parseFloat(((net / cIni) * 100).toFixed(2)) : 0;
+    const churn = cIni > 0 ? parseFloat(((ret / cIni) * 100).toFixed(2)) : 0;
+
+    qInst.push(inst);
+    qRet.push(ret);
+    qNet.push(net);
+    qCar.push(car);
+    qTncc.push(tncc);
+    qChurn.push(churn);
+  });
+
+  return {
+    instalaciones: qInst,
+    retiros: qRet,
+    carteraNeta: qNet,
+    cartera: qCar,
+    tncc: qTncc,
+    churn: qChurn
+  };
+}
+
+
+// ========================================================
+// Multi-Annual (2024 - 2026) Aggregation & Series Helpers
+// ========================================================
+function initMultianualData() {
+  if (telecomDataByYear['all']) return;
+  const anios = ['2024', '2025', '2026'];
+  const allFibra = {
+    name: "Aba Ultra (Fibra Óptica)",
+    type: "fibra",
+    color: "#00D2FF",
+    colorAlpha: "rgba(0, 210, 255, 0.85)",
+    months: [],
+    carteraInicio: [],
+    carteraCierre: [],
+    instalaciones: [],
+    retiros: [],
+    tncc: [],
+    churn: []
+  };
+  const allCobre = {
+    name: "Aba Cobre (Tradicional)",
+    type: "cobre",
+    color: "#FF8C42",
+    colorAlpha: "rgba(255, 140, 66, 0.85)",
+    months: [],
+    carteraInicio: [],
+    carteraCierre: [],
+    instalaciones: [],
+    retiros: [],
+    tncc: [],
+    churn: []
+  };
+
+  anios.forEach(y => {
+    const yData = telecomDataByYear[y];
+    if (!yData) return;
+    const yShort = y.slice(2);
+    if (yData.fibra && yData.fibra.months) {
+      yData.fibra.months.forEach((m, i) => {
+        allFibra.months.push(m + ' ' + yShort);
+        allFibra.carteraInicio.push(yData.fibra.carteraInicio[i] || 0);
+        allFibra.carteraCierre.push((yData.fibra.carteraCierre && yData.fibra.carteraCierre[i]) ? yData.fibra.carteraCierre[i] : (yData.fibra.carteraInicio[i] || 0));
+        allFibra.instalaciones.push(yData.fibra.instalaciones[i] || 0);
+        allFibra.retiros.push(yData.fibra.retiros[i] || 0);
+        allFibra.tncc.push(yData.fibra.tncc ? yData.fibra.tncc[i] : 0);
+        allFibra.churn.push(yData.fibra.churn ? yData.fibra.churn[i] : 0);
+      });
+    }
+    if (yData.cobre && yData.cobre.months) {
+      yData.cobre.months.forEach((m, i) => {
+        allCobre.months.push(m + ' ' + yShort);
+        allCobre.carteraInicio.push(yData.cobre.carteraInicio[i] || 0);
+        allCobre.carteraCierre.push((yData.cobre.carteraCierre && yData.cobre.carteraCierre[i]) ? yData.cobre.carteraCierre[i] : (yData.cobre.carteraInicio[i] || 0));
+        allCobre.instalaciones.push(yData.cobre.instalaciones[i] || 0);
+        allCobre.retiros.push(yData.cobre.retiros[i] || 0);
+        allCobre.tncc.push(yData.cobre.tncc ? yData.cobre.tncc[i] : 0);
+        allCobre.churn.push(yData.cobre.churn ? yData.cobre.churn[i] : 0);
+      });
+    }
+  });
+
+  telecomDataByYear['all'] = {
+    fibra: allFibra,
+    cobre: allCobre
+  };
+}
+
+function getAnnualProductData(prodKey) {
+  const meta = productMetadata[prodKey];
+  if (!meta) return null;
+  const jsonKey = meta.jsonKey;
+  const raw = (typeof telecomRawJson !== 'undefined' && telecomRawJson.datosPorProductos) ? telecomRawJson.datosPorProductos.anios : {};
+  const aniosList = ['2024', '2025', '2026'];
+  const mesesNombres = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+  const res = {
+    carteraInicio: [],
+    carteraCierre: [],
+    cartera: [],
+    instalaciones: [],
+    retiros: [],
+    carteraNeta: [],
+    tncc: [],
+    churn: []
+  };
+
+  aniosList.forEach(y => {
+    const pData = raw[y] ? raw[y][jsonKey] : null;
+    let instY = 0, retY = 0, cIniY = null, cFinY = null, sumCarY = 0, countY = 0;
+    if (pData) {
+      mesesNombres.forEach(m => {
+        if (!pData[m]) return;
+        if (y === '2026' && (m === 'Noviembre' || m === 'Diciembre') && pData[m].cartera === 0) return;
+        const c = pData[m].cartera || 0;
+        const cNet = pData[m].carteraNeta || 0;
+        const inst = pData[m].instalaciones || 0;
+        const ret = pData[m].retiros || 0;
+
+        if (cIniY === null && c > 0) cIniY = c;
+        if (cNet > 0) cFinY = cNet;
+
+        instY += inst;
+        retY += ret;
+        sumCarY += c;
+        countY++;
+      });
+    }
+
+    const netY = instY - retY;
+    const tnccY = cIniY > 0 ? parseFloat(((netY / cIniY) * 100).toFixed(2)) : 0;
+    const promCarY = countY > 0 ? sumCarY / countY : (cIniY || 1);
+    const churnY = promCarY > 0 ? parseFloat(((retY / promCarY) * 100).toFixed(2)) : 0;
+
+    res.carteraInicio.push(cIniY || 0);
+    res.carteraCierre.push(cFinY || 0);
+    res.cartera.push(cFinY || 0);
+    res.instalaciones.push(instY);
+    res.retiros.push(retY);
+    res.carteraNeta.push(netY);
+    res.tncc.push(tnccY);
+    res.churn.push(churnY);
+  });
+
+  return res;
+}
+
+function getMultianualMonthlyProductData(prodKey) {
+  const meta = productMetadata[prodKey];
+  if (!meta) return null;
+  const jsonKey = meta.jsonKey;
+  const raw = (typeof telecomRawJson !== 'undefined' && telecomRawJson.datosPorProductos) ? telecomRawJson.datosPorProductos.anios : {};
+  const aniosList = ['2024', '2025', '2026'];
+  const mesesNombres = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+  const res = {
+    carteraInicio: [],
+    carteraCierre: [],
+    cartera: [],
+    instalaciones: [],
+    retiros: [],
+    carteraNeta: [],
+    tncc: [],
+    churn: []
+  };
+
+  aniosList.forEach(y => {
+    const pData = raw[y] ? raw[y][jsonKey] : null;
+    if (pData) {
+      mesesNombres.forEach(m => {
+        if (!pData[m]) return;
+        if (y === '2026' && (m === 'Noviembre' || m === 'Diciembre') && pData[m].cartera === 0) return;
+        const c = pData[m].cartera || 0;
+        const cNet = pData[m].carteraNeta || 0;
+        const inst = pData[m].instalaciones || 0;
+        const ret = pData[m].retiros || 0;
+        const net = inst - ret;
+        const tncc = c > 0 ? parseFloat(((net / c) * 100).toFixed(2)) : 0;
+        const churn = c > 0 ? parseFloat(((ret / c) * 100).toFixed(2)) : 0;
+
+        res.carteraInicio.push(c);
+        res.carteraCierre.push(cNet);
+        res.cartera.push(cNet);
+        res.instalaciones.push(inst);
+        res.retiros.push(ret);
+        res.carteraNeta.push(net);
+        res.tncc.push(tncc);
+        res.churn.push(churn);
+      });
+    }
+  });
+
+  return res;
+}
+
+function getMultianualQuarterlyAggregation(prodObj) {
+  const len = prodObj.instalaciones.length;
+  const qInst = [];
+  const qRet = [];
+  const qNet = [];
+  const qCar = [];
+  const qTncc = [];
+  const qChurn = [];
+
+  for (let startIdx = 0; startIdx < len; startIdx += 3) {
+    const endIdx = Math.min(startIdx + 3, len);
+    let inst = 0, ret = 0;
+    for (let i = startIdx; i < endIdx; i++) {
+      inst += (prodObj.instalaciones[i] || 0);
+      ret += (prodObj.retiros[i] || 0);
+    }
+    const net = inst - ret;
+    const last = endIdx - 1;
+    const cIni = prodObj.carteraInicio[startIdx] || 1;
+    const car = (prodObj.carteraCierre && prodObj.carteraCierre[last]) ? prodObj.carteraCierre[last] : (prodObj.carteraInicio[last] || 0);
+    const tncc = cIni > 0 ? parseFloat(((net / cIni) * 100).toFixed(2)) : 0;
+    const churn = cIni > 0 ? parseFloat(((ret / cIni) * 100).toFixed(2)) : 0;
+
+    qInst.push(inst);
+    qRet.push(ret);
+    qNet.push(net);
+    qCar.push(car);
+    qTncc.push(tncc);
+    qChurn.push(churn);
+  }
+
+  return {
+    carteraInicio: qCar,
+    carteraCierre: qCar,
+    cartera: qCar,
+    instalaciones: qInst,
+    retiros: qRet,
+    carteraNeta: qNet,
+    tncc: qTncc,
+    churn: qChurn
+  };
+}
+
+function getSeriesData(prodKey, frecuencia) {
+  const meta = productMetadata[prodKey];
+  if (!meta) return null;
+
+  if (frecuencia === 'anual') {
+    return getAnnualProductData(prodKey);
+  }
+
+  if (currentYear === 'all') {
+    const multiMonthly = getMultianualMonthlyProductData(prodKey);
+    if (frecuencia === 'trimestral') {
+      return getMultianualQuarterlyAggregation(multiMonthly);
+    }
+    return multiMonthly;
+  }
+
+  let monthlyData = null;
+  const rawStore = (typeof telecomRawJson !== 'undefined') ? telecomRawJson : null;
+  if (rawStore && rawStore.datosPorProductos && rawStore.datosPorProductos.anios && rawStore.datosPorProductos.anios[currentYear]) {
+    const rawAnio = rawStore.datosPorProductos.anios[currentYear];
+    const pData = rawAnio[meta.jsonKey];
+    if (pData) {
+      const mesesNombres = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+      const mesesDisponibles = mesesNombres.filter(m => {
+        if (!pData[m]) return false;
+        if (currentYear === '2026' && (m === 'Noviembre' || m === 'Diciembre') && pData[m].cartera === 0) return false;
+        return true;
+      });
+      const cIni = mesesDisponibles.map(m => pData[m].cartera || 0);
+      const cCie = mesesDisponibles.map(m => pData[m].carteraNeta || 0);
+      const inst = mesesDisponibles.map(m => pData[m].instalaciones || 0);
+      const ret = mesesDisponibles.map(m => pData[m].retiros || 0);
+      const net = inst.map((v, i) => v - ret[i]);
+      const tncc = mesesDisponibles.map(m => pData[m].tncc ? parseFloat(pData[m].tncc.replace(',', '.').replace('%', '')) : 0);
+      const churn = cIni.map((car, i) => car > 0 ? parseFloat(((ret[i] / car) * 100).toFixed(2)) : 0);
+
+      monthlyData = {
+        carteraInicio: cIni,
+        carteraCierre: cCie,
+        cartera: cCie,
+        instalaciones: inst,
+        retiros: ret,
+        carteraNeta: net,
+        tncc: tncc,
+        churn: churn
+      };
+    }
+  }
+
+  if (!monthlyData && telecomData[prodKey]) {
+    const td = telecomData[prodKey];
+    const inst = td.instalaciones || [];
+    const ret = td.retiros || [];
+    const cIni = td.carteraInicio || [];
+    const churn = cIni.map((car, i) => car > 0 ? parseFloat(((ret[i] / car) * 100).toFixed(2)) : 0);
+    monthlyData = {
+      carteraInicio: cIni,
+      carteraCierre: td.carteraCierre || td.carteraInicio || [],
+      cartera: td.carteraCierre || td.carteraInicio || [],
+      instalaciones: inst,
+      retiros: ret,
+      carteraNeta: inst.map((v, i) => v - (ret[i] || 0)),
+      tncc: td.tncc || [],
+      churn: churn
+    };
+  }
+
+  if (!monthlyData) return null;
+
+  if (frecuencia === 'trimestral') {
+    return getQuarterlyAggregation(monthlyData);
+  }
+
+  return monthlyData;
+}
+
+function toggleCategoryDropdown(menuId, event) {
+  if (event) event.stopPropagation();
+  const targetMenu = document.getElementById(menuId);
+  if (!targetMenu) return;
+  const isOpen = targetMenu.classList.contains('open');
+
+  // Close all open dropdowns
+  document.querySelectorAll('.multi-select-menu.open').forEach(m => m.classList.remove('open'));
+  document.querySelectorAll('.category-dropdown-btn.active').forEach(b => b.classList.remove('active'));
+
+  if (!isOpen) {
+    targetMenu.classList.add('open');
+    const btn = targetMenu.previousElementSibling;
+    if (btn) btn.classList.add('active');
+  }
+}
+
+function getSelectedCheckboxValues(name) {
+  const checkboxes = document.querySelectorAll('input[name="' + name + '"]:checked');
+  return Array.from(checkboxes).map(cb => cb.value);
+}
+
+function getServiceSeriesData(srvKey, frecuencia) {
+  const sDef = serviceMetadata[srvKey];
+  if (!sDef) return null;
+
+  if (frecuencia === 'anual') {
+    const seriesList = sDef.products.map(pKey => getAnnualProductData(pKey)).filter(Boolean);
+    if (seriesList.length === 0) return null;
+    const len = seriesList[0].instalaciones.length;
+    const cIni = Array(len).fill(0);
+    const cCie = Array(len).fill(0);
+    const inst = Array(len).fill(0);
+    const ret = Array(len).fill(0);
+
+    seriesList.forEach(s => {
+      for (let i = 0; i < len; i++) {
+        cIni[i] += (s.carteraInicio[i] || 0);
+        cCie[i] += (s.carteraCierre[i] || 0);
+        inst[i] += (s.instalaciones[i] || 0);
+        ret[i] += (s.retiros[i] || 0);
+      }
+    });
+
+    const net = inst.map((v, i) => v - ret[i]);
+    const tncc = cIni.map((ini, i) => ini > 0 ? parseFloat(((net[i] / ini) * 100).toFixed(2)) : 0);
+    const churn = cIni.map((ini, i) => ini > 0 ? parseFloat(((ret[i] / ini) * 100).toFixed(2)) : 0);
+
+    return {
+      carteraInicio: cIni,
+      carteraCierre: cCie,
+      cartera: cCie,
+      instalaciones: inst,
+      retiros: ret,
+      carteraNeta: net,
+      tncc: tncc,
+      churn: churn
+    };
+  }
+
+  const seriesList = sDef.products.map(pKey => getSeriesData(pKey, currentYear === 'all' ? 'mensual' : 'mensual')).filter(Boolean);
+  if (seriesList.length === 0) return null;
+
+  const len = seriesList[0].instalaciones.length;
+  const cIni = Array(len).fill(0);
+  const cCie = Array(len).fill(0);
+  const inst = Array(len).fill(0);
+  const ret = Array(len).fill(0);
+
+  seriesList.forEach(s => {
+    for (let i = 0; i < len; i++) {
+      cIni[i] += (s.carteraInicio[i] || 0);
+      cCie[i] += (s.carteraCierre[i] || 0);
+      inst[i] += (s.instalaciones[i] || 0);
+      ret[i] += (s.retiros[i] || 0);
+    }
+  });
+
+  const net = inst.map((v, i) => v - ret[i]);
+  const tncc = cIni.map((ini, i) => ini > 0 ? parseFloat(((net[i] / ini) * 100).toFixed(2)) : 0);
+  const churn = cIni.map((ini, i) => ini > 0 ? parseFloat(((ret[i] / ini) * 100).toFixed(2)) : 0);
+
+  const monthlyData = {
+    carteraInicio: cIni,
+    carteraCierre: cCie,
+    cartera: cCie,
+    instalaciones: inst,
+    retiros: ret,
+    carteraNeta: net,
+    tncc: tncc,
+    churn: churn
+  };
+
+  if (frecuencia === 'trimestral') {
+    if (currentYear === 'all') {
+      return getMultianualQuarterlyAggregation(monthlyData);
+    }
+    return getQuarterlyAggregation(monthlyData);
+  }
+  return monthlyData;
+}
+
+function handleServiceFilterChange() {
+  const selectedServices = getSelectedCheckboxValues('filterService');
+  const isConsolidated = document.getElementById('chkConsolidateServices') ? document.getElementById('chkConsolidateServices').checked : false;
+
+  const lbl = document.getElementById('lblSelectedServicios');
+  if (lbl) {
+    if (selectedServices.length === 0) {
+      lbl.textContent = 'Ninguno (0)';
+    } else if (selectedServices.length === 3) {
+      lbl.textContent = 'Todos los servicios (3)';
+    } else {
+      const names = selectedServices.map(s => serviceMetadata[s]?.shortLabel || s);
+      lbl.textContent = names.join(', ') + ' (' + selectedServices.length + ')';
+    }
+  }
+
+  // Synchronize child products checkboxes if not in consolidated mode
+  if (!isConsolidated) {
+    const allProdsToEnable = [];
+    selectedServices.forEach(s => {
+      if (serviceProductMap[s]) allProdsToEnable.push(...serviceProductMap[s]);
+    });
+    document.querySelectorAll('input[name="filterProduct"]').forEach(cb => {
+      cb.checked = allProdsToEnable.includes(cb.value);
+    });
+    const pLbl = document.getElementById('lblSelectedProductos');
+    if (pLbl) {
+      const checkedProds = getSelectedCheckboxValues('filterProduct');
+      if (checkedProds.length === 0) pLbl.textContent = 'Ninguno (0)';
+      else if (checkedProds.length >= 6) pLbl.textContent = 'Todos los productos (' + checkedProds.length + ')';
+      else {
+        const names = checkedProds.map(k => productMetadata[k]?.shortLabel || k);
+        pLbl.textContent = names.join(', ') + ' (' + checkedProds.length + ')';
+      }
+    }
+  }
+
+  buildTrendChart();
+}
+
+function handleConsolidateServicesToggle(checked) {
+  buildTrendChart();
+}
+
+function handleProductFilterChange() {
+  const selected = getSelectedCheckboxValues('filterProduct');
+  const lbl = document.getElementById('lblSelectedProductos');
+  if (lbl) {
+    if (selected.length === 0) {
+      lbl.textContent = 'Ninguno (0)';
+    } else if (selected.length >= 6) {
+      lbl.textContent = 'Todos los productos (' + selected.length + ')';
+    } else {
+      const names = selected.map(k => productMetadata[k] ? productMetadata[k].shortLabel : k);
+      lbl.textContent = names.join(', ') + ' (' + selected.length + ')';
+    }
+  }
+
+  // Sync service checkboxes
+  ['internet', 'telefonia', 'television'].forEach(srv => {
+    const prods = serviceProductMap[srv] || [];
+    const hasAny = prods.some(p => selected.includes(p));
+    const cb = document.querySelector('input[name="filterService"][value="' + srv + '"]');
+    if (cb) cb.checked = hasAny;
+  });
+
+  const sLbl = document.getElementById('lblSelectedServicios');
+  if (sLbl) {
+    const selSrv = getSelectedCheckboxValues('filterService');
+    if (selSrv.length === 0) sLbl.textContent = 'Ninguno (0)';
+    else if (selSrv.length === 3) sLbl.textContent = 'Todos los servicios (3)';
+    else sLbl.textContent = selSrv.map(s => serviceMetadata[s]?.shortLabel || s).join(', ') + ' (' + selSrv.length + ')';
+  }
+
+  buildTrendChart();
+}
+
+function handleIndicatorFilterChange() {
+  const selected = getSelectedCheckboxValues('filterIndicator');
+  const lbl = document.getElementById('lblSelectedIndicadores');
+  const indLabels = {
+    cartera: 'Cartera',
+    instalaciones: 'Instalaciones',
+    retiros: 'Retiros',
+    carteraNeta: 'Cartera Neta',
+    tncc: 'TNCC %',
+    churn: 'Churn %'
+  };
+  if (lbl) {
+    if (selected.length === 0) {
+      lbl.textContent = 'Ninguno (0)';
+    } else if (selected.length >= 6) {
+      lbl.textContent = 'Todas las métricas (' + selected.length + ')';
+    } else {
+      const names = selected.map(k => indLabels[k] || k);
+      lbl.textContent = names.join(', ') + ' (' + selected.length + ')';
+    }
+  }
+  buildTrendChart();
+}
+
+function toggleAllCategory(type, selectAll) {
+  let name = 'filterProduct';
+  if (type === 'servicios') name = 'filterService';
+  else if (type === 'indicadores') name = 'filterIndicator';
+
+  document.querySelectorAll('input[name="' + name + '"]').forEach(cb => {
+    cb.checked = selectAll;
+  });
+  if (type === 'servicios') handleServiceFilterChange();
+  else if (type === 'productos') handleProductFilterChange();
+  else handleIndicatorFilterChange();
+}
+
+function changeFrecuencia(frec) {
+  currentFrecuencia = frec;
+  const chartTitle = document.getElementById('chartMainTitle');
+  if (chartTitle) {
+    if (frec === 'anual') {
+      chartTitle.textContent = 'Evolución Anual (AÑO) de Indicadores Claves por Producto';
+    } else if (frec === 'trimestral') {
+      chartTitle.textContent = 'Evolución Trimestral (TRIM) de Indicadores Claves por Producto';
+    } else {
+      chartTitle.textContent = 'Evolución Mensual de Indicadores Claves por Producto';
+    }
+  }
+  buildTrendChart();
+}
+
+// Global click outside listener to dismiss dropdown menus
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.filter-dropdown-container')) {
+    document.querySelectorAll('.multi-select-menu.open').forEach(menu => {
+      menu.classList.remove('open');
+    });
+    document.querySelectorAll('.category-dropdown-btn.active').forEach(btn => {
+      btn.classList.remove('active');
+    });
+  }
+});
+
+function updateTrendBadges() {
+  const container = document.getElementById('trendBadgesContainer') || document.getElementById('trendBadgesGroup');
+  if (!container) return;
+
+  const svgIcons = {
+    zap: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-zap"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>',
+    layers: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>',
+    phone: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>',
+    server: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-server"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>',
+    tv: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tv"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>',
+    userMinus: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-minus"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="22" y1="11" x2="16" y2="11"></line></svg>',
+    trendingDown: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-down"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline><polyline points="17 18 23 18 23 12"></polyline></svg>',
+    calendar: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar"><path d="M8 2v3"></path><path d="M16 2v3"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18"></path></svg>'
+  };
+
+  const isConsolidated = document.getElementById('chkConsolidateServices') ? document.getElementById('chkConsolidateServices').checked : false;
+  let badgesHtml = '';
+
+  let totalMonthlyChurnRates = [];
+  let totalRetAll = 0;
+  let sumCarAll = 0;
+  let numMonthsCount = 0;
+
+  if (isConsolidated) {
+    const selectedServices = getSelectedCheckboxValues('filterService');
+    const srvToShow = (selectedServices && selectedServices.length > 0) ? selectedServices : ['internet'];
+
+    srvToShow.forEach(srvKey => {
+      const sDef = serviceMetadata[srvKey];
+      if (!sDef) return;
+      const sData = getServiceSeriesData(srvKey, currentFrecuencia);
+      if (sData && sData.tncc && sData.tncc.length > 0) {
+        const valid = sData.tncc.filter(v => typeof v === 'number' && !isNaN(v));
+        if (valid.length > 0) {
+          const avgVal = valid.reduce((s, v) => s + v, 0) / valid.length;
+          const sign = avgVal >= 0 ? '+' : '';
+          const formatted = sign + avgVal.toFixed(2).replace('.', ',') + '%';
+          const iconSvg = svgIcons[sDef.icon] || svgIcons.zap;
+          badgesHtml += '<span class="trend-badge" style="background: ' + sDef.bg + '; border-color: ' + sDef.border + '; color: ' + sDef.color + ';">' +
+            iconSvg + ' Prom. ' + sDef.shortLabel + ': ' + formatted +
+          '</span> ';
+        }
+      }
+    });
+
+    const monthlySeriesList = srvToShow.map(k => getServiceSeriesData(k, 'mensual')).filter(Boolean);
+    if (monthlySeriesList.length > 0) {
+      numMonthsCount = monthlySeriesList[0].instalaciones.length;
+      for (let m = 0; m < numMonthsCount; m++) {
+        let mRet = 0;
+        let mCar = 0;
+        monthlySeriesList.forEach(s => {
+          mRet += (s.retiros[m] || 0);
+          mCar += (s.carteraInicio[m] || 0);
+        });
+        totalRetAll += mRet;
+        sumCarAll += mCar;
+        if (mCar > 0) {
+          totalMonthlyChurnRates.push((mRet / mCar) * 100);
+        }
+      }
+    }
+  } else {
+    const selectedProducts = getSelectedCheckboxValues('filterProduct');
+    const prodsToShow = (selectedProducts && selectedProducts.length > 0) ? selectedProducts : ['fibra', 'cobre'];
+
+    prodsToShow.forEach(prodKey => {
+      const meta = productMetadata[prodKey];
+      if (!meta) return;
+
+      let avgVal = null;
+      const series = getSeriesData(prodKey, currentFrecuencia);
+      if (series && series.tncc && series.tncc.length > 0) {
+        const valid = series.tncc.filter(v => typeof v === 'number' && !isNaN(v));
+        if (valid.length > 0) {
+          avgVal = valid.reduce((s, v) => s + v, 0) / valid.length;
+        }
+      } else if (telecomData && telecomData[prodKey] && telecomData[prodKey].tncc && telecomData[prodKey].tncc.length > 0) {
+        const valid = telecomData[prodKey].tncc.filter(v => typeof v === 'number' && !isNaN(v));
+        if (valid.length > 0) {
+          avgVal = valid.reduce((s, v) => s + v, 0) / valid.length;
+        }
+      }
+
+      if (avgVal !== null) {
+        const sign = avgVal >= 0 ? '+' : '';
+        const formatted = sign + avgVal.toFixed(2).replace('.', ',') + '%';
+        const iconSvg = svgIcons[meta.icon] || svgIcons.zap;
+        badgesHtml += '<span class="trend-badge" style="background: ' + meta.bg + '; border-color: ' + meta.border + '; color: ' + meta.color + ';">' +
+          iconSvg + ' ' + meta.badgeLabel + ': ' + formatted +
+        '</span> ';
+      }
+    });
+
+    const monthlySeriesList = prodsToShow.map(k => getSeriesData(k, 'mensual')).filter(Boolean);
+    if (monthlySeriesList.length > 0) {
+      numMonthsCount = monthlySeriesList[0].instalaciones.length;
+      for (let m = 0; m < numMonthsCount; m++) {
+        let mRet = 0;
+        let mCar = 0;
+        monthlySeriesList.forEach(s => {
+          mRet += (s.retiros[m] || 0);
+          mCar += (s.carteraInicio[m] || 0);
+        });
+        totalRetAll += mRet;
+        sumCarAll += mCar;
+        if (mCar > 0) {
+          totalMonthlyChurnRates.push((mRet / mCar) * 100);
+        }
+      }
+    }
+  }
+
+  // Dynamic Churn Metric Badge: Churn Acum + Prom
+  if (totalMonthlyChurnRates.length > 0) {
+    const avgChurnVal = totalMonthlyChurnRates.reduce((a, b) => a + b, 0) / totalMonthlyChurnRates.length;
+    let churnAcumVal = 0;
+    if (sumCarAll > 0 && numMonthsCount > 0) {
+      const promCar = sumCarAll / numMonthsCount;
+      churnAcumVal = (totalRetAll / promCar) * 100;
+    }
+    let churnLabel = 'Churn Acum: ' + churnAcumVal.toFixed(2).replace('.', ',') + '% (Prom: ' + avgChurnVal.toFixed(2).replace('.', ',') + '%)';
+    if (currentFrecuencia === 'trimestral') {
+      const trimChurn = avgChurnVal * 3;
+      churnLabel = 'Churn Acum: ' + churnAcumVal.toFixed(2).replace('.', ',') + '% (TRIM: ' + trimChurn.toFixed(2).replace('.', ',') + '%)';
+    }
+    const churnIcon = svgIcons.userMinus || svgIcons.trendingDown;
+    badgesHtml += '<span class="trend-badge" style="background: rgba(244, 63, 94, 0.15); border-color: rgba(244, 63, 94, 0.4); color: #F43F5E;">' +
+      churnIcon + ' ' + churnLabel +
+    '</span> ';
+  }
+
+  // Calendar Period Badge
+  let mesIni = 'Ene';
+  let mesFin = 'Dic';
+  if (telecomData && telecomData.fibra && telecomData.fibra.months && telecomData.fibra.months.length) {
+    mesIni = telecomData.fibra.months[0];
+    mesFin = telecomData.fibra.months[telecomData.fibra.months.length - 1];
+  }
+  let periodText = '';
+  if (currentYear === 'all') {
+    periodText = currentFrecuencia === 'anual' ? 'Años 2024 - 2026' : 'Histórico 2024 - 2026';
+  } else if (currentFrecuencia === 'anual') {
+    periodText = 'Comparativo Anual';
+  } else if (currentFrecuencia === 'trimestral') {
+    periodText = 'TRIM 1 - TRIM 4 ' + currentYear;
+  } else {
+    periodText = mesIni + ' - ' + mesFin + ' ' + currentYear;
+  }
+
+  const calSvg = svgIcons.calendar;
+  badgesHtml += '<span class="trend-badge" style="background: rgba(255, 215, 0, 0.15); border-color: rgba(255, 215, 0, 0.4); color: #FFD700;">' +
+    calSvg + ' ' + periodText +
+  '</span>';
+
+  container.innerHTML = badgesHtml;
+}
+
 function buildTrendChart() {
+  updateTrendBadges();
   const canvasEl = document.getElementById('trendChartCanvas');
   if (!canvasEl) return;
   const ctx = canvasEl.getContext('2d');
   if (trendChartInstance) trendChartInstance.destroy();
 
-  const f = telecomData.fibra;
-  const c = telecomData.cobre;
-  const months = f.months;
+  const selectedProducts = getSelectedCheckboxValues('filterProduct');
+  const selectedIndicators = getSelectedCheckboxValues('filterIndicator');
+
+  // Determine x-axis labels based on frequency
+  let xLabels = [];
+  if (currentFrecuencia === 'anual') {
+    xLabels = ['2024', '2025', '2026'];
+  } else if (currentFrecuencia === 'trimestral') {
+    if (currentYear === 'all') {
+      xLabels = [
+        'TRIM 1 (24)', 'TRIM 2 (24)', 'TRIM 3 (24)', 'TRIM 4 (24)',
+        'TRIM 1 (25)', 'TRIM 2 (25)', 'TRIM 3 (25)', 'TRIM 4 (25)',
+        'TRIM 1 (26)', 'TRIM 2 (26)', 'TRIM 3 (26)'
+      ];
+    } else {
+      xLabels = ['TRIM 1 (Ene-Mar)', 'TRIM 2 (Abr-Jun)', 'TRIM 3 (Jul-Sep)', 'TRIM 4 (Oct-Dic)'];
+    }
+  } else {
+    if (currentYear === 'all') {
+      xLabels = [
+        'Ene 24', 'Feb 24', 'Mar 24', 'Abr 24', 'May 24', 'Jun 24', 'Jul 24', 'Ago 24', 'Sep 24', 'Oct 24', 'Nov 24', 'Dic 24',
+        'Ene 25', 'Feb 25', 'Mar 25', 'Abr 25', 'May 25', 'Jun 25', 'Jul 25', 'Ago 25', 'Sep 25', 'Oct 25', 'Nov 25', 'Dic 25',
+        'Ene 26', 'Feb 26', 'Mar 26', 'Abr 26', 'May 26', 'Jun 26', 'Jul 26', 'Ago 26', 'Sep 26', 'Oct 26'
+      ];
+    } else if (telecomData.fibra && telecomData.fibra.months) {
+      xLabels = telecomData.fibra.months;
+    } else {
+      xLabels = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sept', 'Oct', 'Nov', 'Dic'];
+    }
+  }
 
   const datasets = [];
 
-  // 1. TNCC Fibra (%)
-  if (visibleSeries.tnccUltra) {
-    datasets.push({
-      type: 'line',
-      label: 'TNCC Aba Ultra (%)',
-      data: f.tncc,
-      borderColor: '#00D2FF',
-      backgroundColor: 'rgba(0, 210, 255, 0.12)',
-      fill: true,
-      tension: 0.25,
+  const indStyles = {
+    cartera: {
+      suffix: 'Cartera',
       borderWidth: 3,
-      pointBackgroundColor: '#00D2FF',
-      pointBorderColor: '#fff',
-      pointBorderWidth: 1.5,
-      pointRadius: 5,
-      pointHoverRadius: 7,
-      yAxisID: 'yTncc',
-      order: 1
-    });
-  }
-
-  // 2. TNCC Cobre (%)
-  if (visibleSeries.tnccCobre) {
-    datasets.push({
-      type: 'line',
-      label: 'TNCC Aba Cobre (%)',
-      data: c.tncc,
-      borderColor: '#FF8C42',
-      backgroundColor: 'rgba(255, 140, 66, 0.08)',
-      fill: true,
-      tension: 0.25,
-      borderWidth: 3,
-      pointBackgroundColor: '#FF8C42',
-      pointBorderColor: '#fff',
-      pointBorderWidth: 1.5,
-      pointRadius: 5,
-      pointHoverRadius: 7,
-      yAxisID: 'yTncc',
-      order: 2
-    });
-  }
-
-    // 3. Churn Fibra (%)
-  if (visibleSeries.churnFibra) {
-    const churnDataArr = f.churn || [0.40, 0.48, 1.40, 0.23, 0.33, 0.25, 11.70, 2.36, 2.60, 1.38];
-    datasets.push({
-      type: 'line',
-      label: 'Churn Fibra (%)',
-      data: churnDataArr,
-      borderColor: '#F43F5E',
-      backgroundColor: 'rgba(244, 63, 94, 0.10)',
+      borderDash: [],
+      pointStyle: 'rectRounded',
+      pointRadius: 4,
       fill: false,
-      tension: 0.25,
-      borderWidth: 2.5,
-      borderDash: [5, 4],
-      pointBackgroundColor: '#F43F5E',
-      pointBorderColor: '#fff',
-      pointBorderWidth: 1.5,
+      yAxisID: 'yFlujos'
+    },
+    instalaciones: {
+      suffix: 'Instalaciones',
+      borderWidth: 2.2,
+      borderDash: [],
+      pointStyle: 'circle',
       pointRadius: 5,
-      pointHoverRadius: 7,
-      pointStyle: 'triangle',
-      yAxisID: 'yTncc',
-      order: 0
-    });
-  }
-
-  // 3. Balance Neto Fibra
-  if (visibleSeries.netFibra) {
-    const netF = f.instalaciones.map((inst, i) => inst - (f.retiros[i] || 0));
-    datasets.push({
-      type: 'line',
-      label: 'Balance Neto Fibra',
-      data: netF,
-      borderColor: '#38BDF8',
-      backgroundColor: 'rgba(56, 189, 248, 0.15)',
-      borderWidth: 2.5,
-      tension: 0.2,
-      pointRadius: 5,
-      pointHoverRadius: 7,
-      pointBackgroundColor: '#38BDF8',
-      pointBorderColor: '#fff',
-      pointBorderWidth: 1.5,
-      yAxisID: 'yFlujos',
-      order: 3
-    });
-  }
-
-  // 4. Cartera Fibra
-  if (visibleSeries.carteraFibra) {
-    datasets.push({
-      type: 'line',
-      label: 'Cartera Cierre Fibra (Líneas)',
-      data: f.carteraCierre || f.carteraInicio,
-      borderColor: '#C084FC',
-      borderWidth: 2.5,
-      borderDash: [5, 4],
-      pointRadius: 4,
-      pointHoverRadius: 6,
-      pointBackgroundColor: '#C084FC',
-      pointBorderColor: '#fff',
-      yAxisID: 'yCarteraFibra',
-      order: 4
-    });
-  }
-
-  // 5. Cartera Cobre
-  if (visibleSeries.carteraCobre) {
-    datasets.push({
-      type: 'line',
-      label: 'Cartera Cierre Cobre (Líneas)',
-      data: c.carteraCierre || c.carteraInicio,
-      borderColor: '#FBBF24',
-      borderWidth: 2.5,
+      fill: true,
+      yAxisID: 'yFlujos'
+    },
+    retiros: {
+      suffix: 'Retiros',
+      borderWidth: 2.2,
       borderDash: [6, 4],
+      pointStyle: 'triangle',
+      pointRadius: 5,
+      fill: false,
+      yAxisID: 'yFlujos'
+    },
+    carteraNeta: {
+      suffix: 'Cartera Neta',
+      borderWidth: 2,
+      borderDash: [3, 3],
+      pointStyle: 'rect',
       pointRadius: 4,
-      pointHoverRadius: 6,
-      pointBackgroundColor: '#FBBF24',
-      pointBorderColor: '#fff',
-      yAxisID: 'yCarteraCobre',
-      order: 5
+      fill: false,
+      yAxisID: 'yFlujos'
+    },
+    tncc: {
+      suffix: 'TNCC %',
+      borderWidth: 2.5,
+      borderDash: [8, 3],
+      pointStyle: 'star',
+      pointRadius: 5,
+      fill: false,
+      yAxisID: 'yTncc'
+    },
+    churn: {
+      suffix: 'Churn %',
+      borderWidth: 2.4,
+      borderDash: [5, 4],
+      pointStyle: 'triangle',
+      pointRadius: 4.5,
+      fill: false,
+      yAxisID: 'yTncc'
+    }
+  };
+
+  const greenShades = {
+    fibra: { bg: 'rgba(16, 185, 129, 0.78)', border: '#10B981' },
+    cobre: { bg: 'rgba(5, 150, 105, 0.78)', border: '#059669' },
+    telefonia: { bg: 'rgba(52, 211, 153, 0.78)', border: '#34D399' },
+    telefoniaIP: { bg: 'rgba(20, 184, 166, 0.78)', border: '#14B8A6' },
+    tdh: { bg: 'rgba(132, 204, 22, 0.78)', border: '#84CC16' },
+    tvgo: { bg: 'rgba(168, 85, 247, 0.78)', border: '#A855F7' }
+  };
+
+  const redShades = {
+    fibra: { bg: 'rgba(244, 63, 94, 0.78)', border: '#F43F5E' },
+    cobre: { bg: 'rgba(239, 68, 68, 0.78)', border: '#EF4444' },
+    telefonia: { bg: 'rgba(225, 29, 72, 0.78)', border: '#E11D48' },
+    telefoniaIP: { bg: 'rgba(220, 38, 38, 0.78)', border: '#DC2626' },
+    tdh: { bg: 'rgba(185, 28, 28, 0.78)', border: '#B91C1C' },
+    tvgo: { bg: 'rgba(217, 70, 239, 0.78)', border: '#D946EF' }
+  };
+
+  const isConsolidated = document.getElementById('chkConsolidateServices') ? document.getElementById('chkConsolidateServices').checked : false;
+
+  if (isConsolidated) {
+    const selectedServices = getSelectedCheckboxValues('filterService');
+    const srvColors = {
+      internet: { primary: '#00D2FF', green: { bg: 'rgba(16, 185, 129, 0.85)', border: '#10B981' }, red: { bg: 'rgba(244, 63, 94, 0.85)', border: '#F43F5E' } },
+      telefonia: { primary: '#3B82F6', green: { bg: 'rgba(52, 211, 153, 0.85)', border: '#34D399' }, red: { bg: 'rgba(225, 29, 72, 0.85)', border: '#E11D48' } },
+      television: { primary: '#FFD700', green: { bg: 'rgba(132, 204, 22, 0.85)', border: '#84CC16' }, red: { bg: 'rgba(185, 28, 28, 0.85)', border: '#B91C1C' } }
+    };
+
+    selectedServices.forEach(srvKey => {
+      const sDef = serviceMetadata[srvKey];
+      if (!sDef) return;
+      const series = getServiceSeriesData(srvKey, currentFrecuencia);
+      if (!series) return;
+
+      const sc = srvColors[srvKey] || { primary: sDef.color, green: { bg: 'rgba(16, 185, 129, 0.85)', border: '#10B981' }, red: { bg: 'rgba(244, 63, 94, 0.85)', border: '#F43F5E' } };
+
+      selectedIndicators.forEach(indKey => {
+        const dataArr = series[indKey];
+        if (!dataArr) return;
+
+        const style = indStyles[indKey] || {};
+
+        if (indKey === 'instalaciones') {
+          datasets.push({
+            type: 'bar',
+            label: sDef.shortLabel + ' (Consolidado) - Instalaciones',
+            data: dataArr,
+            backgroundColor: sc.green.bg,
+            borderColor: sc.green.border,
+            borderWidth: 1.5,
+            borderRadius: 5,
+            borderSkipped: false,
+            maxBarThickness: 42,
+            pointStyle: 'rectRounded',
+            yAxisID: 'yFlujos',
+            order: 3
+          });
+        } else if (indKey === 'retiros') {
+          datasets.push({
+            type: 'bar',
+            label: sDef.shortLabel + ' (Consolidado) - Retiros',
+            data: dataArr,
+            backgroundColor: sc.red.bg,
+            borderColor: sc.red.border,
+            borderWidth: 1.5,
+            borderRadius: 5,
+            borderSkipped: false,
+            maxBarThickness: 42,
+            pointStyle: 'rectRounded',
+            yAxisID: 'yFlujos',
+            order: 4
+          });
+        } else if (indKey === 'churn') {
+          datasets.push({
+            type: 'line',
+            label: sDef.shortLabel + ' (Consolidado) - Churn %',
+            data: dataArr,
+            borderColor: sc.red.border || '#F43F5E',
+            backgroundColor: 'transparent',
+            borderWidth: 2.4,
+            borderDash: [5, 4],
+            tension: 0.25,
+            fill: false,
+            pointBackgroundColor: sc.red.border || '#F43F5E',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 1.5,
+            pointRadius: 4.5,
+            pointHoverRadius: 6.5,
+            pointStyle: 'triangle',
+            yAxisID: 'yTncc',
+            order: 2
+          });
+        } else {
+          datasets.push({
+            type: 'line',
+            label: sDef.shortLabel + ' (Consolidado) - ' + (style.suffix || indKey),
+            data: dataArr,
+            borderColor: sc.primary,
+            backgroundColor: 'transparent',
+            borderWidth: style.borderWidth || 2.5,
+            borderDash: style.borderDash || [],
+            tension: 0.25,
+            fill: false,
+            pointBackgroundColor: sc.primary,
+            pointBorderColor: '#fff',
+            pointBorderWidth: 1.5,
+            pointRadius: style.pointRadius || 4,
+            pointHoverRadius: (style.pointRadius || 4) + 2,
+            pointStyle: style.pointStyle || 'circle',
+            yAxisID: style.yAxisID || 'yFlujos',
+            order: 1
+          });
+        }
+      });
+    });
+  } else {
+    selectedProducts.forEach(prodKey => {
+      const meta = productMetadata[prodKey];
+      if (!meta) return;
+      const series = getSeriesData(prodKey, currentFrecuencia);
+      if (!series) return;
+
+      selectedIndicators.forEach(indKey => {
+        const dataArr = series[indKey];
+        if (!dataArr) return;
+
+        const style = indStyles[indKey] || {};
+        const baseColor = meta.color;
+
+        // 1. Instalaciones en columnas verdes
+        if (indKey === 'instalaciones') {
+          const g = greenShades[prodKey] || { bg: 'rgba(16, 185, 129, 0.78)', border: '#10B981' };
+          datasets.push({
+            type: 'bar',
+            label: meta.label + ' - Instalaciones',
+            data: dataArr,
+            backgroundColor: g.bg,
+            borderColor: g.border,
+            borderWidth: 1.5,
+            borderRadius: 5,
+            borderSkipped: false,
+            maxBarThickness: 38,
+            pointStyle: 'rectRounded',
+            yAxisID: 'yFlujos',
+            order: 3
+          });
+        }
+        // 2. Retiros en columnas rojas
+        else if (indKey === 'retiros') {
+          const r = redShades[prodKey] || { bg: 'rgba(244, 63, 94, 0.78)', border: '#F43F5E' };
+          datasets.push({
+            type: 'bar',
+            label: meta.label + ' - Retiros',
+            data: dataArr,
+            backgroundColor: r.bg,
+            borderColor: r.border,
+            borderWidth: 1.5,
+            borderRadius: 5,
+            borderSkipped: false,
+            maxBarThickness: 38,
+            pointStyle: 'rectRounded',
+            yAxisID: 'yFlujos',
+            order: 4
+          });
+        }
+        // 3. Churn en línea punteada
+        else if (indKey === 'churn') {
+          const cColor = meta.retColor || '#F43F5E';
+          datasets.push({
+            type: 'line',
+            label: meta.label + ' - Churn %',
+            data: dataArr,
+            borderColor: cColor,
+            backgroundColor: 'transparent',
+            borderWidth: 2.4,
+            borderDash: [5, 4],
+            tension: 0.25,
+            fill: false,
+            pointBackgroundColor: cColor,
+            pointBorderColor: '#fff',
+            pointBorderWidth: 1.5,
+            pointRadius: 4.5,
+            pointHoverRadius: 6.5,
+            pointStyle: 'triangle',
+            yAxisID: 'yTncc',
+            order: 2
+          });
+        }
+        // 4. Indicadores en líneas (Cartera, Cartera Neta, TNCC)
+        else {
+          datasets.push({
+            type: 'line',
+            label: meta.label + ' - ' + (style.suffix || indKey),
+            data: dataArr,
+            borderColor: baseColor,
+            backgroundColor: 'transparent',
+            borderWidth: style.borderWidth || 2.5,
+            borderDash: style.borderDash || [],
+            tension: 0.25,
+            fill: false,
+            pointBackgroundColor: baseColor,
+            pointBorderColor: '#fff',
+            pointBorderWidth: 1.5,
+            pointRadius: style.pointRadius || 4,
+            pointHoverRadius: (style.pointRadius || 4) + 2,
+            pointStyle: style.pointStyle || 'circle',
+            yAxisID: style.yAxisID || 'yFlujos',
+            order: 1
+          });
+        }
+      });
     });
   }
 
-  // 6. Instalaciones Fibra
-  if (visibleSeries.instFibra) {
-    datasets.push({
-      type: 'bar',
-      label: 'Instalaciones Fibra',
-      data: f.instalaciones,
-      backgroundColor: 'rgba(16, 185, 129, 0.75)',
-      borderColor: '#10B981',
-      borderWidth: 1,
-      borderRadius: 4,
-      yAxisID: 'yFlujos',
-      order: 6
-    });
-  }
+  let hasVolume = selectedIndicators.some(k => k !== 'tncc' && k !== 'churn');
+  let hasTncc = selectedIndicators.includes('tncc') || selectedIndicators.includes('churn');
 
-  // 7. Instalaciones Cobre
-  if (visibleSeries.instCobre) {
-    datasets.push({
-      type: 'bar',
-      label: 'Instalaciones Cobre',
-      data: c.instalaciones,
-      backgroundColor: 'rgba(20, 184, 166, 0.7)',
-      borderColor: '#14b8a6',
-      borderWidth: 1,
-      borderRadius: 4,
-      yAxisID: 'yFlujos',
-      order: 7
-    });
-  }
-
-  // 8. Retiros Fibra
-  if (visibleSeries.retFibra) {
-    datasets.push({
-      type: 'bar',
-      label: 'Retiros Fibra',
-      data: f.retiros,
-      backgroundColor: 'rgba(244, 63, 94, 0.7)',
-      borderColor: '#f43f5e',
-      borderWidth: 1,
-      borderRadius: 4,
-      yAxisID: 'yFlujos',
-      order: 8
-    });
-  }
-
-  // 9. Retiros Cobre
-  if (visibleSeries.retCobre) {
-    datasets.push({
-      type: 'bar',
-      label: 'Retiros Cobre',
-      data: c.retiros,
-      backgroundColor: 'rgba(225, 29, 72, 0.65)',
-      borderColor: '#e11d48',
-      borderWidth: 1,
-      borderRadius: 4,
-      yAxisID: 'yFlujos',
-      order: 9
-    });
-  }
-
-  // Guías y Líneas de Benchmark
+  // Benchmark guides
   if (currentBenchmark === 'thresholds') {
+    hasTncc = true;
     datasets.push({
       type: 'line',
       label: 'Umbral Excelente (+2.0%)',
-      data: Array(months.length).fill(2.0),
-      borderColor: 'rgba(16, 185, 129, 0.7)',
+      data: Array(xLabels.length).fill(2.0),
+      borderColor: 'rgba(16, 185, 129, 0.75)',
       borderWidth: 1.5,
       borderDash: [6, 4],
       pointRadius: 0,
@@ -3434,8 +5330,8 @@ function buildTrendChart() {
     datasets.push({
       type: 'line',
       label: 'Umbral Saludable (+0.5%)',
-      data: Array(months.length).fill(0.5),
-      borderColor: 'rgba(0, 210, 255, 0.7)',
+      data: Array(xLabels.length).fill(0.5),
+      borderColor: 'rgba(0, 210, 255, 0.75)',
       borderWidth: 1.5,
       borderDash: [6, 4],
       pointRadius: 0,
@@ -3446,7 +5342,7 @@ function buildTrendChart() {
     datasets.push({
       type: 'line',
       label: 'Línea Cero (0.0%)',
-      data: Array(months.length).fill(0.0),
+      data: Array(xLabels.length).fill(0.0),
       borderColor: 'rgba(255, 255, 255, 0.4)',
       borderWidth: 1,
       pointRadius: 0,
@@ -3454,60 +5350,89 @@ function buildTrendChart() {
       yAxisID: 'yTncc',
       order: 10
     });
-    } else if (currentBenchmark === 'avgChurn') {
-    datasets.push({
-      type: 'line',
-      label: 'Promedio Churn Fibra (2.11%)',
-      data: Array(months.length).fill(2.11),
-      borderColor: '#F43F5E',
-      borderWidth: 2,
-      borderDash: [6, 4],
-      pointRadius: 0,
-      yAxisID: 'yTncc',
-      order: 10
+  } else if (currentBenchmark === 'avgCartera') {
+    hasVolume = true;
+    selectedProducts.forEach(prodKey => {
+      const meta = productMetadata[prodKey];
+      if (!meta) return;
+      const series = getSeriesData(prodKey, currentFrecuencia);
+      if (series && series.cartera && series.cartera.length > 0) {
+        const valid = series.cartera.filter(v => typeof v === 'number' && !isNaN(v));
+        if (valid.length > 0) {
+          const avgC = valid.reduce((s, v) => s + v, 0) / valid.length;
+          datasets.push({
+            type: 'line',
+            label: 'Promedio. Cartera (' + (meta.shortLabel || meta.label) + '): ' + formatNum(avgC),
+            data: Array(xLabels.length).fill(avgC),
+            borderColor: meta.color,
+            borderWidth: 2,
+            borderDash: [6, 4],
+            pointRadius: 0,
+            fill: false,
+            yAxisID: 'yFlujos',
+            order: 6
+          });
+        }
+      }
     });
-  } else if (currentBenchmark === 'avgUltra') {
-    const avgF = Number(avgArr(f.tncc).toFixed(2));
-    datasets.push({
-      type: 'line',
-      label: 'Promedio TNCC Fibra (' + formatPct(avgF) + ')',
-      data: Array(months.length).fill(avgF),
-      borderColor: '#00D2FF',
-      borderWidth: 2,
-      borderDash: [6, 4],
-      pointRadius: 0,
-      yAxisID: 'yTncc',
-      order: 10
-    });
-  } else if (currentBenchmark === 'avgCobre') {
-    const avgC = Number(avgArr(c.tncc).toFixed(2));
-    datasets.push({
-      type: 'line',
-      label: 'Promedio TNCC Cobre (' + formatPct(avgC) + ')',
-      data: Array(months.length).fill(avgC),
-      borderColor: '#FF8C42',
-      borderWidth: 2,
-      borderDash: [6, 4],
-      pointRadius: 0,
-      yAxisID: 'yTncc',
-      order: 10
+  } else if (currentBenchmark === 'avgTncc') {
+    hasTncc = true;
+    selectedProducts.forEach(prodKey => {
+      const meta = productMetadata[prodKey];
+      if (!meta) return;
+      const series = getSeriesData(prodKey, currentFrecuencia);
+      if (series && series.tncc && series.tncc.length > 0) {
+        const valid = series.tncc.filter(v => typeof v === 'number' && !isNaN(v));
+        if (valid.length > 0) {
+          const avgT = valid.reduce((s, v) => s + v, 0) / valid.length;
+          datasets.push({
+            type: 'line',
+            label: 'Promedio. TNCC (' + (meta.shortLabel || meta.label) + '): ' + (avgT >= 0 ? '+' : '') + avgT.toFixed(2).replace('.', ',') + '%',
+            data: Array(xLabels.length).fill(avgT),
+            borderColor: meta.color,
+            borderWidth: 2,
+            borderDash: [6, 4],
+            pointRadius: 0,
+            fill: false,
+            yAxisID: 'yTncc',
+            order: 6
+          });
+        }
+      }
     });
   } else if (currentBenchmark === 'zero') {
-    datasets.push({
-      type: 'line',
-      label: 'Línea Cero (0.0%)',
-      data: Array(months.length).fill(0.0),
-      borderColor: 'rgba(255, 255, 255, 0.5)',
-      borderWidth: 1.5,
-      pointRadius: 0,
-      yAxisID: 'yTncc',
-      order: 10
-    });
+    if (hasVolume) {
+      datasets.push({
+        type: 'line',
+        label: 'Línea Cero (0)',
+        data: Array(xLabels.length).fill(0),
+        borderColor: 'rgba(255, 255, 255, 0.4)',
+        borderWidth: 1,
+        pointRadius: 0,
+        fill: false,
+        yAxisID: 'yFlujos',
+        order: 10
+      });
+    }
+    if (hasTncc) {
+      datasets.push({
+        type: 'line',
+        label: 'Línea Cero (0.0%)',
+        data: Array(xLabels.length).fill(0.0),
+        borderColor: 'rgba(255, 255, 255, 0.4)',
+        borderWidth: 1,
+        pointRadius: 0,
+        fill: false,
+        yAxisID: 'yTncc',
+        order: 10
+      });
+    }
   }
 
   trendChartInstance = new Chart(ctx, {
+    type: 'bar',
     data: {
-      labels: months,
+      labels: xLabels,
       datasets: datasets
     },
     options: {
@@ -3518,27 +5443,36 @@ function buildTrendChart() {
         intersect: false
       },
       plugins: {
-        legend: { display: false },
+        legend: {
+          display: true,
+          position: 'top',
+          labels: {
+            color: '#e2e8f0',
+            font: { family: 'Outfit', size: 11, weight: '500' },
+            boxWidth: 14,
+            usePointStyle: true,
+            padding: 12
+          }
+        },
         tooltip: {
-          backgroundColor: 'rgba(10, 6, 32, 0.95)',
-          borderColor: 'rgba(0, 210, 255, 0.4)',
+          backgroundColor: 'rgba(10, 5, 35, 0.95)',
+          titleColor: '#00D2FF',
+          bodyColor: '#fff',
+          borderColor: 'rgba(0, 210, 255, 0.35)',
           borderWidth: 1,
-          titleColor: '#fff',
-          bodyColor: '#e2e8f0',
           padding: 12,
-          titleFont: { size: 13, weight: 'bold', family: 'Outfit' },
-          bodyFont: { size: 12, family: 'JetBrains Mono' },
-          boxPadding: 4,
+          boxPadding: 6,
+          usePointStyle: true,
           callbacks: {
             label: function(context) {
-              let l = context.dataset.label || '';
-              if (l) l += ': ';
+              const val = context.parsed.y;
+              if (val === null || val === undefined) return '';
               if (context.dataset.yAxisID === 'yTncc') {
-                l += context.parsed.y.toFixed(2) + '%';
-              } else {
-                l += formatNum(context.parsed.y);
+                const isChurn = context.dataset.label.includes('Churn');
+                const sign = (!isChurn && val >= 0) ? '+' : '';
+                return ' ' + context.dataset.label + ': ' + sign + val.toFixed(2).replace('.', ',') + '%';
               }
-              return l;
+              return ' ' + context.dataset.label + ': ' + formatNum(val);
             }
           }
         }
@@ -3546,73 +5480,43 @@ function buildTrendChart() {
       scales: {
         x: {
           grid: { color: 'rgba(255, 255, 255, 0.08)' },
-          ticks: { color: '#94a3b8', font: { family: 'Outfit', size: 11 } }
-        },
-        yTncc: {
-          type: 'linear',
-          position: 'right',
-          display: visibleSeries.tnccUltra || visibleSeries.tnccCobre || visibleSeries.churnFibra,
-          grid: { color: 'rgba(255, 255, 255, 0.06)' },
-          ticks: {
-            color: '#00D2FF',
-            font: { family: 'JetBrains Mono', size: 11 },
-            callback: v => v.toFixed(1) + '%'
-          },
-          title: {
-            display: true,
-            text: 'TNCC Porcentual (%)',
-            color: '#00D2FF',
-            font: { family: 'Outfit', size: 11, weight: 'bold' }
-          }
+          ticks: { color: '#94a3b8', font: { family: 'Outfit', size: 11, weight: '600' } }
         },
         yFlujos: {
           type: 'linear',
           position: 'left',
-          display: visibleSeries.instFibra || visibleSeries.instCobre || visibleSeries.retFibra || visibleSeries.retCobre || visibleSeries.netFibra,
-          grid: { drawOnChartArea: false },
+          display: hasVolume,
+          grid: { color: 'rgba(255, 255, 255, 0.06)' },
           ticks: {
             color: '#cbd5e1',
             font: { family: 'JetBrains Mono', size: 10 },
-            callback: v => (v >= 1000 || v <= -1000) ? (v/1000).toFixed(0) + 'k' : v
+            callback: function(v) {
+              if (Math.abs(v) >= 1000000) return (v / 1000000).toFixed(1) + 'M';
+              if (Math.abs(v) >= 1000) return (v / 1000).toFixed(0) + 'k';
+              return v;
+            }
           },
           title: {
             display: true,
-            text: 'Flujos (Instalaciones / Retiros / Balance)',
-            color: '#cbd5e1',
-            font: { family: 'Outfit', size: 11 }
-          }
-        },
-        yCarteraFibra: {
-          type: 'linear',
-          position: 'left',
-          display: visibleSeries.carteraFibra,
-          grid: { drawOnChartArea: false },
-          ticks: {
-            color: '#C084FC',
-            font: { family: 'JetBrains Mono', size: 10 },
-            callback: v => (v/1000).toFixed(0) + 'k'
-          },
-          title: {
-            display: true,
-            text: 'Cartera Cierre Fibra',
-            color: '#C084FC',
+            text: 'Volumen (Cuentas / Líneas)',
+            color: '#94a3b8',
             font: { family: 'Outfit', size: 10, weight: 'bold' }
           }
         },
-        yCarteraCobre: {
+        yTncc: {
           type: 'linear',
-          position: 'left',
-          display: visibleSeries.carteraCobre,
-          grid: { drawOnChartArea: false },
+          position: hasVolume ? 'right' : 'left',
+          display: hasTncc,
+          grid: { drawOnChartArea: !hasVolume, color: 'rgba(255, 255, 255, 0.06)' },
           ticks: {
-            color: '#FBBF24',
+            color: '#c084fc',
             font: { family: 'JetBrains Mono', size: 10 },
-            callback: v => (v/1000000).toFixed(2) + 'M'
+            callback: function(v) { return v.toFixed(1) + '%'; }
           },
           title: {
             display: true,
-            text: 'Cartera Cierre Cobre',
-            color: '#FBBF24',
+            text: 'TNCC (%)',
+            color: '#c084fc',
             font: { family: 'Outfit', size: 10, weight: 'bold' }
           }
         }
@@ -3621,32 +5525,51 @@ function buildTrendChart() {
   });
 }
 
-function toggleSeries(seriesKey) {
-  visibleSeries[seriesKey] = !visibleSeries[seriesKey];
-  const btnMap = {
-    tnccUltra: 'toggleTnccUltra',
-    churnFibra: 'toggleChurnFibra',
-    tnccCobre: 'toggleTnccCobre',
-    instFibra: 'toggleInstFibra',
-    instCobre: 'toggleInstCobre',
-    retFibra: 'toggleRetFibra',
-    retCobre: 'toggleRetCobre',
-    netFibra: 'toggleNetFibra',
-    carteraFibra: 'toggleCarteraFibra',
-    carteraCobre: 'toggleCarteraCobre'
-  };
-  const btn = document.getElementById(btnMap[seriesKey]);
-  if (btn) {
-    if (visibleSeries[seriesKey]) {
-      btn.classList.add('active');
-      btn.innerHTML = '<i data-lucide="check" style="width:12px;height:12px;"></i> ' + btn.textContent.trim();
-    } else {
-      btn.classList.remove('active');
-      btn.innerHTML = '<i data-lucide="eye" style="width:12px;height:12px;"></i> ' + btn.textContent.trim();
-    }
-    if (window.lucide) lucide.createIcons();
+function selectYear(btn, year) {
+  const group = document.getElementById('yearButtonsGroup');
+  if (group) {
+    group.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
   }
-  buildTrendChart();
+  if (btn) btn.classList.add('active');
+  currentYear = year;
+  const cicloLabel = document.getElementById('dispCicloLabel');
+  const periodoEl = document.getElementById('dispPeriodo');
+  const churnSpan = document.getElementById('dispChurnPeriodoSpan');
+
+  initMultianualData();
+
+  if (year === 'all') {
+    telecomData.cobre = JSON.parse(JSON.stringify(telecomDataByYear['all'].cobre));
+    telecomData.fibra = JSON.parse(JSON.stringify(telecomDataByYear['all'].fibra));
+    if (periodoEl) periodoEl.textContent = 'enero de 2024 a octubre de 2026 (Consolidado)';
+    if (cicloLabel) cicloLabel.textContent = 'Histórico Multianual 2024 - 2026';
+    if (churnSpan) churnSpan.textContent = 'Fibra (Multianual 2024 - 2026)';
+    
+    // Switch chart to annual frequency on Ver todo
+    const frecSel = document.getElementById('selectFrecuencia');
+    if (frecSel) frecSel.value = 'anual';
+    currentFrecuencia = 'anual';
+    const chartTitle = document.getElementById('chartMainTitle');
+    if (chartTitle) chartTitle.textContent = 'Evolución Anual (AÑO) de Indicadores Claves por Producto';
+  } else if (telecomDataByYear[year]) {
+    telecomData.cobre = JSON.parse(JSON.stringify(telecomDataByYear[year].cobre));
+    telecomData.fibra = JSON.parse(JSON.stringify(telecomDataByYear[year].fibra));
+    const mesIni = telecomData.fibra.months[0];
+    const mesFin = telecomData.fibra.months[telecomData.fibra.months.length - 1];
+
+    if (periodoEl) {
+      periodoEl.textContent = 'enero a ' + (mesFin === 'Dic' ? 'diciembre' : 'octubre') + ' de ' + year;
+    }
+    if (cicloLabel) {
+      cicloLabel.textContent = 'Ciclo Consolidado ' + year + ' (' + mesIni + ' - ' + mesFin + ')';
+    }
+    if (churnSpan) {
+      churnSpan.textContent = 'Fibra (' + mesIni + ' - ' + mesFin + ')';
+    }
+  }
+
+  recalculateAndRenderDashboard();
+  updateTrendBadges();
 }
 
 function changeBenchmark() {
