@@ -1606,7 +1606,7 @@ body {
 
   .action-nav {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     width: 100%;
     gap: 5px;
     padding: 4px;
@@ -2293,6 +2293,85 @@ body {
   }
 }
 
+
+/* Facturacion View Card */
+.facturacion-view-card {
+  background: linear-gradient(135deg, rgba(15, 12, 45, 0.95), rgba(26, 8, 56, 0.9));
+  border: 1px solid rgba(0, 210, 255, 0.45);
+  border-radius: 16px;
+  padding: 20px 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(0, 210, 255, 0.15);
+  animation: fadeInDownMenu 0.22s ease-out;
+}
+
+.facturacion-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.facturacion-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(0, 210, 255, 0.15);
+  border: 1px solid rgba(0, 210, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00D2FF;
+  flex-shrink: 0;
+}
+
+.facturacion-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #00D2FF;
+  background: rgba(0, 210, 255, 0.12);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 3px;
+}
+
+.facturacion-title {
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.2px;
+}
+
+.facturacion-desc {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+
+.facturacion-status-box {
+  background: rgba(8, 3, 32, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: #cbd5e1;
+}
+
+.status-indicator-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 10px #10B981;
+  flex-shrink: 0;
+}
+
 </style>
   
   <!-- Chart.js CDN -->
@@ -2333,21 +2412,46 @@ body {
 
       <!-- Navegación de Vistas Integrada al Reporte -->
       <div class="report-view-nav-bar">
-        <span class="report-view-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="layers" aria-hidden="true" style="width:14px;height:14px;" class="lucide lucide-layers"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path></svg> Modo de Visualización:</span>
+        <span class="report-view-nav-label">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers" style="width:14px;height:14px;"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path></svg>
+          Modo de Visualización:
+        </span>
         <nav class="action-nav">
-          <button type="button" class="nav-btn active" id="btnViewCombinado" onclick="switchView('combinado')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="layers" aria-hidden="true" class="lucide lucide-layers"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path></svg>
-            <span>Vista Combinada</span>
+          <button type="button" class="nav-btn active" id="btnViewCartera" onclick="switchView('cartera')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            <span>Vista Cartera</span>
           </button>
-          <button type="button" class="nav-btn" id="btnViewUltra" onclick="switchView('fibra')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="zap" aria-hidden="true" class="lucide lucide-zap"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"></path></svg>
-            <span>Aba Ultra (Fibra)</span>
-          </button>
-          <button type="button" class="nav-btn" id="btnViewCobre" onclick="switchView('cobre')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="boxes" aria-hidden="true" class="lucide lucide-boxes"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"></path><path d="m7 16.5-4.74-2.85"></path><path d="m7 16.5 5-3"></path><path d="M7 16.5v5.17"></path><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"></path><path d="m17 16.5-5-3"></path><path d="m17 16.5 4.74-2.85"></path><path d="M17 16.5v5.17"></path><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"></path><path d="M12 8 7.26 5.15"></path><path d="m12 8 4.74-2.85"></path><path d="M12 13.5V8"></path></svg>
-            <span>Aba Cobre</span>
+          <button type="button" class="nav-btn" id="btnViewFacturacion" onclick="switchView('facturacion')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-receipt"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"></path><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 17.5v-11"></path></svg>
+            <span>Vista Facturación</span>
           </button>
         </nav>
+      </div>
+
+      <!-- Notificación Ejecutiva para Vista Facturación -->
+      <div id="facturacionPlaceholderNotice" class="facturacion-view-card" style="display: none; margin-top: 14px;">
+        <div class="facturacion-header">
+          <div class="facturacion-icon-box">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00D2FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-receipt"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"></path><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 17.5v-11"></path></svg>
+          </div>
+          <div>
+            <div class="facturacion-badge">Módulo Financiero / Ingresos</div>
+            <h3 class="facturacion-title">Vista Facturación</h3>
+          </div>
+        </div>
+        <p class="facturacion-desc">
+          El módulo de <strong>Facturación</strong> está preparado para integrar las métricas de ingresos, facturación recurrente, recaudación y ARPU promedio por producto y servicio (Internet Aba, Telefonía y Televisión).
+        </p>
+        <div class="facturacion-status-box">
+          <span class="status-indicator-dot"></span>
+          <span>Los datos actuales cargados en el sistema corresponden a la <strong>Vista Cartera</strong> (suscriptores, movimientos de planta, TNCC y Churn).</span>
+        </div>
+        <div style="margin-top: 14px;">
+          <button type="button" class="btn-studio-edit" onclick="switchView('cartera')" style="padding: 6px 14px; font-size: 0.78rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
+            Volver a Vista Cartera
+          </button>
+        </div>
       </div>
 
       <div class="context-box" id="dispHeaderContext">
@@ -3736,7 +3840,7 @@ const telecomDataByYear = {
 
 let currentYear = "2026";
 let telecomData = JSON.parse(JSON.stringify(telecomDataByYear["2026"]));
-let currentView = "combinado";
+let currentView = "cartera";
 let currentBenchmark = "thresholds";
 let trendChartInstance = null;
 const visibleSeries = {
@@ -5596,70 +5700,25 @@ function changeBenchmark() {
 
 function switchView(view) {
   currentView = view;
-  ['btnViewCombinado', 'btnViewUltra', 'btnViewCobre'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.classList.remove('active');
-  });
+  const btnCartera = document.getElementById('btnViewCartera');
+  const btnFacturacion = document.getElementById('btnViewFacturacion');
+  const factNotice = document.getElementById('facturacionPlaceholderNotice');
 
-  if (view === 'combinado') {
-    document.getElementById('btnViewCombinado').classList.add('active');
-    visibleSeries.tnccUltra = true;
-    visibleSeries.tnccCobre = true;
-    visibleSeries.churnFibra = true;
-    visibleSeries.instFibra = false;
-    visibleSeries.instCobre = false;
-    visibleSeries.retFibra = false;
-    visibleSeries.retCobre = false;
-    visibleSeries.netFibra = false;
-    visibleSeries.carteraFibra = false;
-    visibleSeries.carteraCobre = false;
-  } else if (view === 'fibra') {
-    document.getElementById('btnViewUltra').classList.add('active');
-    visibleSeries.tnccUltra = true;
-    visibleSeries.tnccCobre = false;
-    visibleSeries.churnFibra = true;
-    visibleSeries.instFibra = true;
-    visibleSeries.instCobre = false;
-    visibleSeries.retFibra = true;
-    visibleSeries.retCobre = false;
-    visibleSeries.netFibra = false;
-    visibleSeries.carteraFibra = true;
-    visibleSeries.carteraCobre = false;
-  } else if (view === 'cobre') {
-    document.getElementById('btnViewCobre').classList.add('active');
-    visibleSeries.tnccUltra = false;
-    visibleSeries.tnccCobre = true;
-    visibleSeries.churnFibra = false;
-    visibleSeries.instFibra = false;
-    visibleSeries.instCobre = true;
-    visibleSeries.retFibra = false;
-    visibleSeries.retCobre = true;
-    visibleSeries.netFibra = false;
-    visibleSeries.carteraFibra = false;
-    visibleSeries.carteraCobre = true;
+  if (btnCartera) btnCartera.classList.remove('active');
+  if (btnFacturacion) btnFacturacion.classList.remove('active');
+
+  if (view === 'cartera') {
+    if (btnCartera) btnCartera.classList.add('active');
+    if (factNotice) factNotice.style.display = 'none';
+  } else if (view === 'facturacion') {
+    if (btnFacturacion) btnFacturacion.classList.add('active');
+    if (factNotice) {
+      factNotice.style.display = 'block';
+      factNotice.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   }
 
-  const syncBtn = (id, key, label) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.classList.toggle('active', visibleSeries[key]);
-    const icon = visibleSeries[key] ? 'check' : 'eye';
-    el.innerHTML = '<i data-lucide="' + icon + '" style="width:12px;height:12px;"></i> ' + label;
-  };
-
-  syncBtn('toggleTnccUltra', 'tnccUltra', 'TNCC Fibra %');
-  syncBtn('toggleTnccCobre', 'tnccCobre', 'TNCC Cobre %');
-  syncBtn('toggleChurnFibra', 'churnFibra', 'Churn Fibra %');
-  syncBtn('toggleInstFibra', 'instFibra', 'Instalaciones Fibra');
-  syncBtn('toggleInstCobre', 'instCobre', 'Instalaciones Cobre');
-  syncBtn('toggleRetFibra', 'retFibra', 'Retiros Fibra');
-  syncBtn('toggleRetCobre', 'retCobre', 'Retiros Cobre');
-  syncBtn('toggleNetFibra', 'netFibra', 'Balance Neto Fibra');
-  syncBtn('toggleCarteraFibra', 'carteraFibra', 'Cartera Cierre Fibra');
-  syncBtn('toggleCarteraCobre', 'carteraCobre', 'Cartera Cierre Cobre');
-
   if (window.lucide) lucide.createIcons();
-  buildTrendChart();
 }
 
 const INDICATOR_HELP_DATA = {
