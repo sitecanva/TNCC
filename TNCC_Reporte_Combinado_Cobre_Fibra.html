@@ -2372,6 +2372,349 @@ body {
   flex-shrink: 0;
 }
 
+
+/* =========================================================
+   VISTA FACTURACIÓN (CARDS & TABLA EJECUTIVA BS. Y USD)
+========================================================= */
+.facturacion-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: fadeInDownMenu 0.25s ease-out;
+}
+
+.facturacion-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: var(--card-bg-dark);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border-glow);
+  border-radius: 16px;
+  padding: 14px 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+.facturacion-toolbar-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.facturacion-tag-badge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #00D2FF;
+  background: rgba(0, 210, 255, 0.15);
+  border: 1px solid rgba(0, 210, 255, 0.4);
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+.facturacion-toolbar-title {
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.currency-toggle-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(8, 3, 32, 0.6);
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.currency-toggle-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0 6px;
+}
+
+.currency-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  padding: 5px 12px;
+  border-radius: 7px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.currency-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.currency-btn.active {
+  background: linear-gradient(135deg, rgba(0, 210, 255, 0.25), rgba(255, 42, 171, 0.25));
+  border-color: #00D2FF;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(0, 210, 255, 0.35);
+}
+
+.kpi-grid-facturacion {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 1200px) {
+  .kpi-grid-facturacion {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .kpi-grid-facturacion {
+    grid-template-columns: 1fr;
+  }
+  .facturacion-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .currency-toggle-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+.facturacion-kpi-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 20px;
+  padding: 20px 18px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.facturacion-kpi-card:hover {
+  transform: translateY(-3px);
+}
+
+.facturacion-kpi-card.card-cyan {
+  border-color: rgba(0, 210, 255, 0.45);
+  box-shadow: 0 10px 30px rgba(0, 210, 255, 0.12);
+}
+.facturacion-kpi-card.card-cyan:hover {
+  box-shadow: 0 12px 35px rgba(0, 210, 255, 0.25);
+  border-color: #00D2FF;
+}
+
+.facturacion-kpi-card.card-green {
+  border-color: rgba(16, 185, 129, 0.45);
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.12);
+}
+.facturacion-kpi-card.card-green:hover {
+  box-shadow: 0 12px 35px rgba(16, 185, 129, 0.25);
+  border-color: #10B981;
+}
+
+.facturacion-kpi-card.card-lime {
+  border-color: rgba(163, 230, 53, 0.45);
+  box-shadow: 0 10px 30px rgba(163, 230, 53, 0.12);
+}
+.facturacion-kpi-card.card-lime:hover {
+  box-shadow: 0 12px 35px rgba(163, 230, 53, 0.25);
+  border-color: #a3e635;
+}
+
+.facturacion-kpi-card.card-orange {
+  border-color: rgba(255, 140, 66, 0.45);
+  box-shadow: 0 10px 30px rgba(255, 140, 66, 0.12);
+}
+.facturacion-kpi-card.card-orange:hover {
+  box-shadow: 0 12px 35px rgba(255, 140, 66, 0.25);
+  border-color: #FF8C42;
+}
+
+.fact-values-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 12px 0 14px 0;
+}
+
+.fact-curr-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: rgba(8, 3, 32, 0.65);
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.2s ease;
+}
+
+.fact-curr-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+.fact-curr-tag.tag-bs {
+  background: rgba(0, 210, 255, 0.15);
+  color: #00D2FF;
+  border: 1px solid rgba(0, 210, 255, 0.35);
+}
+
+.fact-curr-tag.tag-usd {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.fact-amount-val {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-align: right;
+  white-space: nowrap;
+  letter-spacing: -0.2px;
+}
+
+.facturacion-kpi-card.mode-bs-only .fact-row-usd {
+  opacity: 0.45;
+  transform: scale(0.97);
+}
+.facturacion-kpi-card.mode-usd-only .fact-row-bs {
+  opacity: 0.45;
+  transform: scale(0.97);
+}
+
+.fact-operational-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 6px 10px;
+  margin-bottom: 12px;
+  font-size: 0.74rem;
+}
+
+.op-label {
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+.op-val {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Facturacion Detailed Table Card */
+.facturacion-analysis-card {
+  background: var(--card-bg-dark);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border-glow);
+  border-radius: 20px;
+  padding: 22px 26px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.facturacion-analysis-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.facturacion-table-wrapper {
+  overflow-x: auto;
+}
+
+.facturacion-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.facturacion-table th {
+  text-align: left;
+  padding: 10px 14px;
+  color: var(--text-dim);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.facturacion-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  vertical-align: middle;
+}
+
+.facturacion-table tr:hover td {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.table-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.table-badge.badge-cyan {
+  background: rgba(0, 210, 255, 0.15);
+  color: #00D2FF;
+  border: 1px solid rgba(0, 210, 255, 0.35);
+}
+
+.table-badge.badge-green {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.table-badge.badge-lime {
+  background: rgba(163, 230, 53, 0.15);
+  color: #a3e635;
+  border: 1px solid rgba(163, 230, 53, 0.35);
+}
+
+.table-badge.badge-orange {
+  background: rgba(255, 140, 66, 0.15);
+  color: #FF8C42;
+  border: 1px solid rgba(255, 140, 66, 0.35);
+}
+
 </style>
   
   <!-- Chart.js CDN -->
@@ -2428,17 +2771,7 @@ body {
         </nav>
       </div>
 
-      <!-- Notificación Ejecutiva para Vista Facturación -->
-      <div id="facturacionPlaceholderNotice" class="facturacion-view-card" style="display: none; margin-top: 14px;">
-        <div class="facturacion-header">
-          <div class="facturacion-icon-box">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00D2FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-receipt"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"></path><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 17.5v-11"></path></svg>
-          </div>
-          <div>
-            <div class="facturacion-badge">Módulo Financiero / Ingresos</div>
-            <h3 class="facturacion-title">Vista Facturación</h3>
-          </div>
-        </div>
+      
         <p class="facturacion-desc">
           El módulo de <strong>Facturación</strong> está preparado para integrar las métricas de ingresos, facturación recurrente, recaudación y ARPU promedio por producto y servicio (Internet Aba, Telefonía y Televisión).
         </p>
@@ -2474,7 +2807,7 @@ body {
     </section>
 
     <!-- KPI Grid (Row 1) - Comparative Shared Cards -->
-    <section class="kpi-grid">
+    <section class="kpi-grid" id="kpiGridCartera">
       
       <!-- Card 1: TNCC Global -->
       <article class="kpi-card cyan-card">
@@ -2681,6 +3014,291 @@ body {
       </article>
 
     </section>
+
+    <!-- VISTA FACTURACIÓN: Tarjetas y Tablero Financiero 2026 -->
+    <div id="facturacionContainer" style="display: none;" class="facturacion-wrapper">
+      
+      <!-- Facturación Toolbar & Currency Controls -->
+      <div class="facturacion-toolbar">
+        <div class="facturacion-toolbar-title-group">
+          <div class="facturacion-tag-badge">ACUMULADO 2026</div>
+          <h2 class="facturacion-toolbar-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00D2FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-receipt"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"></path><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 17.5v-11"></path></svg>
+            Indicadores Financieros de Facturación y Recaudación (Año 2026)
+          </h2>
+        </div>
+
+        <!-- Currency Selector Buttons -->
+        <div class="currency-toggle-group">
+          <span class="currency-toggle-label">Moneda:</span>
+          <button type="button" class="currency-btn active" id="btnCurrDual" onclick="setFacturacionCurrency('dual')">
+            <span>Bs. y USD (Dual)</span>
+          </button>
+          <button type="button" class="currency-btn" id="btnCurrBs" onclick="setFacturacionCurrency('bs')">
+            <span>Bolívares (Bs.)</span>
+          </button>
+          <button type="button" class="currency-btn" id="btnCurrUsd" onclick="setFacturacionCurrency('usd')">
+            <span>Dólares (USD)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI Grid Facturación (4 Cards) -->
+      <div class="kpi-grid kpi-grid-facturacion" id="kpiGridFacturacion">
+        
+        <!-- Card 1: FACTURACIÓN -->
+        <article class="kpi-card facturacion-kpi-card card-cyan">
+          <div class="kpi-header">
+            <div class="kpi-icon-box" style="background: rgba(0, 210, 255, 0.15); border: 1px solid rgba(0, 210, 255, 0.4); color: #00D2FF;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+            </div>
+            <div>
+              <div class="kpi-title" style="color: #00D2FF; font-weight: 800; letter-spacing: 0.5px;">FACTURACIÓN</div>
+              <div class="kpi-subtitle">Acumulado Año 2026</div>
+            </div>
+            <span class="info-pill-btn" title="Total Facturado">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+            </span>
+          </div>
+
+          <!-- Values Container -->
+          <div class="fact-values-container">
+            <!-- Bolívares Row -->
+            <div class="fact-curr-row fact-row-bs">
+              <span class="fact-curr-tag tag-bs">Bs.</span>
+              <div class="fact-amount-val amount-bs">69.026.660.895,19</div>
+            </div>
+            <!-- Dólares Row -->
+            <div class="fact-curr-row fact-row-usd">
+              <span class="fact-curr-tag tag-usd">USD</span>
+              <div class="fact-amount-val amount-usd">118.077.764,55</div>
+            </div>
+          </div>
+
+          <!-- Operational Sub-metrics -->
+          <div class="fact-operational-pill">
+            <span class="op-icon">📄</span>
+            <span class="op-label">Facturas:</span>
+            <span class="op-val">12.656.142</span>
+          </div>
+
+          <div class="kpi-desc-box">
+            <p class="kpi-desc-text">
+              Total de facturación acumulada durante el año 2026, consolidando 12.656.142 facturas con un promedio mensual de 6.902,6M Bs. (11,81M USD).
+            </p>
+          </div>
+        </article>
+
+        <!-- Card 2: RECAUDACIÓN -->
+        <article class="kpi-card facturacion-kpi-card card-green">
+          <div class="kpi-header">
+            <div class="kpi-icon-box" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #10B981;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle-2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+            </div>
+            <div>
+              <div class="kpi-title" style="color: #10B981; font-weight: 800; letter-spacing: 0.5px;">RECAUDACIÓN</div>
+              <div class="kpi-subtitle">Cobranza Efectiva 2026</div>
+            </div>
+            <span class="info-pill-btn" title="Total Recaudado">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+            </span>
+          </div>
+
+          <!-- Values Container -->
+          <div class="fact-values-container">
+            <!-- Bolívares Row -->
+            <div class="fact-curr-row fact-row-bs">
+              <span class="fact-curr-tag tag-bs" style="background: rgba(16, 185, 129, 0.18); color: #10B981; border-color: rgba(16, 185, 129, 0.4);">Bs.</span>
+              <div class="fact-amount-val amount-bs">68.727.491.410,09</div>
+            </div>
+            <!-- Dólares Row -->
+            <div class="fact-curr-row fact-row-usd">
+              <span class="fact-curr-tag tag-usd" style="background: rgba(16, 185, 129, 0.18); color: #10B981; border-color: rgba(16, 185, 129, 0.4);">USD</span>
+              <div class="fact-amount-val amount-usd">115.582.630,98</div>
+            </div>
+          </div>
+
+          <!-- Operational Sub-metrics -->
+          <div class="fact-operational-pill" style="background: rgba(16, 185, 129, 0.08); border-color: rgba(16, 185, 129, 0.25);">
+            <span class="op-icon">💳</span>
+            <span class="op-label">Trans. Pagos:</span>
+            <span class="op-val" style="color: #10B981;">9.776.149</span>
+            <span class="op-badge" style="background: rgba(16, 185, 129, 0.2); color: #10B981; border: 1px solid #10B981; font-size: 0.68rem; padding: 1px 6px; border-radius: 4px; font-weight: 700; margin-left: auto;">99,57% Efectividad</span>
+          </div>
+
+          <div class="kpi-desc-box">
+            <p class="kpi-desc-text">
+              Alta efectividad de cobranza del 99,57% sobre facturación con 9.776.149 transacciones procesadas satisfactoriamente en canales de pago.
+            </p>
+          </div>
+        </article>
+
+        <!-- Card 3: NTS – NTC -->
+        <article class="kpi-card facturacion-kpi-card card-lime">
+          <div class="kpi-header">
+            <div class="kpi-icon-box" style="background: rgba(163, 230, 53, 0.15); border: 1px solid rgba(163, 230, 53, 0.4); color: #a3e635;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tag"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"></path><circle cx="7" cy="7" r=".5" fill="currentColor"></circle></svg>
+            </div>
+            <div>
+              <div class="kpi-title" style="color: #a3e635; font-weight: 800; letter-spacing: 0.5px;">NTS – NTC</div>
+              <div class="kpi-subtitle">Ajustes Notas Crédito / Débito</div>
+            </div>
+            <span class="info-pill-btn" title="Notas de Crédito y Débito">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+            </span>
+          </div>
+
+          <!-- Values Container -->
+          <div class="fact-values-container">
+            <!-- Bolívares Row -->
+            <div class="fact-curr-row fact-row-bs">
+              <span class="fact-curr-tag tag-bs" style="background: rgba(163, 230, 53, 0.18); color: #a3e635; border-color: rgba(163, 230, 53, 0.4);">Prom. Mes Bs.</span>
+              <div class="fact-amount-val amount-bs">-1.271.970.279,04</div>
+            </div>
+            <!-- Dólares Row -->
+            <div class="fact-curr-row fact-row-usd">
+              <span class="fact-curr-tag tag-usd" style="background: rgba(163, 230, 53, 0.18); color: #a3e635; border-color: rgba(163, 230, 53, 0.4);">USD</span>
+              <div class="fact-amount-val amount-usd">-2.056.917,62</div>
+            </div>
+          </div>
+
+          <!-- Operational Sub-metrics -->
+          <div class="fact-operational-pill" style="background: rgba(163, 230, 53, 0.08); border-color: rgba(163, 230, 53, 0.25);">
+            <span class="op-icon">🏷️</span>
+            <span class="op-label">NTS-NTC CTA/CLI:</span>
+            <span class="op-val" style="color: #a3e635;">359.798 Prom. Mes Dcto</span>
+          </div>
+
+          <div class="kpi-desc-box">
+            <p class="kpi-desc-text">
+              Ajustes mensuales aplicados a cuentas de clientes por notas de crédito y compensación de ciclo, con promedio de 359.798 descuentos al mes.
+            </p>
+          </div>
+        </article>
+
+        <!-- Card 4: DIFERENCIAL -->
+        <article class="kpi-card facturacion-kpi-card card-orange">
+          <div class="kpi-header">
+            <div class="kpi-icon-box" style="background: rgba(255, 140, 66, 0.15); border: 1px solid rgba(255, 140, 66, 0.4); color: #FF8C42;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scale"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></svg>
+            </div>
+            <div>
+              <div class="kpi-title" style="color: #FF8C42; font-weight: 800; letter-spacing: 0.5px;">DIFERENCIAL</div>
+              <div class="kpi-subtitle">Brecha Facturación vs. Cobranza</div>
+            </div>
+            <span class="info-pill-btn" title="Diferencial Operativo">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+            </span>
+          </div>
+
+          <!-- Values Container -->
+          <div class="fact-values-container">
+            <!-- Bolívares Row -->
+            <div class="fact-curr-row fact-row-bs">
+              <span class="fact-curr-tag tag-bs" style="background: rgba(255, 140, 66, 0.18); color: #FF8C42; border-color: rgba(255, 140, 66, 0.4);">Prom. Mes Bs.</span>
+              <div class="fact-amount-val amount-bs">-251.672.382,35</div>
+            </div>
+            <!-- Dólares Row -->
+            <div class="fact-curr-row fact-row-usd">
+              <span class="fact-curr-tag tag-usd" style="background: rgba(255, 140, 66, 0.18); color: #FF8C42; border-color: rgba(255, 140, 66, 0.4);">USD</span>
+              <div class="fact-amount-val amount-usd">-463.395,37</div>
+            </div>
+          </div>
+
+          <!-- Operational Sub-metrics -->
+          <div class="fact-operational-pill" style="background: rgba(255, 140, 66, 0.08); border-color: rgba(255, 140, 66, 0.25);">
+            <span class="op-icon">🔄</span>
+            <span class="op-label">CICLO 20:</span>
+            <span class="op-val" style="color: #FF8C42;">164.693 Prom. Mes</span>
+          </div>
+
+          <div class="kpi-desc-box">
+            <p class="kpi-desc-text">
+              Diferencial neto promedio mensual entre la facturación generada y la recaudación efectiva, con 164.693 operaciones mensuales en corte de Ciclo 20.
+            </p>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Facturación Detailed Executive Summary Table -->
+      <section class="facturacion-analysis-card">
+        <div class="facturacion-analysis-header">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF2AAB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pie-chart"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+            <h3 style="font-size: 1.12rem; font-weight: 800; color: #fff;">Consolidado Ejecutivo de Facturación y Cobranza (Año 2026)</h3>
+          </div>
+          <span class="facturacion-badge" style="background: rgba(255, 42, 171, 0.15); color: #FF2AAB; border: 1px solid rgba(255, 42, 171, 0.4);">Base Contable / Facturación</span>
+        </div>
+
+        <div class="facturacion-table-wrapper">
+          <table class="facturacion-table">
+            <thead>
+              <tr>
+                <th>Concepto Financiero</th>
+                <th>Monto Acumulado (Bs.)</th>
+                <th>Monto Acumulado (USD)</th>
+                <th>Volumen Operativo (Documentos / Transacciones)</th>
+                <th>Ratio / Efectividad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span class="color-dot" style="background: #00D2FF;"></span>
+                    <strong style="color: #00D2FF;">FACTURACIÓN</strong>
+                  </div>
+                </td>
+                <td class="font-mono" style="font-weight: 700; color: #fff;">Bs. 69.026.660.895,19</td>
+                <td class="font-mono" style="font-weight: 700; color: #00D2FF;">USD $118.077.764,55</td>
+                <td class="font-mono">12.656.142 Facturas</td>
+                <td><span class="table-badge badge-cyan">100% Base Emisión</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span class="color-dot" style="background: #10B981;"></span>
+                    <strong style="color: #10B981;">RECAUDACIÓN</strong>
+                  </div>
+                </td>
+                <td class="font-mono" style="font-weight: 700; color: #fff;">Bs. 68.727.491.410,09</td>
+                <td class="font-mono" style="font-weight: 700; color: #10B981;">USD $115.582.630,98</td>
+                <td class="font-mono">9.776.149 Transacciones de Pagos</td>
+                <td><span class="table-badge badge-green">99,57% Efectividad Cobro</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span class="color-dot" style="background: #a3e635;"></span>
+                    <strong style="color: #a3e635;">NTS – NTC (Ajustes)</strong>
+                  </div>
+                </td>
+                <td class="font-mono" style="color: #cbd5e1;">Prom. Mes Bs. -1.271.970.279,04</td>
+                <td class="font-mono" style="color: #a3e635;">USD -$2.056.917,62</td>
+                <td class="font-mono">359.798 Prom. Mes Dcto (CTA/CLI)</td>
+                <td><span class="table-badge badge-lime">Ajuste de Saldo</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span class="color-dot" style="background: #FF8C42;"></span>
+                    <strong style="color: #FF8C42;">DIFERENCIAL</strong>
+                  </div>
+                </td>
+                <td class="font-mono" style="color: #cbd5e1;">Prom. Mes Bs. -251.672.382,35</td>
+                <td class="font-mono" style="color: #FF8C42;">USD -$463.395,37</td>
+                <td class="font-mono">164.693 Prom. Mes (Ciclo 20)</td>
+                <td><span class="table-badge badge-orange">-0,43% Brecha Residual</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+
+
 
     <!-- Section 2: Monthly Trend Line Chart Section -->
     <section class="trend-section">
@@ -5698,28 +6316,67 @@ function changeBenchmark() {
   buildTrendChart();
 }
 
+
 function switchView(view) {
   currentView = view;
   const btnCartera = document.getElementById('btnViewCartera');
   const btnFacturacion = document.getElementById('btnViewFacturacion');
-  const factNotice = document.getElementById('facturacionPlaceholderNotice');
+  const factContainer = document.getElementById('facturacionContainer');
+  const kpiCartera = document.getElementById('kpiGridCartera');
+  
+  const carteraSections = document.querySelectorAll('.trend-section, .legend-section, .narrative-box, .cross-findings-section');
 
   if (btnCartera) btnCartera.classList.remove('active');
   if (btnFacturacion) btnFacturacion.classList.remove('active');
 
   if (view === 'cartera') {
     if (btnCartera) btnCartera.classList.add('active');
-    if (factNotice) factNotice.style.display = 'none';
+    if (kpiCartera) kpiCartera.style.display = 'grid';
+    if (factContainer) factContainer.style.display = 'none';
+    carteraSections.forEach(sec => sec.style.display = '');
   } else if (view === 'facturacion') {
     if (btnFacturacion) btnFacturacion.classList.add('active');
-    if (factNotice) {
-      factNotice.style.display = 'block';
-      factNotice.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    if (kpiCartera) kpiCartera.style.display = 'none';
+    carteraSections.forEach(sec => sec.style.display = 'none');
+    if (factContainer) {
+      factContainer.style.display = 'flex';
+      factContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
   }
 
   if (window.lucide) lucide.createIcons();
 }
+
+function setFacturacionCurrency(mode) {
+  ['btnCurrDual', 'btnCurrBs', 'btnCurrUsd'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('active');
+  });
+
+  const cards = document.querySelectorAll('.facturacion-kpi-card');
+  if (mode === 'dual') {
+    const b = document.getElementById('btnCurrDual');
+    if (b) b.classList.add('active');
+    cards.forEach(c => {
+      c.classList.remove('mode-bs-only', 'mode-usd-only');
+    });
+  } else if (mode === 'bs') {
+    const b = document.getElementById('btnCurrBs');
+    if (b) b.classList.add('active');
+    cards.forEach(c => {
+      c.classList.add('mode-bs-only');
+      c.classList.remove('mode-usd-only');
+    });
+  } else if (mode === 'usd') {
+    const b = document.getElementById('btnCurrUsd');
+    if (b) b.classList.add('active');
+    cards.forEach(c => {
+      c.classList.add('mode-usd-only');
+      c.classList.remove('mode-bs-only');
+    });
+  }
+}
+
 
 const INDICATOR_HELP_DATA = {
   churn: {
