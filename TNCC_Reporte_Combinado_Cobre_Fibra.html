@@ -955,7 +955,8 @@ body {
   gap: 6px;
 }
 
-#menuDropdownIndicadores {
+#menuDropdownIndicadores,
+#menuDropdownFactIndicadores {
   right: 0 !important;
   left: auto !important;
 }
@@ -2628,6 +2629,78 @@ body {
 }
 
 /* Facturacion Detailed Table Card */
+/* Facturación Cobranza Dynamic Legend (2 Columns) */
+.fact-cobranza-legend-box {
+  display: flex;
+  flex-direction: column !important;
+  width: 100% !important;
+  box-sizing: border-box;
+  margin-top: 18px;
+  padding: 16px 20px;
+  background: rgba(12, 7, 36, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(0, 210, 255, 0.25);
+  border-radius: 14px;
+  gap: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  animation: fadeInDownMenu 0.22s ease-out;
+}
+
+.fact-cobranza-legend-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  width: 100%;
+}
+
+.fact-cobranza-legend-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  width: 100% !important;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .fact-cobranza-legend-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.cobranza-legend-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(18, 10, 50, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 12px 14px;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.cobranza-legend-item:hover {
+  background: rgba(24, 14, 68, 0.9);
+  border-color: rgba(0, 210, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+.cobranza-legend-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
 .facturacion-analysis-card {
   background: var(--card-bg-dark);
   backdrop-filter: blur(16px);
@@ -3208,6 +3281,244 @@ body {
 
       </div>
 
+      <!-- Facturación Trend Chart Section (Gráfico Combinado Columnas + Líneas) -->
+      <section class="trend-section" id="facturacionTrendSection" style="margin-top: 10px;">
+        <div class="trend-header">
+          <div class="trend-title-group">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D2FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up trend-icon" style="width: 26px; height: 26px;"><path d="M16 7h6v6"></path><path d="m22 7-8.5 8.5-5-5L2 17"></path></svg>
+            <div>
+              <h3 id="factChartMainTitle" style="color: #fff;">Evolución Mensual de Facturación, Recaudación y Operaciones 2026</h3>
+              <p style="font-size: 0.76rem; color: var(--text-dim); margin-top: 2px;">
+                Gráfico combinado de ingresos, recaudación efectiva, volumen transaccional y ajustes comerciales (Enero a Octubre 2026)
+              </p>
+            </div>
+          </div>
+          <div class="trend-badges-group" id="factTrendBadgesContainer">
+            <span class="trend-badge" id="badgeFactTotal" style="background: rgba(0, 210, 255, 0.15); border-color: rgba(0, 210, 255, 0.4); color: #00D2FF;">
+              Facturado: Bs. 69.026M
+            </span>
+            <span class="trend-badge" id="badgeFactRec" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.4); color: #10B981;">
+              Recaudado: Bs. 68.727M
+            </span>
+            <span class="trend-badge" id="badgeFactEficiencia" style="background: rgba(234, 179, 8, 0.15); border-color: rgba(234, 179, 8, 0.4); color: #eab308;">
+              Efic. Cobranza: 77% Prom.
+            </span>
+            <span class="trend-badge" id="badgeFactNts" style="background: rgba(163, 230, 53, 0.15); border-color: rgba(163, 230, 53, 0.4); color: #a3e635;">
+              NTS-NTC Prom.: -1.271M
+            </span>
+          </div>
+        </div>
+
+        <!-- Controls Bar for Facturación (Matches exact Cartera style) -->
+        <div class="trend-controls-bar">
+          <div class="trend-filters-category-group">
+            
+            <!-- 1. Moneda Filter -->
+            <div class="filter-dropdown-container">
+              <span class="filter-dropdown-label">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-coins"><circle cx="8" cy="8" r="6"></circle><path d="M18.09 10.37A6 6 0 1 1 10.34 18"></path><path d="m7 6 1 1"></path><path d="m5 8 1 1"></path></svg>
+                Moneda:
+              </span>
+              <select id="selectFactMoneda" onchange="handleFactMonedaChange()" class="category-dropdown-select" style="min-width: 130px; font-weight: 700;">
+                <option value="bs" selected>Bolívares (Bs.)</option>
+                <option value="usd">Dólares (USD)</option>
+              </select>
+            </div>
+
+            <!-- 2. Mes Filter: Selección Múltiple -->
+            <div class="filter-dropdown-container" id="containerDropdownFactMeses">
+              <span class="filter-dropdown-label">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+                Mes:
+              </span>
+              <div class="multi-select-wrapper">
+                <button type="button" class="category-dropdown-btn" id="btnDropdownFactMeses" onclick="toggleCategoryDropdown('menuDropdownFactMeses', event)">
+                  <span id="lblSelectedFactMeses">Todos los Meses (10)</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down dropdown-chevron"><path d="m6 9 6 6 6-6"></path></svg>
+                </button>
+                <div class="multi-select-menu" id="menuDropdownFactMeses">
+                  <div class="multi-select-actions">
+                    <button type="button" class="btn-text-action" onclick="toggleAllFactCategory('meses', true)">Seleccionar todos</button>
+                    <span class="divider-dot">•</span>
+                    <button type="button" class="btn-text-action" onclick="toggleAllFactCategory('meses', false)">Limpiar</button>
+                  </div>
+                  <div class="multi-select-options-list">
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactMes" value="Enero" checked onchange="handleFactMonthFilterChange()">
+                      <span class="item-label">Enero</span>
+                    </label>
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactMes" value="Febrero" checked onchange="handleFactMonthFilterChange()">
+                      <span class="item-label">Febrero</span>
+                    </label>
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactMes" value="Marzo" checked onchange="handleFactMonthFilterChange()">
+                      <span class="item-label">Marzo</span>
+                    </label>
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactMes" value="Abril" checked onchange="handleFactMonthFilterChange()">
+                      <span class="item-label">Abril</span>
+                    </label>
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactMes" value="Mayo" checked onchange="handleFactMonthFilterChange()">
+                      <span class="item-label">Mayo</span>
+                    </label>
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactMes" value="Junio" checked onchange="handleFactMonthFilterChange()">
+                      <span class="item-label">Junio</span>
+                    </label>
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactMes" value="Julio" checked onchange="handleFactMonthFilterChange()">
+                      <span class="item-label">Julio</span>
+                    </label>
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactMes" value="Agosto" checked onchange="handleFactMonthFilterChange()">
+                      <span class="item-label">Agosto</span>
+                    </label>
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactMes" value="Septiembre" checked onchange="handleFactMonthFilterChange()">
+                      <span class="item-label">Septiembre</span>
+                    </label>
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactMes" value="Octubre" checked onchange="handleFactMonthFilterChange()">
+                      <span class="item-label">Octubre</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Indicador: Selección Múltiple -->
+            <div class="filter-dropdown-container" id="containerDropdownFactIndicadores">
+              <span class="filter-dropdown-label">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bar-chart-2"><line x1="18" x2="18" y1="20" y2="10"></line><line x1="12" x2="12" y1="20" y2="4"></line><line x1="6" x2="6" y1="20" y2="14"></line></svg>
+                Indicador:
+              </span>
+              <div class="multi-select-wrapper">
+                <button type="button" class="category-dropdown-btn" id="btnDropdownFactIndicadores" onclick="toggleCategoryDropdown('menuDropdownFactIndicadores', event)">
+                  <span id="lblSelectedFactIndicadores">Facturación, Recaudación, Trans. Pagos (3)</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down dropdown-chevron"><path d="m6 9 6 6 6-6"></path></svg>
+                </button>
+                <div class="multi-select-menu" id="menuDropdownFactIndicadores">
+                  <div class="multi-select-actions">
+                    <button type="button" class="btn-text-action" onclick="toggleAllFactCategory('indicadores', true)">Seleccionar todos</button>
+                    <span class="divider-dot">•</span>
+                    <button type="button" class="btn-text-action" onclick="toggleAllFactCategory('indicadores', false)">Limpiar</button>
+                  </div>
+                  <div class="multi-select-options-list">
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactIndicator" value="facturacion" checked onchange="handleFactIndicatorFilterChange()">
+                      <span class="color-dot" style="background:#00D2FF; box-shadow: 0 0 8px rgba(0,210,255,0.6);"></span>
+                      <span class="item-label">Facturación (Columnas)</span>
+                    </label>
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactIndicator" value="recaudacion" checked onchange="handleFactIndicatorFilterChange()">
+                      <span class="color-dot" style="background:#10B981; box-shadow: 0 0 8px rgba(16,185,129,0.6);"></span>
+                      <span class="item-label">Recaudación (Columnas)</span>
+                    </label>
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactIndicator" value="trans_pagos" checked onchange="handleFactIndicatorFilterChange()">
+                      <span class="color-dot" style="background:#38bdf8; box-shadow: 0 0 8px rgba(56,189,248,0.6);"></span>
+                      <span class="item-label">Trans. Pagos (Línea)</span>
+                    </label>
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactIndicator" value="usuarios_facturando" onchange="handleFactIndicatorFilterChange()">
+                      <span class="color-dot" style="background:#c084fc; box-shadow: 0 0 8px rgba(192,132,252,0.6);"></span>
+                      <span class="item-label">Usu. Facturando (Línea)</span>
+                    </label>
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactIndicator" value="recaudacion_sin_comp" onchange="handleFactIndicatorFilterChange()">
+                      <span class="color-dot" style="background:#34d399; box-shadow: 0 0 8px rgba(52,211,153,0.6);"></span>
+                      <span class="item-label">Rec. S/compensación (Línea)</span>
+                    </label>
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactIndicator" value="nts_ntc" onchange="handleFactIndicatorFilterChange()">
+                      <span class="color-dot" style="background:#a3e635; box-shadow: 0 0 8px rgba(163,230,53,0.6);"></span>
+                      <span class="item-label">NTS - NTC (Línea)</span>
+                    </label>
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactIndicator" value="nts_ntc_cta_clie" onchange="handleFactIndicatorFilterChange()">
+                      <span class="color-dot" style="background:#fbbf24; box-shadow: 0 0 8px rgba(251,191,36,0.6);"></span>
+                      <span class="item-label">NTS - NTC Cta/Clie (Línea)</span>
+                    </label>
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactIndicator" value="diferencial" onchange="handleFactIndicatorFilterChange()">
+                      <span class="color-dot" style="background:#FF8C42; box-shadow: 0 0 8px rgba(255,140,66,0.6);"></span>
+                      <span class="item-label">Diferencial (Línea)</span>
+                    </label>
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactIndicator" value="total" onchange="handleFactIndicatorFilterChange()">
+                      <span class="color-dot" style="background:#FF2AAB; box-shadow: 0 0 8px rgba(255,42,171,0.6);"></span>
+                      <span class="item-label">Totales (Línea)</span>
+                    </label>
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactIndicator" value="porcentaje_trans_pagos_vs_fact" onchange="handleFactIndicatorFilterChange()">
+                      <span class="color-dot" style="background:#eab308; box-shadow: 0 0 8px rgba(234,179,8,0.6);"></span>
+                      <span class="item-label">% Trans. Pag vs Fact. (Línea %)</span>
+                    </label>
+                    <div style="height: 1px; background: rgba(255,255,255,0.1); margin: 4px 0;"></div>
+                    <!-- Indicadores de Cobranza Dinámicos -->
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactIndicator" value="porcentaje_rvf" onchange="handleFactIndicatorFilterChange()">
+                      <span class="color-dot" style="background:#06b6d4; box-shadow: 0 0 8px rgba(6,182,212,0.6);"></span>
+                      <span class="item-label">%RvF (Recaudación vs Fact.)</span>
+                    </label>
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactIndicator" value="porcentaje_rda" onchange="handleFactIndicatorFilterChange()">
+                      <span class="color-dot" style="background:#ec4899; box-shadow: 0 0 8px rgba(236,72,153,0.6);"></span>
+                      <span class="item-label">%RDA (Recaudación s/ Deuda Acum.)</span>
+                    </label>
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactIndicator" value="porcentaje_rfm" onchange="handleFactIndicatorFilterChange()">
+                      <span class="color-dot" style="background:#8b5cf6; box-shadow: 0 0 8px rgba(139,92,246,0.6);"></span>
+                      <span class="item-label">%RFM (Recaudación s/ Fact. Mes)</span>
+                    </label>
+                    <label class="multi-select-item">
+                      <input type="checkbox" name="filterFactIndicator" value="porcentaje_tr" onchange="handleFactIndicatorFilterChange()">
+                      <span class="color-dot" style="background:#f59e0b; box-shadow: 0 0 8px rgba(245,158,11,0.6);"></span>
+                      <span class="item-label">%TR (Tasa Retorno Cobranza)</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Benchmark / Línea de Referencia -->
+          <div class="benchmark-container">
+            <span class="filter-dropdown-label">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-crosshair"><circle cx="12" cy="12" r="10"></circle><line x1="22" y1="12" x2="18" y2="12"></line><line x1="6" y1="12" x2="2" y2="12"></line><line x1="12" y1="6" x2="12" y2="2"></line><line x1="12" y1="22" x2="12" y2="18"></line></svg>
+              Línea de referencia:
+            </span>
+            <select id="selectFactBenchmark" onchange="handleFactBenchmarkChange()" class="category-dropdown-select" style="min-width: 140px; max-width: 100%;">
+              <option value="none" selected>Ocultar Guías</option>
+              <option value="avgFact">Promedio Facturación</option>
+              <option value="avgRec">Promedio Recaudación</option>
+              <option value="zero">Línea Cero</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Canvas Container -->
+        <div class="chart-canvas-container" style="position: relative; width: 100%; height: 420px; min-height: 420px;">
+          <canvas id="facturacionChartCanvas" style="display: block; width: 100%; height: 100%;"></canvas>
+        </div>
+
+        <!-- Dynamic Legend for Cobranza Indicators (%RvF, %RDA, %RFM, %TR) -->
+        <div id="factCobranzaLegendContainer" class="fact-cobranza-legend-box" style="display: none; flex-direction: column; width: 100%; box-sizing: border-box; margin-top: 18px; padding: 14px 18px; background: rgba(12, 7, 36, 0.85); border: 1px solid rgba(0, 210, 255, 0.25); border-radius: 14px; gap: 12px;">
+          <div class="fact-cobranza-legend-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; padding-bottom: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); width: 100%;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00D2FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+              <span style="font-weight: 700; font-size: 0.82rem; color: #fff; text-transform: uppercase; letter-spacing: 0.5px;">Leyenda de Indicadores de Cobranza</span>
+            </div>
+            <span style="font-size: 0.72rem; color: var(--text-dim);">Glosario dinámico según indicadores seleccionados</span>
+          </div>
+          <div class="fact-cobranza-legend-grid" id="factCobranzaLegendGrid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; width: 100%; box-sizing: border-box;"></div>
+        </div>
+      </section>
+
+
       <!-- Facturación Detailed Executive Summary Table -->
       <section class="facturacion-analysis-card">
         <div class="facturacion-analysis-header">
@@ -3288,7 +3599,7 @@ body {
 
 
     <!-- Section 2: Monthly Trend Line Chart Section -->
-    <section class="trend-section">
+    <section class="trend-section" id="carteraTrendSection">
       <div class="trend-header">
         <div class="trend-title-group">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="trending-up" aria-hidden="true" class="lucide lucide-trending-up trend-icon" style="width: 26px; height: 26px;"><path d="M16 7h6v6"></path><path d="m22 7-8.5 8.5-5-5L2 17"></path></svg>
@@ -4853,16 +5164,743 @@ function recalculateAndRenderDashboard() {
   }
 
   buildTrendChart();
-  if (window.lucide) lucide.createIcons();
+  if (window.lucide && typeof window.lucide.createIcons === "function") window.lucide.createIcons();
 }
 
-function initStandaloneReport() {
-  recalculateAndRenderDashboard();
-  if (window.lucide) {
-    lucide.createIcons();
+
+// ==========================================
+// VISTA FACTURACIÓN: DATASET & CHART LOGIC
+// ==========================================
+const facturacionRawJson = {"datos_facturacion":{"periodo":"Enero - Octubre","moneda_local":"Bs","moneda_extranjera":"USD","detalle_mensual":[{"mes":"Enero","facturacion_bs":4140881199.81,"facturacion_usd":12510401.74,"recaudacion_bs":3821913259.43,"recaudacion_usd":11318946.61,"trans_pagos":1070067,"usuarios_facturando":1679162,"recaudacion_sin_comp_bs":3821913259.43,"recaudacion_sin_comp_usd":11318946.61,"nts_ntc_bs":-765796110.09,"nts_ntc_usd":-2267556.02,"nts_ntc_cta_clie":432103,"diferencial_bs":-292605011.15,"diferencial_usd":-872475.26,"total_bs":-1058401121.24,"total_usd":-3140031.28,"porcentaje_trans_pagos_vs_fact":"73%","porcentaje_rvf":"90%","porcentaje_rda":"49%","porcentaje_rfm":"81%","porcentaje_tr":"70%","rvf":"90%","rda":"49%","rfm":"81%","tr":"70%"},{"mes":"Febrero","facturacion_bs":4648626339.95,"facturacion_usd":11909209.46,"recaudacion_bs":4307757666.67,"recaudacion_usd":10940930.29,"trans_pagos":989056,"usuarios_facturando":1599330,"recaudacion_sin_comp_bs":4307757666.67,"recaudacion_sin_comp_usd":10940930.29,"nts_ntc_bs":-881891246.09,"nts_ntc_usd":-2113022.92,"nts_ntc_cta_clie":412894,"diferencial_bs":-241313742.5,"diferencial_usd":-614573.37,"total_bs":-1123204988.59,"total_usd":-2727596.29,"porcentaje_trans_pagos_vs_fact":"71%","porcentaje_rvf":"92%","porcentaje_rda":"46%","porcentaje_rfm":"79%","porcentaje_tr":"66%","rvf":"92%","rda":"46%","rfm":"79%","tr":"66%"},{"mes":"Marzo","facturacion_bs":5584838700.42,"facturacion_usd":12654892.01,"recaudacion_bs":5470276440.86,"recaudacion_usd":12286534.26,"trans_pagos":1078283,"usuarios_facturando":1551731,"recaudacion_sin_comp_bs":5470276440.86,"recaudacion_sin_comp_usd":12286534.26,"nts_ntc_bs":-810314828.62,"nts_ntc_usd":-1709993.94,"nts_ntc_cta_clie":308406,"diferencial_bs":-241277918.84,"diferencial_usd":-540236.35,"total_bs":-1051592747.46,"total_usd":-2250230.29,"porcentaje_trans_pagos_vs_fact":"78%","porcentaje_rvf":"97%","porcentaje_rda":"55%","porcentaje_rfm":"81%","porcentaje_tr":"69%","rvf":"97%","rda":"55%","rfm":"81%","tr":"69%"},{"mes":"Abril","facturacion_bs":5844343413.14,"facturacion_usd":12229512,"recaudacion_bs":5846918755.88,"recaudacion_usd":12196308.06,"trans_pagos":1020554,"usuarios_facturando":1495215,"recaudacion_sin_comp_bs":5846918755.88,"recaudacion_sin_comp_usd":12196308.06,"nts_ntc_bs":-1016670070.05,"nts_ntc_usd":-2087103.94,"nts_ntc_cta_clie":360789,"diferencial_bs":-130671230.61,"diferencial_usd":-272681.32,"total_bs":-1147341300.66,"total_usd":-2359785.26,"porcentaje_trans_pagos_vs_fact":"79%","porcentaje_rvf":"100%","porcentaje_rda":"45%","porcentaje_rfm":"85%","porcentaje_tr":"72%","rvf":"100%","rda":"45%","rfm":"85%","tr":"72%"},{"mes":"Mayo","facturacion_bs":6113238149.1,"facturacion_usd":12037668.7,"recaudacion_bs":6455773215,"recaudacion_usd":12569075.51,"trans_pagos":1034527,"usuarios_facturando":1461795,"recaudacion_sin_comp_bs":6455773215,"recaudacion_sin_comp_usd":12569075.51,"nts_ntc_bs":-1062732270.84,"nts_ntc_usd":-1934456.32,"nts_ntc_cta_clie":356054,"diferencial_bs":-203195599.9,"diferencial_usd":-394904.05,"total_bs":-1265927870.74,"total_usd":-2329360.37,"porcentaje_trans_pagos_vs_fact":"82%","porcentaje_rvf":"104%","porcentaje_rda":"50%","porcentaje_rfm":"88%","porcentaje_tr":"74%","rvf":"104%","rda":"50%","rfm":"88%","tr":"74%"},{"mes":"Junio","facturacion_bs":6832038138.48,"facturacion_usd":11731197.1,"recaudacion_bs":6276926441.6,"recaudacion_usd":10687217.29,"trans_pagos":881313,"usuarios_facturando":1408155,"recaudacion_sin_comp_bs":6276926441.6,"recaudacion_sin_comp_usd":10687217.29,"nts_ntc_bs":-1222008159.65,"nts_ntc_usd":-1961426.86,"nts_ntc_cta_clie":357834,"diferencial_bs":-263238092.32,"diferencial_usd":-445399.07,"total_bs":-1485246251.97,"total_usd":-2406825.92,"porcentaje_trans_pagos_vs_fact":"72%","porcentaje_rvf":"91%","porcentaje_rda":"51%","porcentaje_rfm":"77%","porcentaje_tr":"67%","rvf":"91%","rda":"51%","rfm":"77%","tr":"67%"},{"mes":"Julio","facturacion_bs":7992625044.54,"facturacion_usd":11202768.09,"recaudacion_bs":8000022179.61,"recaudacion_usd":11164851.78,"trans_pagos":994454,"usuarios_facturando":1343219,"recaudacion_sin_comp_bs":8000022179.61,"recaudacion_sin_comp_usd":11164851.78,"nts_ntc_bs":-1368703098.18,"nts_ntc_usd":-1833174.53,"nts_ntc_cta_clie":352850,"diferencial_bs":-509914112.7,"diferencial_usd":-716247.77,"total_bs":-1878617210.88,"total_usd":-2549422.29,"porcentaje_trans_pagos_vs_fact":"80%","porcentaje_rvf":"100%","porcentaje_rda":"58%","porcentaje_rfm":"82%","porcentaje_tr":"74%","rvf":"100%","rda":"58%","rfm":"82%","tr":"74%"},{"mes":"Agosto","facturacion_bs":8493411076.47,"facturacion_usd":11097369.7,"recaudacion_bs":8847576816.63,"recaudacion_usd":11472928.7,"trans_pagos":922740,"usuarios_facturando":1316666,"recaudacion_sin_comp_bs":8847576816.63,"recaudacion_sin_comp_usd":11472928.7,"nts_ntc_bs":-1580208869.14,"nts_ntc_usd":-1987709.11,"nts_ntc_cta_clie":341187,"diferencial_bs":-248227265.23,"diferencial_usd":-322029.66,"total_bs":-1828436134.37,"total_usd":-2309738.77,"porcentaje_trans_pagos_vs_fact":"78%","porcentaje_rvf":"103%","porcentaje_rda":"55%","porcentaje_rfm":"82%","porcentaje_tr":"76%","rvf":"103%","rda":"55%","rfm":"82%","tr":"76%"},{"mes":"Septiembre","facturacion_bs":9334866385.16,"facturacion_usd":11248458.87,"recaudacion_bs":9297076033.13,"recaudacion_usd":11109541.4,"trans_pagos":887211,"usuarios_facturando":1295352,"recaudacion_sin_comp_bs":9297076033.13,"recaudacion_sin_comp_usd":11109541.4,"nts_ntc_bs":-1696507158.64,"nts_ntc_usd":-2040116.76,"nts_ntc_cta_clie":341079,"diferencial_bs":-244832850.15,"diferencial_usd":-294421.16,"total_bs":-1941340008.8,"total_usd":-2334537.91,"porcentaje_trans_pagos_vs_fact":"77%","porcentaje_rvf":"97%","porcentaje_rda":"56%","porcentaje_rfm":"79%","porcentaje_tr":"74%","rvf":"97%","rda":"56%","rfm":"79%","tr":"74%"},{"mes":"Octubre","facturacion_bs":10041792448.12,"facturacion_usd":11456286.88,"recaudacion_bs":10403250601.28,"recaudacion_usd":11836297.08,"trans_pagos":897944,"usuarios_facturando":1274415,"recaudacion_sin_comp_bs":10403250601.28,"recaudacion_sin_comp_usd":11836297.08,"nts_ntc_bs":-2314870979.07,"nts_ntc_usd":-2634615.79,"nts_ntc_cta_clie":334780,"diferencial_bs":-141448000.06,"diferencial_usd":-160985.7,"total_bs":-2456318979.14,"total_usd":-2795601.5,"porcentaje_trans_pagos_vs_fact":"84%","porcentaje_rvf":"101%","porcentaje_rda":"64%","porcentaje_rfm":"82%","porcentaje_tr":"80%","rvf":"101%","rda":"64%","rfm":"82%","tr":"80%"}],"totales":{"facturacion_bs":69026660895.19,"facturacion_usd":118077764.55,"recaudacion_bs":68727491410.09,"recaudacion_usd":115582630.98,"trans_pagos":9776149,"usuarios_facturando":1274415,"recaudacion_sin_comp_bs":68727491410.09,"recaudacion_sin_comp_usd":115582630.98,"nts_ntc_bs":-12719702790.38,"nts_ntc_usd":-20569176.19,"nts_ntc_cta_clie":3597976,"diferencial_bs":-2516723823.47,"diferencial_usd":-4633953.7,"total_bs":-15236426613.84,"total_usd":-25203129.9,"porcentaje_trans_pagos_vs_fact":"77%"},"promedios":{"facturacion_bs":6902666089.52,"facturacion_usd":11807776.46,"recaudacion_bs":6872749141.01,"recaudacion_usd":11558263.1,"trans_pagos":977615,"usuarios_facturando":1442504,"recaudacion_sin_comp_bs":6872749141.01,"recaudacion_sin_comp_usd":11558263.1,"nts_ntc_bs":-1271970279.04,"nts_ntc_usd":-2056917.62,"nts_ntc_cta_clie":359798,"diferencial_bs":-251672382.35,"diferencial_usd":-463395.37,"total_bs":-1523642661.38,"total_usd":-2520312.99,"porcentaje_trans_pagos_vs_fact":"77%"},"notas":{"formato_numerico":"Los valores monetarios se expresan como números decimales sin separador de miles; los porcentajes se mantienen como texto.","usuarios_facturando_promedio":"El promedio mostrado en el origen es 1.442.504; el total mostrado en el origen es 1.274.415 (último mes).","periodo":"Enero a Octubre"},"leyenda_indicadores_cobranza":{"%RvF":"Métrica de Recaudación Total vs Facturación del mes","%RDA":"Recaudación sobre deuda acumulada/antigua","%RFM":"Recaudación sobre la factura del mes","%TR":"Tasa de Retorno de Cobranza"}}};
+
+let facturacionChartInstance = null;
+
+function formatFactCurrency(val, isBs, short = false) {
+  if (val === null || val === undefined || isNaN(val)) return '-';
+  const prefix = isBs ? 'Bs. ' : 'USD ';
+  if (short) {
+    const abs = Math.abs(val);
+    const sign = val < 0 ? '-' : '';
+    if (abs >= 1e9) {
+      return sign + prefix + (abs / 1e9).toFixed(2).replace('.', ',') + ' MMM';
+    } else if (abs >= 1e6) {
+      return sign + prefix + (abs / 1e6).toFixed(2).replace('.', ',') + ' M';
+    } else if (abs >= 1e3) {
+      return sign + prefix + (abs / 1e3).toFixed(1).replace('.', ',') + ' k';
+    }
+    return sign + prefix + val.toFixed(0);
   }
-  buildTrendChart();
+  return prefix + Number(val).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
+
+function formatFactCount(val, short = false) {
+  if (val === null || val === undefined || isNaN(val)) return '-';
+  if (short) {
+    const abs = Math.abs(val);
+    const sign = val < 0 ? '-' : '';
+    if (abs >= 1e6) {
+      return sign + (abs / 1e6).toFixed(2).replace('.', ',') + ' M';
+    } else if (abs >= 1e3) {
+      return sign + (abs / 1e3).toFixed(0).replace('.', ',') + ' k';
+    }
+    return sign + val;
+  }
+  return Number(val).toLocaleString('es-VE');
+}
+
+function getFacturacionFilters() {
+  const monedaEl = document.getElementById('selectFactMoneda');
+  const currency = monedaEl ? monedaEl.value : 'bs';
+  
+  const checkedMonths = Array.from(document.querySelectorAll('input[name="filterFactMes"]:checked')).map(cb => cb.value);
+  const checkedIndicators = Array.from(document.querySelectorAll('input[name="filterFactIndicator"]:checked')).map(cb => cb.value);
+  
+  const benchEl = document.getElementById('selectFactBenchmark');
+  const benchmark = benchEl ? benchEl.value : 'none';
+
+  return { currency, checkedMonths, checkedIndicators, benchmark };
+}
+
+
+const cobranzaLegendDefinitions = {
+  porcentaje_rvf: {
+    key: '%RvF',
+    name: '%RvF',
+    desc: 'Métrica de Recaudación Total vs Facturación del mes',
+    color: '#06b6d4',
+    bg: 'rgba(6, 182, 212, 0.15)',
+    border: 'rgba(6, 182, 212, 0.5)'
+  },
+  porcentaje_rda: {
+    key: '%RDA',
+    name: '%RDA',
+    desc: 'Recaudación sobre deuda acumulada/antigua',
+    color: '#ec4899',
+    bg: 'rgba(236, 72, 153, 0.15)',
+    border: 'rgba(236, 72, 153, 0.5)'
+  },
+  porcentaje_rfm: {
+    key: '%RFM',
+    name: '%RFM',
+    desc: 'Recaudación sobre la factura del mes',
+    color: '#8b5cf6',
+    bg: 'rgba(139, 92, 246, 0.15)',
+    border: 'rgba(139, 92, 246, 0.5)'
+  },
+  porcentaje_tr: {
+    key: '%TR',
+    name: '%TR',
+    desc: 'Tasa de Retorno de Cobranza',
+    color: '#f59e0b',
+    bg: 'rgba(245, 158, 11, 0.15)',
+    border: 'rgba(245, 158, 11, 0.5)'
+  }
+};
+
+function updateFactCobranzaLegend(checkedIndicators) {
+  const container = document.getElementById('factCobranzaLegendContainer');
+  const grid = document.getElementById('factCobranzaLegendGrid');
+  if (!container || !grid) return;
+
+  const activeKeys = ['porcentaje_rvf', 'porcentaje_rda', 'porcentaje_rfm', 'porcentaje_tr'].filter(k => checkedIndicators.includes(k));
+
+  if (activeKeys.length === 0) {
+    container.style.display = 'none';
+    grid.innerHTML = '';
+    return;
+  }
+
+  container.style.display = 'flex';
+  container.style.flexDirection = 'column';
+  grid.style.display = 'grid';
+  grid.style.gridTemplateColumns = 'repeat(2, minmax(0, 1fr))';
+  grid.style.gap = '12px';
+
+  grid.innerHTML = activeKeys.map(k => {
+    const item = cobranzaLegendDefinitions[k];
+    return '<div class="cobranza-legend-item" style="border-left: 4px solid ' + item.color + '; display: flex; align-items: flex-start; gap: 12px; background: rgba(18, 10, 50, 0.7); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 12px 14px; box-sizing: border-box;">' +
+      '<span class="cobranza-legend-badge" style="background: ' + item.bg + '; color: ' + item.color + '; border: 1px solid ' + item.border + '; font-family: \'JetBrains Mono\', monospace; font-weight: 800; font-size: 0.8rem; padding: 4px 8px; border-radius: 6px; white-space: nowrap; flex-shrink: 0;">' +
+        item.name +
+      '</span>' +
+      '<div style="display: flex; flex-direction: column; gap: 3px; min-width: 0;">' +
+        '<span style="font-size: 0.82rem; color: #f1f5f9; font-weight: 600; line-height: 1.35;">' + item.desc + '</span>' +
+        '<span style="font-size: 0.72rem; color: #94a3b8;">Serie porcentual de cobranza (Eje derecho %)</span>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function updateFactDropdownLabels() {
+  const months = Array.from(document.querySelectorAll('input[name="filterFactMes"]:checked')).map(cb => cb.value);
+  const lblMonths = document.getElementById('lblSelectedFactMeses');
+  if (lblMonths) {
+    if (months.length === 0) lblMonths.textContent = 'Ninguno (0)';
+    else if (months.length === 10) lblMonths.textContent = 'Todos los Meses (10)';
+    else if (months.length <= 2) lblMonths.textContent = months.join(', ') + ' (' + months.length + ')';
+    else lblMonths.textContent = months.slice(0, 2).join(', ') + '... (' + months.length + ')';
+  }
+
+  const indicators = Array.from(document.querySelectorAll('input[name="filterFactIndicator"]:checked')).map(cb => {
+    const parent = cb.closest('label');
+    const labelSpan = parent ? parent.querySelector('.item-label') : null;
+    return labelSpan ? labelSpan.textContent.replace(/\s*\([^)]*\)/, '') : cb.value;
+  });
+  const lblIndicators = document.getElementById('lblSelectedFactIndicadores');
+  const totalInds = document.querySelectorAll('input[name="filterFactIndicator"]').length;
+  if (lblIndicators) {
+    if (indicators.length === 0) lblIndicators.textContent = 'Ninguno (0)';
+    else if (indicators.length === totalInds) lblIndicators.textContent = 'Todos los Indicadores (' + totalInds + ')';
+    else if (indicators.length <= 2) lblIndicators.textContent = indicators.join(', ') + ' (' + indicators.length + ')';
+    else lblIndicators.textContent = indicators.slice(0, 2).join(', ') + '... (' + indicators.length + ')';
+  }
+}
+
+function updateFactTrendBadges(filteredData, isBs) {
+  const badgeTotal = document.getElementById('badgeFactTotal');
+  const badgeRec = document.getElementById('badgeFactRec');
+  const badgeEficiencia = document.getElementById('badgeFactEficiencia');
+  const badgeNts = document.getElementById('badgeFactNts');
+
+  if (!filteredData || filteredData.length === 0) return;
+
+  const keyFact = isBs ? 'facturacion_bs' : 'facturacion_usd';
+  const keyRec = isBs ? 'recaudacion_bs' : 'recaudacion_usd';
+  const keyNts = isBs ? 'nts_ntc_bs' : 'nts_ntc_usd';
+
+  const sumFact = filteredData.reduce((acc, d) => acc + (d[keyFact] || 0), 0);
+  const sumRec = filteredData.reduce((acc, d) => acc + (d[keyRec] || 0), 0);
+  const avgNts = filteredData.reduce((acc, d) => acc + (d[keyNts] || 0), 0) / filteredData.length;
+  
+  const avgEfic = Math.round(
+    filteredData.reduce((acc, d) => acc + (parseFloat(d.porcentaje_trans_pagos_vs_fact) || 0), 0) / filteredData.length
+  );
+
+  if (badgeTotal) badgeTotal.textContent = 'Facturado: ' + formatFactCurrency(sumFact, isBs, true);
+  if (badgeRec) badgeRec.textContent = 'Recaudado: ' + formatFactCurrency(sumRec, isBs, true);
+  if (badgeEficiencia) badgeEficiencia.textContent = 'Efic. Cobranza: ' + avgEfic + '% Prom.';
+  if (badgeNts) badgeNts.textContent = 'NTS-NTC Prom.: ' + formatFactCurrency(avgNts, isBs, true);
+}
+
+function buildFacturacionChart() {
+  const canvas = document.getElementById('facturacionChartCanvas');
+  if (!canvas) return;
+
+  const { currency, checkedMonths, checkedIndicators, benchmark } = getFacturacionFilters();
+  updateFactDropdownLabels();
+  updateFactCobranzaLegend(checkedIndicators);
+
+  const isBs = currency === 'bs';
+  const currLabel = isBs ? 'Bs.' : 'USD';
+
+  const monthOrder = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre'];
+  const activeMonths = monthOrder.filter(m => checkedMonths.includes(m));
+
+  const allMonthsData = facturacionRawJson.datos_facturacion.detalle_mensual;
+  const filteredData = activeMonths.map(m => allMonthsData.find(d => d.mes === m)).filter(Boolean);
+
+  updateFactTrendBadges(filteredData, isBs);
+
+  const datasets = [];
+
+  const keyMap = {
+    facturacion: isBs ? 'facturacion_bs' : 'facturacion_usd',
+    recaudacion: isBs ? 'recaudacion_bs' : 'recaudacion_usd',
+    recaudacion_sin_comp: isBs ? 'recaudacion_sin_comp_bs' : 'recaudacion_sin_comp_usd',
+    nts_ntc: isBs ? 'nts_ntc_bs' : 'nts_ntc_usd',
+    diferencial: isBs ? 'diferencial_bs' : 'diferencial_usd',
+    total: isBs ? 'total_bs' : 'total_usd'
+  };
+
+  let hasCurrency = false;
+  let hasVolume = false;
+  let hasPercent = false;
+
+  // 1. Facturación (Columnas / Bars)
+  if (checkedIndicators.includes('facturacion')) {
+    hasCurrency = true;
+    datasets.push({
+      type: 'bar',
+      label: 'Facturación (' + currLabel + ')',
+      data: filteredData.map(d => d[keyMap.facturacion]),
+      backgroundColor: 'rgba(0, 210, 255, 0.72)',
+      borderColor: '#00D2FF',
+      borderWidth: 1.5,
+      borderRadius: 5,
+      yAxisID: 'y',
+      order: 3
+    });
+  }
+
+  // 2. Recaudación (Columnas / Bars)
+  if (checkedIndicators.includes('recaudacion')) {
+    hasCurrency = true;
+    datasets.push({
+      type: 'bar',
+      label: 'Recaudación (' + currLabel + ')',
+      data: filteredData.map(d => d[keyMap.recaudacion]),
+      backgroundColor: 'rgba(16, 185, 129, 0.72)',
+      borderColor: '#10B981',
+      borderWidth: 1.5,
+      borderRadius: 5,
+      yAxisID: 'y',
+      order: 4
+    });
+  }
+
+  // 3. Trans. Pagos (Línea)
+  if (checkedIndicators.includes('trans_pagos')) {
+    hasVolume = true;
+    datasets.push({
+      type: 'line',
+      label: 'Trans. Pagos',
+      data: filteredData.map(d => d.trans_pagos),
+      borderColor: '#38bdf8',
+      backgroundColor: 'rgba(56, 189, 248, 0.15)',
+      pointBackgroundColor: '#38bdf8',
+      pointBorderColor: '#ffffff',
+      pointBorderWidth: 1.5,
+      pointRadius: 5,
+      pointHoverRadius: 7,
+      borderWidth: 2.5,
+      tension: 0.3,
+      yAxisID: 'y1',
+      order: 1
+    });
+  }
+
+  // 4. Usu. Facturando (Línea)
+  if (checkedIndicators.includes('usuarios_facturando')) {
+    hasVolume = true;
+    datasets.push({
+      type: 'line',
+      label: 'Usu. Facturando',
+      data: filteredData.map(d => d.usuarios_facturando),
+      borderColor: '#c084fc',
+      backgroundColor: 'rgba(192, 132, 252, 0.15)',
+      pointBackgroundColor: '#c084fc',
+      pointBorderColor: '#ffffff',
+      pointBorderWidth: 1.5,
+      pointStyle: 'rectRot',
+      pointRadius: 5.5,
+      pointHoverRadius: 7.5,
+      borderWidth: 2.5,
+      tension: 0.3,
+      yAxisID: 'y1',
+      order: 1
+    });
+  }
+
+  // 5. Rec. S/compensación (Línea)
+  if (checkedIndicators.includes('recaudacion_sin_comp')) {
+    hasCurrency = true;
+    datasets.push({
+      type: 'line',
+      label: 'Rec. S/compensación (' + currLabel + ')',
+      data: filteredData.map(d => d[keyMap.recaudacion_sin_comp]),
+      borderColor: '#34d399',
+      borderDash: [6, 4],
+      pointBackgroundColor: '#34d399',
+      pointBorderColor: '#ffffff',
+      pointBorderWidth: 1.5,
+      pointRadius: 4.5,
+      borderWidth: 2,
+      tension: 0.25,
+      yAxisID: 'y',
+      order: 2
+    });
+  }
+
+  // 6. NTS-NTC (Línea)
+  if (checkedIndicators.includes('nts_ntc')) {
+    hasCurrency = true;
+    datasets.push({
+      type: 'line',
+      label: 'NTS - NTC (' + currLabel + ')',
+      data: filteredData.map(d => d[keyMap.nts_ntc]),
+      borderColor: '#a3e635',
+      backgroundColor: 'rgba(163, 230, 53, 0.12)',
+      pointBackgroundColor: '#a3e635',
+      pointBorderColor: '#ffffff',
+      pointBorderWidth: 1.5,
+      pointRadius: 4.5,
+      borderWidth: 2,
+      tension: 0.25,
+      yAxisID: 'y',
+      order: 2
+    });
+  }
+
+  // 7. NTS-NTC Cta/Clie (Línea)
+  if (checkedIndicators.includes('nts_ntc_cta_clie')) {
+    hasVolume = true;
+    datasets.push({
+      type: 'line',
+      label: 'NTS-NTC Cta/Clie',
+      data: filteredData.map(d => d.nts_ntc_cta_clie),
+      borderColor: '#fbbf24',
+      backgroundColor: 'rgba(251, 191, 36, 0.15)',
+      pointBackgroundColor: '#fbbf24',
+      pointBorderColor: '#ffffff',
+      pointBorderWidth: 1.5,
+      pointStyle: 'triangle',
+      pointRadius: 5.5,
+      borderWidth: 2,
+      tension: 0.3,
+      yAxisID: 'y1',
+      order: 1
+    });
+  }
+
+  // 8. Diferencial (Línea)
+  if (checkedIndicators.includes('diferencial')) {
+    hasCurrency = true;
+    datasets.push({
+      type: 'line',
+      label: 'Diferencial (' + currLabel + ')',
+      data: filteredData.map(d => d[keyMap.diferencial]),
+      borderColor: '#FF8C42',
+      backgroundColor: 'rgba(255, 140, 66, 0.12)',
+      pointBackgroundColor: '#FF8C42',
+      pointBorderColor: '#ffffff',
+      pointBorderWidth: 1.5,
+      pointRadius: 4.5,
+      borderWidth: 2,
+      tension: 0.25,
+      yAxisID: 'y',
+      order: 2
+    });
+  }
+
+  // 9. Totales (Línea)
+  if (checkedIndicators.includes('total')) {
+    hasCurrency = true;
+    datasets.push({
+      type: 'line',
+      label: 'Totales (' + currLabel + ')',
+      data: filteredData.map(d => d[keyMap.total]),
+      borderColor: '#FF2AAB',
+      backgroundColor: 'rgba(255, 42, 171, 0.12)',
+      pointBackgroundColor: '#FF2AAB',
+      pointBorderColor: '#ffffff',
+      pointBorderWidth: 1.5,
+      pointRadius: 5,
+      borderWidth: 2.2,
+      tension: 0.25,
+      yAxisID: 'y',
+      order: 2
+    });
+  }
+
+  // 10. % Trans. Pag vs Fact. (Línea %)
+  if (checkedIndicators.includes('porcentaje_trans_pagos_vs_fact')) {
+    hasPercent = true;
+    datasets.push({
+      type: 'line',
+      label: '% Trans. Pag vs Fact.',
+      data: filteredData.map(d => parseFloat(d.porcentaje_trans_pagos_vs_fact) || 0),
+      borderColor: '#eab308',
+      backgroundColor: 'rgba(234, 179, 8, 0.1)',
+      borderDash: [5, 4],
+      pointBackgroundColor: '#eab308',
+      pointBorderColor: '#ffffff',
+      pointBorderWidth: 1.5,
+      pointStyle: 'rectRounded',
+      pointRadius: 5.5,
+      pointHoverRadius: 7.5,
+      borderWidth: 2.2,
+      tension: 0.2,
+      yAxisID: 'y2',
+      order: 0
+    });
+  }
+
+  // 11. %RvF: Métrica de Recaudación Total vs Facturación del mes
+  if (checkedIndicators.includes('porcentaje_rvf')) {
+    hasPercent = true;
+    datasets.push({
+      type: 'line',
+      label: '%RvF (Recaudación vs Fact.)',
+      data: filteredData.map(d => parseFloat(d.porcentaje_rvf || d.rvf) || 0),
+      borderColor: '#06b6d4',
+      backgroundColor: 'rgba(6, 182, 212, 0.15)',
+      pointBackgroundColor: '#06b6d4',
+      pointBorderColor: '#ffffff',
+      pointBorderWidth: 1.5,
+      pointRadius: 5.5,
+      pointHoverRadius: 7.5,
+      borderWidth: 2.2,
+      tension: 0.25,
+      yAxisID: 'y2',
+      order: 0
+    });
+  }
+
+  // 12. %RDA: Recaudación sobre deuda acumulada/antigua
+  if (checkedIndicators.includes('porcentaje_rda')) {
+    hasPercent = true;
+    datasets.push({
+      type: 'line',
+      label: '%RDA (Rec. s/ Deuda Acum.)',
+      data: filteredData.map(d => parseFloat(d.porcentaje_rda || d.rda) || 0),
+      borderColor: '#ec4899',
+      backgroundColor: 'rgba(236, 72, 153, 0.15)',
+      pointBackgroundColor: '#ec4899',
+      pointBorderColor: '#ffffff',
+      pointBorderWidth: 1.5,
+      pointStyle: 'triangle',
+      pointRadius: 5.5,
+      pointHoverRadius: 7.5,
+      borderWidth: 2.2,
+      tension: 0.25,
+      yAxisID: 'y2',
+      order: 0
+    });
+  }
+
+  // 13. %RFM: Recaudación sobre la factura del mes
+  if (checkedIndicators.includes('porcentaje_rfm')) {
+    hasPercent = true;
+    datasets.push({
+      type: 'line',
+      label: '%RFM (Rec. s/ Fact. Mes)',
+      data: filteredData.map(d => parseFloat(d.porcentaje_rfm || d.rfm) || 0),
+      borderColor: '#8b5cf6',
+      backgroundColor: 'rgba(139, 92, 246, 0.15)',
+      pointBackgroundColor: '#8b5cf6',
+      pointBorderColor: '#ffffff',
+      pointBorderWidth: 1.5,
+      pointStyle: 'rectRot',
+      pointRadius: 5.5,
+      pointHoverRadius: 7.5,
+      borderWidth: 2.2,
+      tension: 0.25,
+      yAxisID: 'y2',
+      order: 0
+    });
+  }
+
+  // 14. %TR: Tasa de Retorno de Cobranza
+  if (checkedIndicators.includes('porcentaje_tr')) {
+    hasPercent = true;
+    datasets.push({
+      type: 'line',
+      label: '%TR (Tasa Retorno Cobranza)',
+      data: filteredData.map(d => parseFloat(d.porcentaje_tr || d.tr) || 0),
+      borderColor: '#f59e0b',
+      backgroundColor: 'rgba(245, 158, 11, 0.15)',
+      pointBackgroundColor: '#f59e0b',
+      pointBorderColor: '#ffffff',
+      pointBorderWidth: 1.5,
+      pointStyle: 'diamond',
+      pointRadius: 5.5,
+      pointHoverRadius: 7.5,
+      borderWidth: 2.2,
+      tension: 0.25,
+      yAxisID: 'y2',
+      order: 0
+    });
+  }
+
+  // Línea de referencia (Benchmark)
+  if (benchmark === 'avgFact' && filteredData.length > 0) {
+    hasCurrency = true;
+    const vals = filteredData.map(d => d[keyMap.facturacion]);
+    const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
+    datasets.push({
+      type: 'line',
+      label: 'Ref: Prom. Facturación (' + formatFactCurrency(avg, isBs, true) + ')',
+      data: filteredData.map(() => avg),
+      borderColor: 'rgba(0, 210, 255, 0.85)',
+      borderDash: [6, 4],
+      pointRadius: 0,
+      borderWidth: 1.8,
+      yAxisID: 'y',
+      order: 5
+    });
+  } else if (benchmark === 'avgRec' && filteredData.length > 0) {
+    hasCurrency = true;
+    const vals = filteredData.map(d => d[keyMap.recaudacion]);
+    const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
+    datasets.push({
+      type: 'line',
+      label: 'Ref: Prom. Recaudación (' + formatFactCurrency(avg, isBs, true) + ')',
+      data: filteredData.map(() => avg),
+      borderColor: 'rgba(16, 185, 129, 0.85)',
+      borderDash: [6, 4],
+      pointRadius: 0,
+      borderWidth: 1.8,
+      yAxisID: 'y',
+      order: 5
+    });
+  } else if (benchmark === 'zero') {
+    hasCurrency = true;
+    datasets.push({
+      type: 'line',
+      label: 'Línea Cero (0.00)',
+      data: filteredData.map(() => 0),
+      borderColor: 'rgba(255, 255, 255, 0.5)',
+      borderDash: [4, 4],
+      pointRadius: 0,
+      borderWidth: 1.5,
+      yAxisID: 'y',
+      order: 5
+    });
+  }
+
+  if (facturacionChartInstance) {
+    facturacionChartInstance.destroy();
+    facturacionChartInstance = null;
+  }
+
+  const ctx = canvas.getContext('2d');
+  facturacionChartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: activeMonths,
+      datasets: datasets
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: {
+        mode: 'index',
+        intersect: false
+      },
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top',
+          align: 'start',
+          labels: {
+            color: '#cbd5e1',
+            boxWidth: 12,
+            boxHeight: 12,
+            padding: 14,
+            font: {
+              size: 11,
+              weight: '600',
+              family: "'Outfit', sans-serif"
+            },
+            usePointStyle: true
+          }
+        },
+        tooltip: {
+          backgroundColor: 'rgba(11, 6, 40, 0.95)',
+          titleColor: '#00D2FF',
+          bodyColor: '#cbd5e1',
+          borderColor: 'rgba(0, 210, 255, 0.4)',
+          borderWidth: 1,
+          padding: 12,
+          boxPadding: 6,
+          usePointStyle: true,
+          callbacks: {
+            label: function(ctx) {
+              const label = ctx.dataset.label || '';
+              const val = ctx.parsed.y;
+              if (val === null || val === undefined) return '';
+
+              if (ctx.dataset.yAxisID === 'y2') {
+                return ' ' + label + ': ' + val + '%';
+              } else if (ctx.dataset.yAxisID === 'y1') {
+                return ' ' + label + ': ' + formatFactCount(val);
+              } else {
+                return ' ' + label + ': ' + formatFactCurrency(val, isBs);
+              }
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: {
+            color: 'rgba(255, 255, 255, 0.06)'
+          },
+          ticks: {
+            color: '#cbd5e1',
+            font: {
+              family: "'Outfit', sans-serif",
+              weight: '600',
+              size: 11
+            }
+          }
+        },
+        y: {
+          type: 'linear',
+          display: hasCurrency,
+          position: 'left',
+          title: {
+            display: true,
+            text: 'Monto (' + currLabel + ')',
+            color: '#94a3b8',
+            font: {
+              size: 11,
+              weight: '700'
+            }
+          },
+          grid: {
+            color: 'rgba(255, 255, 255, 0.06)'
+          },
+          ticks: {
+            color: '#94a3b8',
+            font: {
+              size: 10
+            },
+            callback: function(val) {
+              return formatFactCurrency(val, isBs, true);
+            }
+          }
+        },
+        y1: {
+          type: 'linear',
+          display: hasVolume,
+          position: 'right',
+          title: {
+            display: true,
+            text: 'Volumen Operativo (Cuentas / Transacciones)',
+            color: '#38bdf8',
+            font: {
+              size: 11,
+              weight: '700'
+            }
+          },
+          grid: {
+            drawOnChartArea: false
+          },
+          ticks: {
+            color: '#38bdf8',
+            font: {
+              size: 10
+            },
+            callback: function(val) {
+              return formatFactCount(val, true);
+            }
+          }
+        },
+        y2: {
+          type: 'linear',
+          display: hasPercent,
+          position: 'right',
+          title: {
+            display: true,
+            text: 'Tasa / Eficiencia Porcentual (%)',
+            color: '#eab308',
+            font: {
+              size: 11,
+              weight: '700'
+            }
+          },
+          min: 0,
+          suggestedMax: 110,
+          grid: {
+            drawOnChartArea: false
+          },
+          ticks: {
+            color: '#eab308',
+            font: {
+              size: 10
+            },
+            callback: function(val) {
+              return val + '%';
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+function handleFactMonthFilterChange() {
+  buildFacturacionChart();
+}
+
+function handleFactIndicatorFilterChange() {
+  buildFacturacionChart();
+}
+
+function handleFactMonedaChange() {
+  buildFacturacionChart();
+}
+
+function handleFactBenchmarkChange() {
+  buildFacturacionChart();
+}
+
+function toggleAllFactCategory(type, selectAll) {
+  if (type === 'meses') {
+    document.querySelectorAll('input[name="filterFactMes"]').forEach(cb => {
+      cb.checked = selectAll;
+    });
+    handleFactMonthFilterChange();
+  } else if (type === 'indicadores') {
+    document.querySelectorAll('input[name="filterFactIndicator"]').forEach(cb => {
+      cb.checked = selectAll;
+    });
+    handleFactIndicatorFilterChange();
+  }
+}
+
+
+// Duplicate initStandaloneReport removed (declared at bottom)
 
 
 // ========================================================
@@ -6310,8 +7348,9 @@ function switchView(view) {
   const btnFacturacion = document.getElementById('btnViewFacturacion');
   const factContainer = document.getElementById('facturacionContainer');
   const kpiCartera = document.getElementById('kpiGridCartera');
+  const yearFilter = document.getElementById('yearFilterSection');
   
-  const carteraSections = document.querySelectorAll('.trend-section, .legend-section, .narrative-box, .cross-findings-section');
+  const carteraSections = document.querySelectorAll('#carteraTrendSection, .legend-section, .narrative-box, .cross-findings-section');
 
   if (btnCartera) btnCartera.classList.remove('active');
   if (btnFacturacion) btnFacturacion.classList.remove('active');
@@ -6320,18 +7359,28 @@ function switchView(view) {
     if (btnCartera) btnCartera.classList.add('active');
     if (kpiCartera) kpiCartera.style.display = 'grid';
     if (factContainer) factContainer.style.display = 'none';
+    if (yearFilter) yearFilter.style.display = 'flex';
     carteraSections.forEach(sec => sec.style.display = '');
   } else if (view === 'facturacion') {
     if (btnFacturacion) btnFacturacion.classList.add('active');
     if (kpiCartera) kpiCartera.style.display = 'none';
+    if (yearFilter) yearFilter.style.display = 'none';
     carteraSections.forEach(sec => sec.style.display = 'none');
     if (factContainer) {
       factContainer.style.display = 'flex';
+      const factTrend = document.getElementById('facturacionTrendSection');
+      if (factTrend) factTrend.style.display = 'flex';
       factContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
+    setTimeout(() => {
+      buildFacturacionChart();
+      if (facturacionChartInstance) {
+        facturacionChartInstance.resize();
+      }
+    }, 80);
   }
 
-  if (window.lucide) lucide.createIcons();
+  if (window.lucide && typeof window.lucide.createIcons === "function") window.lucide.createIcons();
 }
 
 function setFacturacionCurrency(mode) {
@@ -6354,6 +7403,8 @@ function setFacturacionCurrency(mode) {
       c.classList.add('mode-bs-only');
       c.classList.remove('mode-usd-only');
     });
+    const selMon = document.getElementById('selectFactMoneda');
+    if (selMon) { selMon.value = 'bs'; handleFactMonedaChange(); }
   } else if (mode === 'usd') {
     const b = document.getElementById('btnCurrUsd');
     if (b) b.classList.add('active');
@@ -6361,6 +7412,8 @@ function setFacturacionCurrency(mode) {
       c.classList.add('mode-usd-only');
       c.classList.remove('mode-bs-only');
     });
+    const selMon2 = document.getElementById('selectFactMoneda');
+    if (selMon2) { selMon2.value = 'usd'; handleFactMonedaChange(); }
   }
 }
 
@@ -6456,10 +7509,13 @@ document.addEventListener('keydown', (e) => {
 
 function initStandaloneReport() {
   recalculateAndRenderDashboard();
-  if (window.lucide) {
-    lucide.createIcons();
+  if (window.lucide && typeof window.lucide.createIcons === 'function') {
+    window.lucide.createIcons();
   }
   buildTrendChart();
+  if (typeof buildFacturacionChart === "function") {
+    buildFacturacionChart();
+  }
   setTimeout(() => {
     openWelcomePopup();
   }, 350);
